@@ -20,6 +20,7 @@
   const writeConfig = value => { try { localStorage.setItem(CONFIG_KEY, JSON.stringify(value)); } catch (_) {} };
   const toast = message => window.NUTRIX && window.NUTRIX.showToast ? window.NUTRIX.showToast(message) : null;
   const currentUser = () => session && session.user;
+  const notifyAuthChange = () => window.dispatchEvent(new CustomEvent("nutrix:auth-changed", { detail: { signedIn: !!session } }));
   const setMessage = (message, error) => {
     const node = $('cloudMessage');
     if (!node) return;
@@ -133,11 +134,13 @@
       db.auth.onAuthStateChange((_event, newSession) => {
         session = newSession;
         updatePanel();
+        notifyAuthChange();
       });
       const result = await db.auth.getSession();
       if (result.error) throw result.error;
       session = result.data.session;
       updatePanel();
+      notifyAuthChange();
     } catch (error) {
       db = null;
       session = null;
@@ -173,6 +176,7 @@
     if (error) return setMessage(error.message, true);
     session = data.session;
     updatePanel();
+    notifyAuthChange();
     setMessage('Вход выполнен.');
     await loadProfileFromCloud(true);
     await Promise.all([loadHistory(), loadProgressEntries()]);
@@ -208,6 +212,7 @@
     const { error } = await db.auth.signOut();
     if (error) return setMessage(error.message, true);
     session = null;
+    notifyAuthChange();
     activePlanId = null;
     activePlanOwner = null;
     try {
@@ -597,6 +602,37 @@
       list.appendChild(row);
     });
   }
+
+  async function saveTrainingPlan(plan) {
+    if (!db || !session) return { ok: false, error: 'Войди в аккаунт, чтобы сохранить план в облаке.' };
+    const { error } = await db.from('training_plans').upsert({
+      user_id: session.user.id,
+      plan_data: plan,
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'user_id' });
+    return error ? { ok: false, error: error.message } : { ok: true };
+  }
+
+  async function loadTrainingPlan() {
+    if (!db || !session) return { plan: null, error: 'Нет активного аккаунта.' };
+    const { data, error } = await db.from('training_plans')
+      .select('plan_data').eq('user_id', session.user.id).maybeSingle();
+    return error ? { plan: null, error: error.message } : { plan: data ? data.plan_data : null };
+  }
+
+  async function deleteTrainingPlan() {
+    if (!db || !session) return { ok: false, error: 'Нет активного аккаунта.' };
+    const { error } = await db.from('training_plans').delete().eq('user_id', session.user.id);
+    return error ? { ok: false, error: error.message } : { ok: true };
+  }
+
+  window.NUTRIX_CLOUD = {
+    get signedIn() { return !!(db && session); },
+    get userId() { return session && session.user ? session.user.id : null; },
+    saveTrainingPlan,
+    loadTrainingPlan,
+    deleteTrainingPlan
+  };
 
   async function boot() {
     buildPanel();
