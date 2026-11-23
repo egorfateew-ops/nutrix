@@ -1,0 +1,23 @@
+/* NUTRIX add-ons */
+.topbar .install-button{margin-right:7px}
+.shopping-actions{display:flex;gap:8px;flex-wrap:wrap}
+.meal-action-buttons{display:flex;align-items:center;gap:6px}
+.recipe-details{border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--blue);font:800 9px 'Manrope',sans-serif;padding:5px 7px;cursor:pointer}
+.recipe-details:hover{border-color:#76bce8;background:var(--blue-soft)}
+.recipe-dialog{width:min(560px,calc(100vw - 28px));max-height:min(84vh,760px);padding:0;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--text);box-shadow:0 25px 90px #001b2c55}
+.recipe-dialog::backdrop{background:#071a2bbd;backdrop-filter:blur(4px)}
+.recipe-dialog-inner{padding:25px;overflow:auto;max-height:min(84vh,760px)}
+.recipe-dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:1px solid var(--line);padding-bottom:17px}
+.recipe-dialog-head h2{font-size:22px;line-height:1.25;margin:5px 0}
+.recipe-dialog-head p{font-size:11px;color:var(--muted);margin:0}
+.recipe-dialog-section{margin-top:19px}
+.recipe-dialog-section h3{font-size:13px;margin:0 0 10px}
+.recipe-dialog-section ul,.recipe-dialog-section ol{margin:0;padding-left:21px}
+.recipe-dialog-section li{font-size:12px;line-height:1.65;margin:5px 0;color:var(--muted)}
+.recipe-dialog-note{font-size:10px;line-height:1.5;color:var(--muted);background:var(--blue-soft);padding:11px;border-radius:10px;margin:20px 0 0}
+.day-foot{gap:10px;align-items:center}.day-foot span{line-height:1.5}
+body.dark .recipe-dialog{background:var(--surface);color:var(--text)}
+body.dark .recipe-dialog-note{background:#1b3a53}
+.icon-button:focus-visible,.secondary-button:focus-visible,.recipe-details:focus-visible,.replace-meal:focus-visible{outline:3px solid #4aa9e4;outline-offset:2px}
+@media(max-width:680px){.result-actions{flex-wrap:wrap}.result-actions button{min-width:calc(50% - 5px)}.shopping-actions{width:100%}.shopping-actions button{flex:1}.recipe-dialog-inner{padding:19px}.recipe-dialog-head h2{font-size:19px}.meal-action-buttons{gap:4px}.recipe-details{font-size:8px;padding:5px}.day-foot{align-items:flex-start;flex-direction:column;gap:3px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
