@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b72c6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="enhancements.css">
   <meta name="description" content="NUTRIX — персональный генератор сбалансированного рациона на неделю.">
   <title>NUTRIX — персональный рацион</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,8 +76,8 @@
               <label class="field"><span>Вес, кг</span><input id="weight" type="number" min="15" max="350" step="0.1" value="70" required></label>
             </div>
             <div class="field-grid two-cols">
-              <label class="field"><span>Пол для расчёта взрослой нормы</span><select id="sex"><option value="male">Мужской</option><option value="female">Женский</option><option value="unspecified">Не указывать</option></select></label>
-              <label class="field"><span>Активность</span><select id="activity"><option value="1.2">В основном сижу</option><option value="1.375">Немного хожу, лёгкая активность</option><option value="1.55" selected>Тренировки 3–5 раз в неделю</option><option value="1.725">Высокая активность почти каждый день</option><option value="1.9">Очень высокая физическая нагрузка</option></select></label>
+              <label class="field"><span>Пол для расчёта взрослой нормы</span><select id="sex"><option value="male">Мужской</option><option value="female">Женский</option><option value="unspecified" selected>Не указывать</option></select></label>
+              <label class="field"><span>Активность</span><select id="activity"><option value="1.2">В основном сижу</option><option value="1.375" selected>Немного хожу, лёгкая активность</option><option value="1.55">Тренировки 3–5 раз в неделю</option><option value="1.725">Высокая активность почти каждый день</option><option value="1.9">Очень высокая физическая нагрузка</option></select></label>
             </div>
 
             <div class="field-divider"></div>
@@ -150,5 +155,6 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>
+  <script src="enhancements.js"></script>
 </body>
 </html>
