@@ -350,6 +350,14 @@
       if (result.error) return setMessage('Не удалось обновить рацион: ' + result.error.message, true);
     }
     await saveShoppingState();
+    const latestPlan = window.NUTRIX && window.NUTRIX.plan;
+    if (latestPlan && Object.keys(latestPlan.completedMeals || {}).length) {
+      const { error: progressError } = await db.from('meal_plans').update({
+        plan_data: latestPlan,
+        updated_at: new Date().toISOString()
+      }).eq('id', activePlanId).eq('owner_id', session.user.id);
+      if (progressError) setMessage('Не удалось сохранить отметки блюд: ' + progressError.message, true);
+    }
     setMessage('Рацион сохранён в облаке.');
     updatePanel();
   }
