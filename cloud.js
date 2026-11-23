@@ -56,7 +56,7 @@
     $('cloudSignOut').addEventListener('click', signOut);
     $('cloudSaveProfile').addEventListener('click', saveProfileToCloud);
     $('cloudLoadProfile').addEventListener('click', loadProfileFromCloud);
-    $('cloudSaveCurrentPlan').addEventListener('click', () => savePlan(window.NUTRIX && window.NUTRIX.plan, true));
+    $('cloudSaveCurrentPlan').addEventListener('click', () => savePlan(window.NUTRIX && window.NUTRIX.plan, !activePlanId || activePlanOwner !== (currentUser() && currentUser().id)));
     $('cloudCreateShare').addEventListener('click', createShareLink);
     $('cloudCopyShare').addEventListener('click', copyShareLink);
     $('cloudDisableShare').addEventListener('click', disableShareLink);
