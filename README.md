@@ -20,7 +20,7 @@
 - Supabase Auth: регистрация и вход по Email.
 - Облачные профили и история рационов.
 - Ссылки-приглашения на рацион и общий список покупок с синхронизацией Realtime.
-- Для включения облака создай проект Supabase, выполни `supabase/schema.sql`, разверни две Edge Functions и вставь Project URL и Publishable key в разделе «Облако» на сайте. Полная инструкция — `BACKEND_SETUP.md`.
+- Для включения облака создай проект Supabase, выполни файл `supabase/schema.sql`, разверни две Edge Functions и вставь Project URL и Publishable key в разделе «Облако» на сайте. Полная инструкция — [BACKEND_SETUP.md](BACKEND_SETUP.md).
 
 ## Данные и ограничения
 - Сайт публичный; каждый посетитель открывает его по общей ссылке.
