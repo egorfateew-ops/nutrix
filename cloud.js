@@ -214,6 +214,10 @@
       localStorage.removeItem('nutrix-profile');
       localStorage.removeItem('nutrix-shopping-checks');
       localStorage.removeItem('nutrix-price-overrides');
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('nutrix-meal-progress:')) localStorage.removeItem(key);
+      }
     } catch (_) {}
     const form = $('profileForm');
     if (form) form.reset();
@@ -592,6 +596,15 @@
     $('progressDate').value = localDateValue();
     await initializeClient();
   }
+
+  window.addEventListener('nutrix:meal-progress-changed', async event => {
+    if (!db || !session || !activePlanId || activePlanOwner !== session.user.id || !window.NUTRIX || !window.NUTRIX.plan) return;
+    const { error } = await db.from('meal_plans').update({
+      plan_data: window.NUTRIX.plan,
+      updated_at: new Date().toISOString()
+    }).eq('id', activePlanId).eq('owner_id', session.user.id);
+    if (error) setMessage('Не удалось сохранить прогресс блюд: ' + error.message, true);
+  });
 
   window.addEventListener('nutrix:plan-rendered', async event => {
     if (loadingPlan || !session || !event.detail || !event.detail.plan) return;
