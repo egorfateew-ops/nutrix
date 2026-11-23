@@ -13,8 +13,16 @@
   let sharedData = null;
   let sharedChannel = null;
   let sharedSaving = false;
+  let sharedSaveQueued = false;
 
-  const readConfig = () => { try { return JSON.parse(localStorage.getItem(CONFIG_KEY) || 'null'); } catch (_) { return null; } };
+  const readConfig = () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(CONFIG_KEY) || 'null');
+      if (saved && saved.url && saved.key) return saved;
+    } catch (_) {}
+    const defaults = window.NUTRIX_CLOUD_CONFIG || {};
+    return defaults.url && defaults.key ? defaults : null;
+  };
   const writeConfig = value => { try { localStorage.setItem(CONFIG_KEY, JSON.stringify(value)); } catch (_) {} };
   const toast = message => window.NUTRIX && window.NUTRIX.showToast ? window.NUTRIX.showToast(message) : null;
   const currentUser = () => session && session.user;
@@ -186,6 +194,7 @@
     activePlanOwner = null;
     updatePanel();
     setMessage('Ты вышел из аккаунта. Локальный генератор продолжает работать.');
+    if (pendingShareToken) await loadSharedView(pendingShareToken);
   }
 
   async function saveProfileToCloud() {
@@ -568,9 +577,10 @@
   }
 
   async function saveSharedShopping() {
-    if (!db || !session || !sharedData || !(sharedData.is_owner || sharedData.is_member) || sharedSaving) return;
+    if (!db || !session || !sharedData || !(sharedData.is_owner || sharedData.is_member)) return;
     const section = $('sharedView');
     if (!section) return;
+    if (sharedSaving) { sharedSaveQueued = true; return; }
     sharedSaving = true;
     const checked = [];
     section.querySelectorAll('input[data-cart-key]:checked').forEach(input => checked.push(input.dataset.cartKey));
@@ -589,6 +599,10 @@
     else {
       sharedData.shopping = { checked_items: checked, price_overrides: prices };
       toast('Общий список обновлён');
+    }
+    if (sharedSaveQueued) {
+      sharedSaveQueued = false;
+      await saveSharedShopping();
     }
   }
 
