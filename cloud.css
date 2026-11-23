@@ -16,8 +16,7 @@
 .cloud-state.is-online{color:#16815f;background:#e5f7ef}
 .cloud-config-form,.cloud-auth-form{display:grid;gap:11px}
 .cloud-config-form label,.cloud-auth-form label{display:grid;gap:6px;font-size:10px;font-weight:800;color:var(--muted)}
-.cloud-config-form input,.cloud-auth-form input,.cloud-share-result input{width:100%;min-width:0;border:1px solid var(--line);border-radius:9px;padding:11px 12px;background:var(--bg);color:var(--text);font:600 12px 'Manrope',sans-serif}
-.cloud-config-form small{font-size:9px;color:var(--muted);line-height:1.5}
+.cloud-config-form input,.cloud-auth-form input,.cloud-config-form small{font-size:9px;color:var(--muted);line-height:1.5}
 .cloud-button-row{display:flex;gap:8px;flex-wrap:wrap}
 .cloud-primary,.cloud-secondary{border:1px solid transparent;border-radius:9px;padding:10px 13px;font:800 10px 'Manrope',sans-serif;cursor:pointer}
 .cloud-primary{background:var(--blue);color:#fff}
@@ -32,8 +31,6 @@
 .cloud-avatar{width:42px;height:42px;border-radius:13px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:20px;font-weight:900}
 .cloud-user-line b,.cloud-user-line small{display:block;font-size:11px}
 .cloud-user-line small{font-size:9px;color:var(--muted);margin-top:3px}
-.cloud-share-result{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:12px}
-.cloud-share-result .cloud-link-button{grid-column:1/-1;justify-self:start}
 .cloud-history{display:grid;gap:7px;margin-top:12px;max-height:220px;overflow:auto}
 .cloud-history>p{font-size:10px;color:var(--muted);margin:0}
 .cloud-history-item{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);text-align:left;cursor:pointer}
@@ -41,37 +38,10 @@
 .cloud-history-item b{font-size:10px}
 .cloud-history-item small{font-size:9px;color:var(--muted)}
 .cloud-footer-note{font-size:9px;line-height:1.5;color:var(--muted);margin-top:14px}
-.shared-view{padding:38px 0 70px}
-.shared-view-head{padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:var(--shadow)}
-.shared-view-head h1{font-size:clamp(27px,5vw,42px);letter-spacing:-1.5px;margin:8px 0}
-.shared-view-head p{font-size:12px;color:var(--muted);margin:0}
-.shared-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
-.shared-meta span{padding:8px 11px;border:1px solid var(--line);border-radius:30px;font-size:10px;color:var(--muted);font-weight:800}
-.shared-section-title{font-size:20px;letter-spacing:-.5px;margin:28px 0 13px}
-.shared-days-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-.shared-day-card,.shared-cart{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:15px}
-.shared-day-card h3{font-size:13px;margin:0 0 9px}
-.shared-meal{display:grid;grid-template-columns:30px minmax(0,1fr);gap:9px;padding:10px 0;border-top:1px solid var(--line)}
-.shared-meal-icon{width:29px;height:29px;border-radius:9px;background:var(--blue-soft);display:grid;place-items:center}
-.shared-meal-info b,.shared-meal-info small{display:block;font-size:10px;line-height:1.45}
-.shared-meal-info small{font-size:9px;color:var(--muted);margin-top:3px}
-.shared-shop-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.shared-cart{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
-.shared-cart-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
-.shared-cart-label{display:flex;align-items:flex-start;gap:8px;min-width:0}
-.shared-cart-label input{margin:3px 0 0;accent-color:var(--blue)}
-.shared-cart-label span{min-width:0}
-.shared-cart-label b,.shared-cart-label small{display:block;font-size:10px}
-.shared-cart-label small{font-size:9px;color:var(--muted);line-height:1.4;margin-top:3px}
-.shared-cart-price{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:8px;color:var(--muted)}
-.shared-cart-price input{width:58px;padding:6px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--text);font:700 10px 'Manrope',sans-serif}
-.shared-actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:18px}
-.shared-live-note{font-size:10px;color:var(--muted);margin:0}
 body.dark .cloud-state{background:#3a3325;color:#e9d5a5}
 body.dark .cloud-state.is-online{background:#173d35;color:#91dfbf}
-@media(max-width:680px){.cloud-open-button{padding:8px 9px;font-size:9px}.cloud-open-button span{display:none}#cloudContent{padding:18px}.cloud-modal-head h2{font-size:20px}.cloud-section{padding:14px}.cloud-button-row>*{flex:1}.shared-view{padding-top:22px}.shared-view-head{padding:20px}.shared-days-grid{grid-template-columns:1fr}.shared-cart{grid-template-columns:1fr}.shared-shop-head{align-items:flex-start;flex-direction:column}.shared-actions>*{width:100%}.cloud-share-result{grid-template-columns:1fr}.cloud-share-result .cloud-link-button{grid-column:auto}}
+@media(max-width:680px){.cloud-open-button{padding:8px 9px;font-size:9px}.cloud-open-button span{display:none}#cloudContent{padding:18px}.cloud-modal-head h2{font-size:20px}.cloud-section{padding:14px}.cloud-button-row>*{flex:1}.shared-view{padding-top:22px}.shared-view-head{padding:20px}.shared-days-grid{grid-template-columns:1fr}.shared-cart{grid-template-columns:1fr}.shared-shop-head{align-items:flex-start;flex-direction:column}.shared-actions>*{width:100%}}
 
-.shared-mode .top-nav{display:none}
 
 /* Personal progress diary */
 .cloud-progress-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
