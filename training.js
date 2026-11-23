@@ -105,7 +105,7 @@
     if(teen)d.frequency=Math.min(3,d.frequency);
     const schedule=d.frequency===2?[['A','Понедельник'],['B','Четверг']]
       :d.frequency===3?[['A','Понедельник'],['B','Среда'],['C','Пятница']]
-      :[['A','Понедельник'],['B','Вторник'],['C','Четверг'],['D','Суббота']];
+      :[['A','Понедельник'],['D','Вторник'],['B','Четверг'],['C','Суббота']];
     const sets=teen?2:d.experience==='regular'?3:2;
     const count=d.duration===20?4:d.duration===30?5:6;
     return {version:1,createdAt:new Date().toISOString(),data:{...d},isTeen:teen,
@@ -177,12 +177,15 @@
     cloudSyncBusy=true;
     try{
       if(cloud().signedIn){
+        currentPlan=null;
+        $('trainingForm').reset();
+        $('trainingResult').hidden=true;
         const result=await cloud().loadTrainingPlan();
         if(result&&result.error)status('trainingSaveStatus','Не удалось загрузить план из облака: '+result.error,true);
         else if(result&&result.plan){
           currentPlan=result.plan;saveLocal(currentPlan);applyForm(currentPlan.data);render(currentPlan);
           status('trainingSaveStatus','Личный план загружен из облака.');
-        }else{currentPlan=null;$('trainingResult').hidden=true;status('trainingSaveStatus','В этом аккаунте пока нет сохранённого плана тренировок.');}
+        }else{currentPlan=null;$('trainingForm').reset();$('trainingResult').hidden=true;status('trainingSaveStatus','В этом аккаунте пока нет сохранённого плана тренировок.');}
       }else{
         const guest=loadLocal();
         if(guest){currentPlan=guest;applyForm(guest.data);render(guest);}
