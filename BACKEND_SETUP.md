@@ -19,6 +19,8 @@
 Нужен Node.js 20 или новее. Склонируй репозиторий на компьютер и открой терминал в папке проекта. Выполни:
 
 ~~~bash
+git clone https://github.com/egorfateew-ops/nutrix.git
+cd nutrix
 npx supabase@latest login
 npx supabase@latest link --project-ref YOUR_PROJECT_REF
 npx supabase@latest functions deploy get-shared-plan
