@@ -17,9 +17,11 @@ Deno.serve(async (request: Request) => {
       return json({ error: "Неверная или неполная ссылка" }, 400);
     }
     const baseUrl = Deno.env.get("SUPABASE_URL");
-    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    const anonKey = Deno.env.get("SUPABASE_ANON_KEY");
-    if (!baseUrl || !serviceKey || !anonKey) return json({ error: "Backend function is not configured" }, 500);
+    const secretKeys = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") || "{}");
+    const publishableKeys = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") || "{}");
+    const serviceKey = secretKeys.default;
+    const publishableKey = publishableKeys.default;
+    if (!baseUrl || !serviceKey || !publishableKey) return json({ error: "Backend function is not configured" }, 500);
     const adminHeaders = { apikey: serviceKey, Authorization: "Bearer " + serviceKey, "Content-Type": "application/json" };
     const planResponse = await fetch(
       baseUrl + "/rest/v1/meal_plans?select=id,owner_id,title,plan_data,share_token,share_enabled,created_at&share_token=eq." + token + "&share_enabled=eq.true&limit=1",
@@ -42,7 +44,7 @@ Deno.serve(async (request: Request) => {
     const authHeader = request.headers.get("Authorization");
     if (authHeader && authHeader.startsWith("Bearer ")) {
       const userResponse = await fetch(baseUrl + "/auth/v1/user", {
-        headers: { apikey: anonKey, Authorization: authHeader }
+        headers: { apikey: publishableKey, Authorization: authHeader }
       });
       if (userResponse.ok) {
         const user = await userResponse.json();
