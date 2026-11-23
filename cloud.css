@@ -1,4 +1,5 @@
 /* NUTRIX cloud account and shared-plan UI */
+[hidden]{display:none!important}
 .cloud-open-button{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--text);padding:9px 13px;border-radius:11px;font:800 11px 'Manrope',sans-serif;cursor:pointer;white-space:nowrap}
 .cloud-open-button:hover{border-color:#76bce8;color:var(--blue)}
 .cloud-dialog{width:min(620px,calc(100vw - 24px));max-height:min(88vh,850px);padding:0;border:1px solid var(--line);border-radius:22px;background:var(--bg);color:var(--text);box-shadow:0 25px 90px #001b2c55}
