@@ -69,25 +69,6 @@
       const nextText=p.adult?total.kcal+' ккал · Б '+total.p+' г · Ж '+total.f+' г · У '+total.c+' г':'Порции — примерные';if(summary.textContent!==nextText)summary.textContent=nextText;
     });
   }
-  function addShareButton(){
-    const actions=document.querySelector('.result-actions');if(!actions||$('sharePlan'))return;
-    const button=document.createElement('button');button.type='button';button.id='sharePlan';button.className='secondary-button';button.textContent='↗ Поделиться';
-    actions.prepend(button);button.addEventListener('click',sharePlan);
-  }
-  function makeShareText(p){
-    let text='NUTRIX — рацион на 7 дней\n';
-    const shop=p.data.store==='baton'?'Батон':p.data.store==='average'?'средние цены':'Пятёрочка';
-    text+='Магазин: '+shop+'\nБюджет: '+p.data.budget+' ₽\nОценка корзины: '+p.cartCost+' ₽\n\n';
-    p.days.forEach(day=>{text+=day.name+'\n';day.meals.forEach(meal=>{text+='• '+window.NUTRIX.mealMeta[meal.type].label+': '+meal.recipe.name+'\n';});text+='\n';});
-    text+='Список покупок\n'+p.cart.map(item=>'• '+item.name+': '+Math.round(item.amount)+' '+item.unit+'; купить '+item.packCount+' × '+item.packLabel+' — '+item.total+' ₽').join('\n');
-    return text+'\n\nОткрыть NUTRIX: https://egorfateew-ops.github.io/nutrix/\nЦены и пищевая ценность ориентировочные.';
-  }
-  async function sharePlan(){
-    const p=plan();if(!p){toast('Сначала составь рацион');return;}const text=makeShareText(p);
-    if(navigator.share){try{await navigator.share({title:'Мой рацион NUTRIX',text});return;}catch(error){if(error && error.name==='AbortError')return;}}
-    if(navigator.clipboard && navigator.clipboard.writeText){try{await navigator.clipboard.writeText(text);toast('Рацион скопирован — отправь его другу');return;}catch(error){}}
-    const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='nutrix-racion.txt';a.click();URL.revokeObjectURL(url);toast('Текст рациона скачан');
-  }
   function addShoppingControls(){
     const heading=document.querySelector('.shopping-heading');if(!heading||$('clearShoppingChecks'))return;
     const copy=$('copyShopping');const button=document.createElement('button');button.id='clearShoppingChecks';button.type='button';button.className='secondary-button';button.textContent='Снять отметки';
@@ -129,7 +110,7 @@
   function registerOffline(){
     if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }
-  function runEnhancements(){enhanceMeals();addShareButton();addShoppingControls();restoreShoppingState();persistShoppingChanges();addInstallButton();}
+  function runEnhancements(){enhanceMeals();addShoppingControls();restoreShoppingState();persistShoppingChanges();addInstallButton();}
   const days=$('daysGrid'),shopping=$('shoppingList');
   if(days)new MutationObserver(runEnhancements).observe(days,{childList:true,subtree:true});
   if(shopping)new MutationObserver(runEnhancements).observe(shopping,{childList:true,subtree:true});
