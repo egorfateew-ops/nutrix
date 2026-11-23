@@ -110,7 +110,9 @@ function validate(data){
   if(!Number.isFinite(data.age)||data.age<5||data.age>100)return 'Укажи возраст от 5 до 100 лет.';
   if(!Number.isFinite(data.height)||data.height<80||data.height>250)return 'Проверь рост: допустимый диапазон — 80–250 см.';
   if(!Number.isFinite(data.weight)||data.weight<15||data.weight>350)return 'Проверь вес: допустимый диапазон — 15–350 кг.';
-  if(data.age>=18&&data.sex==='unspecified')return 'Для взрослого расчёта выбери пол или включи режим без медицинских расчётов.';
+  if(data.age<18&&data.goal==='lose')return 'Для несовершеннолетних NUTRIX не составляет рацион для снижения веса. Выбери поддержание веса и при вопросах о питании обратись к педиатру.';
+  if(data.age>=18&&data.goal==='lose'&&(data.weight/((data.height/100)**2))<18.5)return 'При указанных параметрах индекс массы тела ниже 18,5. NUTRIX не будет составлять рацион для снижения веса — выбери поддержание и обсуди вес со специалистом.';
+  if(data.medical&&data.goal==='lose')return 'При отмеченных особенностях здоровья сервис не составляет план для снижения веса. Выбери поддержание и согласуй изменения питания со специалистом.';
   if(!Number.isFinite(data.budget)||data.budget<500||data.budget>100000)return 'Укажи бюджет на неделю от 500 до 100 000 ₽.';
   return '';
 }
@@ -132,23 +134,24 @@ function adultEstimate(d){
 function recipeAllowed(r,d){
   if(!r.diet.includes(d.diet))return false;
   if(d.cookTime==='quick'&&!r.quick)return false;
-  const text=[r.name,...r.items.map(x=>x[0])].join(' ').toLocaleLowerCase('ru');
+  const ingredients=r.items.map(x=>x[0].toLocaleLowerCase('ru'));
   const aliases={
-    'молоко':['молоко','йогурт','творог','сыр'], 'молочный':['молоко','йогурт','творог','сыр'], 'лактоза':['молоко','йогурт','творог','сыр'],
-    'арахис':['арахис','орехи'], 'орех':['орехи','арахис'], 'орехи':['орехи','арахис'],
-    'глютен':['хлеб','макароны','булгур','лапша','хлебцы','овсяные хлопья'], 'пшеница':['хлеб','макароны','булгур','лапша'],
-    'соя':['тофу','соевый','соевый соус'], 'яйцо':['яйца'], 'яйца':['яйца'], 'рыба':['рыба']
+    'молоко':['молоко','йогурт натуральный','творог','сыр'],'молочный':['молоко','йогурт натуральный','творог','сыр'],'молочные продукты':['молоко','йогурт натуральный','творог','сыр'],'лактоза':['молоко','йогурт натуральный','творог','сыр'],
+    'арахис':['арахисовая паста','орехи'],'орех':['орехи','арахисовая паста'],'орехи':['орехи','арахисовая паста'],
+    'глютен':['хлеб цельнозерновой','хлебцы','макароны сухие','булгур сухой','лапша сухая','овсяные хлопья'],'пшеница':['хлеб цельнозерновой','макароны сухие','булгур сухой','лапша сухая'],
+    'соя':['тофу','йогурт соевый','напиток соевый','соевый соус'],'яйцо':['яйца'],'яйца':['яйца'],'рыба':['рыба белая']
   };
   return !d.avoid.some(term=>{
     if(!term)return false;
     const terms=aliases[term]||[term];
-    return terms.some(alias=>text.includes(alias));
+    return terms.some(alias=>ingredients.some(name=>name===alias||name.includes(alias)));
   });
 }
 function getProductPrice(name,store){
   const item=productCatalog[name];
   if(!item)return {packSize:1000,unit:'г',packLabel:'условная упаковка',price:100,category:'Овощи, фрукты и другое'};
-  const price=store==='baton'?item.baton:store==='average'?Math.round((item.pyaterochka+item.baton)/2):item.pyaterochka;
+  let price=store==='baton'?item.baton:store==='average'?Math.round((item.pyaterochka+item.baton)/2):item.pyaterochka;
+  try{const overrides=JSON.parse(localStorage.getItem('nutrix-price-overrides')||'{}');const custom=overrides[`${store}:${name}`];if(custom!==undefined&&Number.isFinite(Number(custom))&&Number(custom)>=0)price=Number(custom);}catch(e){}
   return {...item,price};
 }
 function marginalPurchaseCost(recipe,amounts,store,scale){
@@ -204,7 +207,7 @@ function scaleAmount(amount,scale,unit){
   return `${Math.max(1,Math.round(n/5)*5)} г`;
 }
 function createPlan(d){
-  const adult=d.age>=18&&!d.medical;
+  const adult=d.age>=18&&!d.medical&&d.sex!=='unspecified';
   const calc=adult?adultEstimate(d):null;
   const mealTypes=buildMealTypes(d.mealCount);
   const baseCalories={3:1650,4:1850,5:2050}[d.mealCount];
@@ -260,6 +263,7 @@ function renderPlan(plan, scrollToPlan=true){
   const safety=$('safetyNotice');
   if(d.age<18){safety.classList.remove('hidden');safety.textContent='Режим до 18 лет: приложение не рассчитывает дефицит калорий, целевой вес или взрослые нормы БЖУ. Рост и вес у подростков оценивают по возрастно-половым кривым роста. Не используй этот пример для похудения; при вопросах о весе обратись к педиатру или квалифицированному диетологу.';}
   else if(d.medical){safety.classList.remove('hidden');safety.textContent='Указаны особенности здоровья. Поэтому приложение не рассчитывает калории и БЖУ и показывает только общий пример меню. При медицинских состояниях рацион, ограничения и порции нужно согласовать с лечащим специалистом.';}
+  else if(d.sex==='unspecified'){safety.classList.remove('hidden');safety.textContent='Пол для расчёта не указан. NUTRIX показывает пример меню, но не рассчитывает индивидуальную энергетическую потребность и нормы БЖУ.';}
   else{safety.classList.add('hidden');}
   renderBudgetNotice(plan);
   const daysGrid=$('daysGrid');daysGrid.innerHTML='';
@@ -314,7 +318,7 @@ function renderShopping(plan){
     let html=`<div class="shopping-group"><h3>${group}</h3>`;
     items.forEach(item=>{
       const index=plan.cart.indexOf(item);
-      html+=`<div class="shopping-line"><label class="shopping-item"><input type="checkbox"><span><b>${item.name}</b><small>Нужно: ${formatCartAmount(item.amount,item.unit)} · купить: ${item.packCount} × ${item.packLabel}</small></span></label><div class="shopping-price"><label>₽ / уп.<input class="price-edit" type="number" min="0" step="1" value="${item.price}" data-index="${index}" aria-label="Цена упаковки: ${item.name}"></label><b><span class="line-total">${item.total.toLocaleString('ru-RU')}</span> ₽</b></div></div>`;
+      html+=`<div class="shopping-line"><label class="shopping-item"><input type="checkbox" data-cart-key="${encodeURIComponent(item.key)}"><span><b>${item.name}</b><small>Нужно: ${formatCartAmount(item.amount,item.unit)} · купить: ${item.packCount} × ${item.packLabel}</small></span></label><div class="shopping-price"><label>₽ / уп.<input class="price-edit" type="number" min="0" step="1" value="${item.price}" data-index="${index}" aria-label="Цена упаковки: ${item.name}"></label><b><span class="line-total">${item.total.toLocaleString('ru-RU')}</span> ₽</b></div></div>`;
     });
     html+='</div>';shopping.insertAdjacentHTML('beforeend',html);
   });
@@ -379,3 +383,4 @@ $('copyShopping').addEventListener('click',copyShopping);
 $('themeToggle').addEventListener('click',()=>{document.body.classList.toggle('dark');const dark=document.body.classList.contains('dark');$('themeToggle').textContent=dark?'☀':'☾';try{localStorage.setItem('nutrix-theme',dark?'dark':'light');}catch(e){}});
 try{if(localStorage.getItem('nutrix-theme')==='dark'){document.body.classList.add('dark');$('themeToggle').textContent='☀';}}catch(e){}
 loadProfile();updateSummaryPreview();updateStoreInfo();
+window.NUTRIX={get plan(){return currentPlan;},recipes,mealMeta,storeName,showToast};
