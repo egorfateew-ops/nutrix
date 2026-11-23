@@ -149,7 +149,10 @@
       writeConfig({ url, key });
       configExpanded = false;
       await initializeClient();
-      if (db) setMessage('База подключена. Теперь можно зарегистрироваться или войти.');
+      if (db) {
+        setMessage('База подключена. Теперь можно зарегистрироваться или войти.');
+        if (pendingShareToken) await loadSharedView(pendingShareToken);
+      }
     } catch (error) {
       setMessage(error.message, true);
     }
