@@ -9,6 +9,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="enhancements.css">
+  <link rel="stylesheet" href="cloud.css">
   <meta name="description" content="NUTRIX — персональный генератор сбалансированного рациона на неделю.">
   <title>NUTRIX — персональный рацион</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +29,7 @@
         <a href="#plan">Рацион</a>
         <a href="#shopping">Покупки</a>
       </nav>
+      <button class="cloud-open-button" id="cloudOpen" type="button"><span>☁</span> Облако</button>
       <button class="icon-button" id="themeToggle" type="button" aria-label="Переключить тему" title="Переключить тему">☾</button>
     </header>
 
@@ -119,7 +121,7 @@
                 <div><b id="summaryHeight">—</b><small>Рост</small></div><div><b id="summaryWeight">—</b><small>Вес</small></div><div><b id="summaryAge">—</b><small>Возраст</small></div>
               </div>
               <div class="summary-progress" id="summaryProgress"><span></span></div>
-              <small class="summary-foot">Данные используются только в этом браузере.</small>
+              <small class="summary-foot">Без входа данные хранятся в этом браузере. После входа профиль можно сохранить в облаке.</small>
             </div>
             <div class="tip-card"><div class="tip-icon">💡</div><div><b>Небольшая подсказка</b><p>Не обязательно питаться идеально. Регулярность, разнообразие и комфорт важнее строгих запретов.</p></div></div>
             <div class="safety-note"><span>ⓘ</span><p><b>Важно:</b> сервис помогает планировать обычное питание, но не ставит диагнозы и не заменяет врача или диетолога.</p></div>
@@ -154,7 +156,10 @@
     <footer><a class="brand footer-brand" href="#top"><span class="brand-mark">N</span><span>NUTRIX<span class="brand-dot">.</span></span></a><p>Планирование питания без крайностей.</p><small>Информационный инструмент. Не является медицинской рекомендацией.</small></footer>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="cloudDialog" class="cloud-dialog"><div id="cloudContent"></div></dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
   <script src="enhancements.js"></script>
+  <script src="cloud.js"></script>
 </body>
 </html>
