@@ -331,6 +331,10 @@ function saveProfile(d){
   const safe={...d,avoid:d.avoid.join(', ')};
   try{localStorage.setItem('nutrix-profile',JSON.stringify(safe));}catch(e){}
 }
+function clearPlan(){
+  currentPlan=null;
+  $('results').classList.add('hidden');
+}
 function loadProfile(){
   try{
     const saved=JSON.parse(localStorage.getItem('nutrix-profile')||'null');if(!saved)return;
@@ -385,4 +389,4 @@ $('copyShopping').addEventListener('click',copyShopping);
 $('themeToggle').addEventListener('click',()=>{document.body.classList.toggle('dark');const dark=document.body.classList.contains('dark');$('themeToggle').textContent=dark?'☀':'☾';try{localStorage.setItem('nutrix-theme',dark?'dark':'light');}catch(e){}});
 try{if(localStorage.getItem('nutrix-theme')==='dark'){document.body.classList.add('dark');$('themeToggle').textContent='☀';}}catch(e){}
 loadProfile();updateSummaryPreview();updateStoreInfo();
-window.NUTRIX={get plan(){return currentPlan;},recipes,mealMeta,storeName,showToast,renderPlan,getFormData,saveProfile};
+window.NUTRIX={get plan(){return currentPlan;},recipes,mealMeta,storeName,showToast,renderPlan,getFormData,saveProfile,clearPlan};
