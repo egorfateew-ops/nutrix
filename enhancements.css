@@ -21,3 +21,22 @@ body.dark .recipe-dialog-note{background:#1b3a53}
 .icon-button:focus-visible,.secondary-button:focus-visible,.recipe-details:focus-visible,.replace-meal:focus-visible{outline:3px solid #4aa9e4;outline-offset:2px}
 @media(max-width:680px){.result-actions{flex-wrap:wrap}.result-actions button{min-width:calc(50% - 5px)}.shopping-actions{width:100%}.shopping-actions button{flex:1}.recipe-dialog-inner{padding:19px}.recipe-dialog-head h2{font-size:19px}.meal-action-buttons{gap:4px}.recipe-details{font-size:8px;padding:5px}.day-foot{align-items:flex-start;flex-direction:column;gap:3px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* Weekly meal completion tracker */
+.meal-week-progress{margin:0 0 18px;padding:17px 19px;border:1px solid var(--line);border-radius:15px;background:var(--surface);box-shadow:0 7px 22px #16334d08}
+.meal-week-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.meal-week-top>div{display:grid;gap:5px}
+.meal-week-top .eyebrow{font-size:8px}
+.meal-week-top b{font-size:13px;letter-spacing:-.2px}
+.meal-week-top>strong{font-size:20px;letter-spacing:-.7px;color:var(--blue)}
+.meal-week-track{height:7px;border-radius:20px;background:var(--line);overflow:hidden;margin:12px 0 8px}
+.meal-week-track span{display:block;height:100%;border-radius:20px;background:var(--blue);transition:width .2s ease}
+.meal-week-progress>small{font-size:9px;color:var(--muted);line-height:1.5}
+.day-progress-label{font-size:9px;color:var(--muted)}
+.meal-action-buttons{flex-wrap:wrap;justify-content:flex-end}
+.meal-check-button{border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--muted);font:800 9px 'Manrope',sans-serif;padding:5px 7px;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.meal-check-button:hover{border-color:var(--blue);color:var(--blue)}
+.meal-check-button.is-complete{border-color:#9bcab0;background:#eaf6ee;color:#247448}
+body.dark .meal-check-button.is-complete{border-color:#326a4b;background:#193b2b;color:#a6e0b8}
+@media(max-width:680px){.meal-week-progress{padding:14px}.meal-week-top b{font-size:12px}.meal-action-buttons{gap:4px}.meal-check-button{font-size:8px;padding:5px 6px}}
+@media(prefers-reduced-motion:reduce){.meal-week-track span{transition:none}}
