@@ -21,7 +21,9 @@
 - Облачные профили и история рационов.
 - Личный дневник веса и замеров с историей и графиком.
 - Отметки съеденных блюд, прогресс недели и синхронизация с аккаунтом.
-- Для включения облака создай проект Supabase, выполни файл `supabase/schema.sql` и вставь Project URL и Publishable key в `cloud-config.js`. Для уже существующей базы выполни миграцию `supabase/migrations/20261123_personal_progress.sql`. Полная инструкция — [BACKEND_SETUP.md](BACKEND_SETUP.md).
+- Домашняя программа калистеники без инвентаря: подбор упражнений, подходов и повторений по возрасту, опыту, частоте занятий и известным возможностям.
+- Личный план тренировок хранится в браузере или синхронизируется с аккаунтом Supabase после выполнения миграции `supabase/migrations/20261123_training_plans.sql`.
+- Для включения облака создай проект Supabase, выполни файл `supabase/schema.sql` и вставь Project URL и Publishable key в `cloud-config.js`. Для уже существующей базы выполни миграции `supabase/migrations/20261123_personal_progress.sql` и `supabase/migrations/20261123_training_plans.sql`. Полная инструкция — [BACKEND_SETUP.md](BACKEND_SETUP.md).
 
 ## Данные и ограничения
 - Сайт публичный; каждый посетитель открывает его по общей ссылке.
