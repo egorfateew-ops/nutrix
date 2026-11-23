@@ -1,3 +1,5 @@
+import { createClient } from "npm:@supabase/supabase-js@2";
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -10,42 +12,46 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
 Deno.serve(async (request: Request) => {
   if (request.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (request.method !== "POST") return json({ error: "Method not allowed" }, 405);
+
   try {
     const authHeader = request.headers.get("Authorization");
-    if (!authHeader || !authHeader.startsWith("Bearer ")) return json({ error: "Войди в NUTRIX, чтобы присоединиться к рациону" }, 401);
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return json({ error: "Войди в NUTRIX, чтобы присоединиться к рациону" }, 401);
+    }
+
     const body = await request.json();
     const token = String(body?.token || "").trim();
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(token)) {
       return json({ error: "Неверная или неполная ссылка" }, 400);
     }
+
     const baseUrl = Deno.env.get("SUPABASE_URL");
     const secretKeys = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") || "{}");
-    const publishableKeys = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") || "{}");
-    const serviceKey = secretKeys.default;
-    const publishableKey = publishableKeys.default;
-    if (!baseUrl || !serviceKey || !publishableKey) return json({ error: "Backend function is not configured" }, 500);
-    const userResponse = await fetch(baseUrl + "/auth/v1/user", {
-      headers: { apikey: publishableKey, Authorization: authHeader }
+    const secretKey = secretKeys.default;
+    if (!baseUrl || !secretKey) return json({ error: "Backend function is not configured" }, 500);
+
+    const admin = createClient(baseUrl, secretKey, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
     });
-    if (!userResponse.ok) return json({ error: "Сессия истекла. Войди ещё раз." }, 401);
-    const user = await userResponse.json();
-    const adminHeaders = { apikey: serviceKey, Authorization: "Bearer " + serviceKey, "Content-Type": "application/json" };
-    const planResponse = await fetch(
-      baseUrl + "/rest/v1/meal_plans?select=id,owner_id,share_enabled&share_token=eq." + token + "&share_enabled=eq.true&limit=1",
-      { headers: adminHeaders }
-    );
-    if (!planResponse.ok) return json({ error: "Не удалось найти рацион" }, 502);
-    const plans = await planResponse.json();
-    if (!Array.isArray(plans) || plans.length === 0) return json({ error: "Рацион не найден или приглашение отключено" }, 404);
-    const plan = plans[0];
-    if (plan.owner_id !== user.id) {
-      const insertResponse = await fetch(baseUrl + "/rest/v1/plan_members?on_conflict=plan_id,user_id", {
-        method: "POST",
-        headers: { ...adminHeaders, Prefer: "resolution=ignore-duplicates,return=minimal" },
-        body: JSON.stringify({ plan_id: plan.id, user_id: user.id, role: "editor" })
-      });
-      if (!insertResponse.ok) return json({ error: "Не удалось добавить участника. Проверь схему базы данных." }, 502);
+    const jwt = authHeader.slice(7);
+    const { data: authData, error: authError } = await admin.auth.getUser(jwt);
+    if (authError || !authData?.user) return json({ error: "Сессия истекла. Войди ещё раз." }, 401);
+
+    const { data: plan, error: planError } = await admin.from("meal_plans")
+      .select("id,owner_id,share_enabled")
+      .eq("share_token", token).eq("share_enabled", true).maybeSingle();
+    if (planError) return json({ error: "Не удалось найти рацион" }, 502);
+    if (!plan) return json({ error: "Рацион не найден или приглашение отключено" }, 404);
+
+    if (plan.owner_id !== authData.user.id) {
+      const { error: memberError } = await admin.from("plan_members").upsert({
+        plan_id: plan.id,
+        user_id: authData.user.id,
+        role: "editor"
+      }, { onConflict: "plan_id,user_id", ignoreDuplicates: true });
+      if (memberError) return json({ error: "Не удалось добавить участника" }, 502);
     }
+
     return json({ ok: true, plan_id: plan.id });
   } catch (_error) {
     return json({ error: "Не удалось присоединиться к рациону" }, 500);
