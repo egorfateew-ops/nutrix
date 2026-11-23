@@ -92,3 +92,11 @@ body.dark .training-recovery-tag{background:#1c392b;color:#a4d7b5}
  body.training-print-mode .training-day-card,body.training-print-mode .training-guidance-grid{break-inside:avoid}
 }
 @media(prefers-reduced-motion:reduce){.training-generate,.training-secondary{transition:none}}
+
+@media(max-width:680px){
+  .topbar{gap:8px}
+  .top-nav{flex:1;min-width:0;justify-content:center;gap:8px;overflow-x:auto;scrollbar-width:none}
+  .top-nav::-webkit-scrollbar{display:none}
+  .top-nav a{white-space:nowrap;font-size:9px}
+  .cloud-open-button{padding:8px 9px;font-size:9px}
+}
