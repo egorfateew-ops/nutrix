@@ -300,6 +300,12 @@ function replaceMeal(dayIndex,mealIndex){
   const scale=currentPlan.scale;
   day.meals[mealIndex]={type:old.type,recipe:chosen,scale,kcal:Math.round(chosen.kcal*scale),p:Math.round(chosen.p*scale),c:Math.round(chosen.c*scale),f:Math.round(chosen.f*scale),cost:Math.round(chosen.cost*scale),ingredients:chosen.items.map(([name,amount,unit])=>({name,amount:amount*scale,unit}))};
   if(currentPlan.completedMeals)delete currentPlan.completedMeals[dayIndex+':'+mealIndex];
+  try{
+    const key='nutrix-meal-progress:'+(currentPlan.progressId||'unknown');
+    const saved=JSON.parse(localStorage.getItem(key)||'{}');
+    delete saved[dayIndex+':'+mealIndex];
+    localStorage.setItem(key,JSON.stringify(saved));
+  }catch(e){}
   recalculatePlanTotals(currentPlan);currentPlan.cart=buildShoppingCart(currentPlan.days,d.store);updateCartTotals(currentPlan);renderPlan(currentPlan,false);showToast('Блюдо заменено');
 }
 
