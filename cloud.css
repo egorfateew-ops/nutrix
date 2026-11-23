@@ -70,3 +70,9 @@ body.dark .cloud-state.is-online{background:#173d35;color:#91dfbf}
 .progress-entry-details p{font-size:9px;color:var(--muted);margin:5px 0 0;overflow-wrap:anywhere}
 .progress-delete{border:0;background:transparent;color:#c45b5b;font:800 9px 'Manrope',sans-serif;cursor:pointer;padding:7px}
 @media(max-width:520px){.cloud-progress-form{grid-template-columns:1fr 1fr}.progress-summary{gap:5px}.progress-stat{padding:9px}.progress-stat b{font-size:13px}.progress-entry{align-items:flex-start}.progress-delete{padding:5px}}
+
+.cloud-history-row{display:flex;align-items:stretch;gap:7px}
+.cloud-history-row .cloud-history-item{flex:1;min-width:0}
+.cloud-history-delete{border:1px solid var(--line);border-radius:9px;background:var(--bg);color:#c45b5b;font:800 9px 'Manrope',sans-serif;padding:0 10px;cursor:pointer}
+.cloud-history-delete:hover{border-color:#d98a8a;background:#fff7f7}
+body.dark .cloud-history-delete:hover{background:#3a2528}
