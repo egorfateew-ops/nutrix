@@ -434,6 +434,7 @@
 
   function renderSharedView(data) {
     sharedData = data;
+    document.body.classList.add('shared-mode');
     const main = document.querySelector('main#top');
     if (!main) return;
     ['.hero','.trust-strip','#profile','#results','.how-section'].forEach(selector => {
