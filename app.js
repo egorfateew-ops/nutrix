@@ -250,6 +250,8 @@ function renderBudgetNotice(plan){
 }
 function renderPlan(plan, scrollToPlan=true){
   currentPlan=plan;
+  if(!plan.progressId)plan.progressId='plan-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
+  if(!plan.completedMeals||typeof plan.completedMeals!=='object'||Array.isArray(plan.completedMeals))plan.completedMeals={};
   const {data:d,adult,calc}=plan;
   $('results').classList.remove('hidden');
   $('planSubtitle').textContent=adult?`План на 7 дней • ${d.mealCount} приёма пищи • ${d.goal==='gain'?'плавный набор':d.goal==='lose'?'умеренное снижение':'поддержание'}`:'Пример сбалансированного меню на 7 дней. Размер порций можно корректировать по аппетиту и рекомендациям специалиста.';
@@ -297,6 +299,7 @@ function replaceMeal(dayIndex,mealIndex){
   const chosen=options[(dayIndex+mealIndex)%options.length];
   const scale=currentPlan.scale;
   day.meals[mealIndex]={type:old.type,recipe:chosen,scale,kcal:Math.round(chosen.kcal*scale),p:Math.round(chosen.p*scale),c:Math.round(chosen.c*scale),f:Math.round(chosen.f*scale),cost:Math.round(chosen.cost*scale),ingredients:chosen.items.map(([name,amount,unit])=>({name,amount:amount*scale,unit}))};
+  if(currentPlan.completedMeals)delete currentPlan.completedMeals[dayIndex+':'+mealIndex];
   recalculatePlanTotals(currentPlan);currentPlan.cart=buildShoppingCart(currentPlan.days,d.store);updateCartTotals(currentPlan);renderPlan(currentPlan,false);showToast('Блюдо заменено');
 }
 
