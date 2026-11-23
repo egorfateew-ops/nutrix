@@ -6,14 +6,8 @@
   let session = null;
   let activePlanId = null;
   let activePlanOwner = null;
-  let activeShareToken = null;
   let loadingPlan = false;
   let configExpanded = false;
-  let pendingShareToken = null;
-  let sharedData = null;
-  let sharedChannel = null;
-  let sharedSaving = false;
-  let sharedSaveQueued = false;
 
   const readConfig = () => {
     try {
@@ -338,10 +332,9 @@
         title,
         plan_data: plan,
         updated_at: now
-      }).select('id,share_token').single();
+      }).select('id').single();
       if (result.error) return setMessage('Не удалось сохранить рацион: ' + result.error.message, true);
       activePlanId = result.data.id;
-      activeShareToken = result.data.share_token;
       activePlanOwner = session.user.id;
     } else {
       result = await db.from('meal_plans').update({
@@ -358,7 +351,7 @@
   async function loadPlan(planId) {
     if (!db || !session) return;
     const { data, error } = await db.from('meal_plans')
-      .select('id,owner_id,title,plan_data,share_token,share_enabled')
+      .select('id,owner_id,title,plan_data')
       .eq('id', planId).single();
     if (error) return setMessage('Не удалось открыть рацион: ' + error.message, true);
     const shoppingResult = await db.from('shopping_lists')
@@ -367,7 +360,6 @@
     if (shoppingResult.error) return setMessage('Не удалось загрузить список покупок: ' + shoppingResult.error.message, true);
     activePlanId = data.id;
     activePlanOwner = data.owner_id;
-    activeShareToken = data.share_token;
     const plan = data.plan_data;
     applyShoppingState(plan, shoppingResult.data);
     loadingPlan = true;
@@ -542,7 +534,7 @@
     if (!list) return;
     list.innerHTML = '<p>Загружаю личную историю...</p>';
     const { data, error } = await db.from('meal_plans')
-      .select('id,title,created_at,share_enabled')
+      .select('id,title,created_at')
       .order('created_at', { ascending: false }).limit(20);
     if (error) {
       list.textContent = 'Не удалось загрузить историю: ' + error.message;
@@ -563,266 +555,10 @@
       const title = document.createElement('b');
       title.textContent = item.title || 'Рацион NUTRIX';
       const date = document.createElement('small');
-      date.textContent = new Date(item.created_at).toLocaleString('ru-RU') + (item.share_enabled ? ' · доступ по ссылке включён' : '');
+      date.textContent = new Date(item.created_at).toLocaleString('ru-RU');
       button.append(title, date);
       list.appendChild(button);
     });
-  }
-
-  async function createShareLink() {
-    if (!db || !session) return setMessage('Сначала войди в аккаунт.', true);
-    if (!activePlanId) {
-      const plan = window.NUTRIX && window.NUTRIX.plan;
-      if (!plan) return setMessage('Сначала составь рацион.');
-      await savePlan(plan, true);
-      if (!activePlanId) return;
-    }
-    const { data, error } = await db.from('meal_plans')
-      .update({ share_enabled: true, updated_at: new Date().toISOString() })
-      .eq('id', activePlanId).eq('owner_id', session.user.id)
-      .select('share_token').single();
-    if (error) return setMessage('Не удалось создать ссылку: ' + error.message, true);
-    activeShareToken = data.share_token;
-    const url = location.origin + location.pathname + '?share=' + encodeURIComponent(activeShareToken);
-    $('cloudShareUrl').value = url;
-    $('cloudShareResult').hidden = false;
-    setMessage('Ссылка создана. Её можно отправить другу.');
-  }
-
-  async function copyShareLink() {
-    const url = $('cloudShareUrl').value;
-    if (!url) return;
-    try {
-      await navigator.clipboard.writeText(url);
-      setMessage('Ссылка скопирована.');
-      toast('Ссылка скопирована');
-    } catch (_) {
-      $('cloudShareUrl').focus();
-      $('cloudShareUrl').select();
-      setMessage('Нажми Ctrl+C, чтобы скопировать ссылку.');
-    }
-  }
-
-  async function disableShareLink() {
-    if (!db || !session || !activePlanId) return;
-    const { error } = await db.from('meal_plans')
-      .update({ share_enabled: false, updated_at: new Date().toISOString() })
-      .eq('id', activePlanId).eq('owner_id', session.user.id);
-    if (error) return setMessage('Не удалось отключить ссылку: ' + error.message, true);
-    $('cloudShareResult').hidden = true;
-    setMessage('Общий доступ по ссылке отключён.');
-  }
-
-  function node(tag, className, text) {
-    const element = document.createElement(tag);
-    if (className) element.className = className;
-    if (text !== undefined) element.textContent = text;
-    return element;
-  }
-
-  function renderSharedView(data) {
-    sharedData = data;
-    document.body.classList.add('shared-mode');
-    const main = document.querySelector('main#top');
-    if (!main) return;
-    ['.hero','.trust-strip','#profile','#results','.how-section'].forEach(selector => {
-      const item = document.querySelector(selector);
-      if (item) item.hidden = true;
-    });
-    let section = $('sharedView');
-    if (!section) {
-      section = node('section', 'shared-view');
-      section.id = 'sharedView';
-      main.prepend(section);
-    }
-    section.replaceChildren();
-    const head = node('div', 'shared-view-head');
-    const eyebrow = node('div', 'eyebrow', 'NUTRIX · СОВМЕСТНЫЙ РАЦИОН');
-    const title = node('h1', '', data.title || 'Рацион на неделю');
-    const subtitle = node('p', '', 'Семидневное меню и общий список покупок. Личные параметры владельца скрыты.');
-    head.append(eyebrow, title, subtitle);
-    const meta = node('div', 'shared-meta');
-    meta.append(node('span','', 'Магазин: ' + (data.store === 'baton' ? 'Батон' : data.store === 'pyaterochka' ? 'Пятёрочка' : 'Средние цены')));
-    meta.append(node('span','', 'Бюджет: ' + Number(data.budget || 0).toLocaleString('ru-RU') + ' ₽'));
-    head.append(meta);
-    section.appendChild(head);
-
-    const daysHeading = node('h2','shared-section-title','Меню на неделю');
-    section.appendChild(daysHeading);
-    const daysGrid = node('div','shared-days-grid');
-    (data.plan.days || []).forEach(day => {
-      const card = node('article','shared-day-card');
-      const dayHead = node('h3','',day.name || 'День');
-      card.appendChild(dayHead);
-      (day.meals || []).forEach(meal => {
-        const row = node('div','shared-meal');
-        const icon = node('span','shared-meal-icon', meal.recipe && meal.recipe.icon ? meal.recipe.icon : '🍽️');
-        const info = node('div','shared-meal-info');
-        const mealName = node('b','',(meal.type || 'Приём пищи') + ': ' + (meal.recipe && meal.recipe.name ? meal.recipe.name : 'Блюдо'));
-        const ingredients = node('small','',(meal.ingredients || []).map(item => item.name + ' — ' + (item.unit === 'шт.' ? Math.round(item.amount * 2) / 2 + ' шт.' : Math.round(item.amount) + ' ' + item.unit)).join(' · '));
-        info.append(mealName, ingredients);
-        row.append(icon,info);
-        card.appendChild(row);
-      });
-      daysGrid.appendChild(card);
-    });
-    section.appendChild(daysGrid);
-
-    const shopHead = node('div','shared-shop-head');
-    shopHead.append(node('h2','shared-section-title','Общий список покупок'));
-    const permission = data.is_owner || data.is_member;
-    shopHead.append(node('span',permission?'cloud-state is-online':'cloud-state',permission?'Совместный доступ активен':'Только просмотр'));
-    section.appendChild(shopHead);
-    const cart = node('div','shared-cart');
-    const checked = new Set(data.shopping && Array.isArray(data.shopping.checked_items) ? data.shopping.checked_items : []);
-    const priceOverrides = data.shopping && data.shopping.price_overrides ? data.shopping.price_overrides : {};
-    (data.plan.cart || []).forEach(item => {
-      const row = node('div','shared-cart-row');
-      const label = node('label','shared-cart-label');
-      const checkbox = node('input','');
-      checkbox.type = 'checkbox';
-      checkbox.dataset.cartKey = item.key;
-      checkbox.checked = checked.has(item.key);
-      checkbox.disabled = !permission;
-      const details = node('span','');
-      details.append(node('b','',item.name));
-      details.append(node('small','', 'Нужно: ' + Math.round(item.amount) + ' ' + item.unit + ' · купить: ' + item.packCount + ' × ' + item.packLabel));
-      label.append(checkbox,details);
-      const priceWrap = node('label','shared-cart-price','₽ / уп.');
-      const price = node('input','');
-      price.type = 'number'; price.min = '0'; price.step = '1'; price.disabled = !permission;
-      price.dataset.priceKey = item.key;
-      price.value = priceOverrides[item.key] !== undefined ? priceOverrides[item.key] : item.price;
-      priceWrap.appendChild(price);
-      row.append(label,priceWrap);
-      cart.appendChild(row);
-    });
-    if (!(data.plan.cart || []).length) cart.appendChild(node('p','','Список покупок пуст.'));
-    section.appendChild(cart);
-
-    const actions = node('div','shared-actions');
-    if (!permission) {
-      const action = node('button','cloud-primary', session ? 'Присоединиться к общему списку' : 'Войти, чтобы присоединиться');
-      action.type = 'button';
-      action.addEventListener('click', () => {
-        if (!session) showDialog();
-        else joinSharedPlan();
-      });
-      actions.appendChild(action);
-    } else {
-      actions.appendChild(node('p','shared-live-note','Отметки и цены синхронизируются между участниками.'));
-      const copy = node('button','cloud-secondary','Скопировать ссылку');
-      copy.type = 'button';
-      copy.addEventListener('click', async () => {
-        const url = location.href;
-        try { await navigator.clipboard.writeText(url); toast('Ссылка скопирована'); }
-        catch (_) { toast('Скопируй ссылку из адресной строки'); }
-      });
-      actions.appendChild(copy);
-    }
-    const back = node('a','cloud-link-button','Открыть генератор NUTRIX');
-    back.href = location.pathname;
-    actions.appendChild(back);
-    section.appendChild(actions);
-
-    cart.addEventListener('change', saveSharedShopping);
-    subscribeSharedRealtime();
-  }
-
-  async function loadSharedView(token) {
-    pendingShareToken = token;
-    if (!db) {
-      renderSharedView({
-        title:'Облачная база не подключена',
-        store:'average',budget:0,
-        plan:{days:[],cart:[]},
-        shopping:{checked_items:[],price_overrides:{}},
-        is_owner:false,is_member:false
-      });
-      const section = $('sharedView');
-      const message = node('p','cloud-message is-error','Чтобы открыть эту ссылку, владелец и приглашённый участник должны подключить проект Supabase в разделе «Облако».');
-      section.appendChild(message);
-      return;
-    }
-    const { data, error } = await db.functions.invoke('get-shared-plan', { body: { token } });
-    if (error || !data || data.error) {
-      renderSharedView({
-        title:'Не удалось открыть рацион',
-        store:'average',budget:0,plan:{days:[],cart:[]},
-        shopping:{checked_items:[],price_overrides:{}},is_owner:false,is_member:false
-      });
-      $('sharedView').appendChild(node('p','cloud-message is-error',data && data.error ? data.error : (error && error.message) || 'Проверь ссылку и подключение базы.'));
-      return;
-    }
-    renderSharedView(data);
-  }
-
-  async function joinSharedPlan() {
-    if (!db || !session || !pendingShareToken) return showDialog();
-    const { data, error } = await db.functions.invoke('join-shared-plan', { body: { token: pendingShareToken } });
-    if (error || !data || data.error) {
-      toast(data && data.error ? data.error : (error && error.message) || 'Не удалось присоединиться');
-      return;
-    }
-    toast('Ты добавлен в общий рацион');
-    await loadSharedView(pendingShareToken);
-  }
-
-  async function saveSharedShopping() {
-    if (!db || !session || !sharedData || !(sharedData.is_owner || sharedData.is_member)) return;
-    const section = $('sharedView');
-    if (!section) return;
-    if (sharedSaving) { sharedSaveQueued = true; return; }
-    sharedSaving = true;
-    const checked = [];
-    section.querySelectorAll('input[data-cart-key]:checked').forEach(input => checked.push(input.dataset.cartKey));
-    const prices = {};
-    section.querySelectorAll('input[data-price-key]').forEach(input => {
-      prices[input.dataset.priceKey] = Math.max(0, Number(input.value) || 0);
-    });
-    const { error } = await db.from('shopping_lists').upsert({
-      plan_id: sharedData.id,
-      checked_items: checked,
-      price_overrides: prices,
-      updated_at: new Date().toISOString()
-    }, { onConflict: 'plan_id' });
-    sharedSaving = false;
-    if (error) toast('Не удалось сохранить список: ' + error.message);
-    else {
-      sharedData.shopping = { checked_items: checked, price_overrides: prices };
-      toast('Общий список обновлён');
-    }
-    if (sharedSaveQueued) {
-      sharedSaveQueued = false;
-      await saveSharedShopping();
-    }
-  }
-
-  function subscribeSharedRealtime() {
-    if (sharedChannel && db) {
-      db.removeChannel(sharedChannel);
-      sharedChannel = null;
-    }
-    if (!db || !sharedData || !(sharedData.is_owner || sharedData.is_member)) return;
-    sharedChannel = db.channel('nutrix-shopping-' + sharedData.id)
-      .on('postgres_changes', {
-        event: '*', schema: 'public', table: 'shopping_lists',
-        filter: 'plan_id=eq.' + sharedData.id
-      }, payload => {
-        if (!payload.new) return;
-        sharedData.shopping = payload.new;
-        const checked = new Set(payload.new.checked_items || []);
-        const prices = payload.new.price_overrides || {};
-        const section = $('sharedView');
-        if (!section) return;
-        section.querySelectorAll('input[data-cart-key]').forEach(input => {
-          input.checked = checked.has(input.dataset.cartKey);
-        });
-        section.querySelectorAll('input[data-price-key]').forEach(input => {
-          const key = input.dataset.priceKey;
-          if (prices[key] !== undefined && document.activeElement !== input) input.value = prices[key];
-        });
-      }).subscribe();
   }
 
   async function boot() {
