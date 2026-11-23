@@ -279,6 +279,7 @@ function renderPlan(plan, scrollToPlan=true){
   });
   renderShopping(plan);
   if(scrollToPlan)$('results').scrollIntoView({behavior:'smooth',block:'start'});
+  window.dispatchEvent(new CustomEvent('nutrix:plan-rendered',{detail:{plan,newPlan:scrollToPlan}}));
 }
 function recalculatePlanTotals(plan){
   plan.totals=plan.days.map(day=>day.meals.reduce((a,m)=>({kcal:a.kcal+m.kcal,p:a.p+m.p,c:a.c+m.c,f:a.f+m.f,cost:a.cost+m.cost}),{kcal:0,p:0,c:0,f:0,cost:0}));
@@ -384,4 +385,4 @@ $('copyShopping').addEventListener('click',copyShopping);
 $('themeToggle').addEventListener('click',()=>{document.body.classList.toggle('dark');const dark=document.body.classList.contains('dark');$('themeToggle').textContent=dark?'☀':'☾';try{localStorage.setItem('nutrix-theme',dark?'dark':'light');}catch(e){}});
 try{if(localStorage.getItem('nutrix-theme')==='dark'){document.body.classList.add('dark');$('themeToggle').textContent='☀';}}catch(e){}
 loadProfile();updateSummaryPreview();updateStoreInfo();
-window.NUTRIX={get plan(){return currentPlan;},recipes,mealMeta,storeName,showToast};
+window.NUTRIX={get plan(){return currentPlan;},recipes,mealMeta,storeName,showToast,renderPlan,getFormData,saveProfile};
