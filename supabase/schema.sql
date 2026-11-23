@@ -35,10 +35,21 @@ create table if not exists public.shopping_lists (
   price_overrides jsonb not null default '{}'::jsonb,
   updated_at timestamptz not null default now()
 );
+create table if not exists public.progress_entries (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  measured_on date not null default current_date,
+  weight_kg numeric(5,2) not null check (weight_kg between 15 and 350),
+  height_cm numeric(5,2) check (height_cm is null or height_cm between 80 and 250),
+  waist_cm numeric(5,2) check (waist_cm is null or waist_cm between 30 and 200),
+  note text not null default '' check (char_length(note) <= 300),
+  created_at timestamptz not null default now()
+);
 
 create index if not exists meal_plans_owner_created_idx on public.meal_plans(owner_id, created_at desc);
 create index if not exists plan_members_user_idx on public.plan_members(user_id);
 create index if not exists shopping_lists_updated_idx on public.shopping_lists(updated_at desc);
+create index if not exists progress_entries_user_date_idx on public.progress_entries(user_id, measured_on desc, created_at desc);
 
 create or replace function private.is_plan_owner(p_plan_id uuid)
 returns boolean language sql stable security definer set search_path = ''
@@ -75,15 +86,18 @@ alter table public.profiles enable row level security;
 alter table public.meal_plans enable row level security;
 alter table public.plan_members enable row level security;
 alter table public.shopping_lists enable row level security;
+alter table public.progress_entries enable row level security;
 
 revoke all on table public.profiles from anon, authenticated;
 revoke all on table public.meal_plans from anon, authenticated;
 revoke all on table public.plan_members from anon, authenticated;
 revoke all on table public.shopping_lists from anon, authenticated;
+revoke all on table public.progress_entries from anon, authenticated;
 grant select, insert, update, delete on table public.profiles to authenticated;
 grant select, insert, update, delete on table public.meal_plans to authenticated;
 grant select on table public.plan_members to authenticated;
 grant select, insert, update, delete on table public.shopping_lists to authenticated;
+grant select, insert, delete on table public.progress_entries to authenticated;
 
 drop policy if exists profiles_select_own on public.profiles;
 create policy profiles_select_own on public.profiles for select to authenticated using (user_id = (select auth.uid()));
@@ -93,6 +107,13 @@ drop policy if exists profiles_update_own on public.profiles;
 create policy profiles_update_own on public.profiles for update to authenticated using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
 drop policy if exists profiles_delete_own on public.profiles;
 create policy profiles_delete_own on public.profiles for delete to authenticated using (user_id = (select auth.uid()));
+
+drop policy if exists progress_entries_select_own on public.progress_entries;
+create policy progress_entries_select_own on public.progress_entries for select to authenticated using (user_id = (select auth.uid()));
+drop policy if exists progress_entries_insert_own on public.progress_entries;
+create policy progress_entries_insert_own on public.progress_entries for insert to authenticated with check (user_id = (select auth.uid()));
+drop policy if exists progress_entries_delete_own on public.progress_entries;
+create policy progress_entries_delete_own on public.progress_entries for delete to authenticated using (user_id = (select auth.uid()));
 
 -- Full plan JSON contains personal profile data. Only its owner can read or change it.
 drop policy if exists meal_plans_select_owner on public.meal_plans;
