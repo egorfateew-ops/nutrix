@@ -62,6 +62,23 @@ Deno.serve(async (request: Request) => {
     delete safePlan.scale;
     delete safePlan.rawScale;
     delete safePlan.baseCalories;
+    delete safePlan.totals;
+    delete safePlan.avg;
+    if (Array.isArray(safePlan.days)) {
+      safePlan.days = safePlan.days.map((day: Record<string, unknown>) => ({
+        ...day,
+        meals: Array.isArray(day.meals) ? day.meals.map((meal: Record<string, unknown>) => {
+          const safeMeal = { ...meal };
+          delete safeMeal.scale;
+          delete safeMeal.kcal;
+          delete safeMeal.p;
+          delete safeMeal.c;
+          delete safeMeal.f;
+          delete safeMeal.cost;
+          return safeMeal;
+        }) : []
+      }));
+    }
 
     return json({
       id: row.id,
