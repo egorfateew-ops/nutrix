@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b72c6">
+  <meta name="description" content="NUTRIX — персональный генератор сбалансированного рациона на неделю.">
+  <title>NUTRIX — персональный рацион</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="NUTRIX — на главную">
+        <span class="brand-mark">N</span>
+        <span>NUTRIX<span class="brand-dot">.</span></span>
+      </a>
+      <nav class="top-nav" aria-label="Основная навигация">
+        <a href="#profile">Профиль</a>
+        <a href="#plan">Рацион</a>
+        <a href="#shopping">Покупки</a>
+      </nav>
+      <button class="icon-button" id="themeToggle" type="button" aria-label="Переключить тему" title="Переключить тему">☾</button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> ПИТАНИЕ, КОТОРОЕ ПОДСТРАИВАЕТСЯ ПОД ТЕБЯ</div>
+          <h1>Ешь с умом.<br><span>Двигайся к цели.</span></h1>
+          <p>Укажи параметры и привычки — NUTRIX соберёт персональный план питания на неделю с порциями, блюдами и списком покупок.</p>
+          <a class="primary-link" href="#profile">Составить мой рацион <span>→</span></a>
+          <div class="hero-points">
+            <span>✓ План на 7 дней</span><span>✓ Понятные порции</span><span>✓ Под бюджет магазина</span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="food-card food-card-main">
+            <div class="food-emoji">🥗</div>
+            <div><b>Баланс на каждый день</b><small>Разнообразно и без крайностей</small></div>
+            <span class="food-check">✓</span>
+          </div>
+          <div class="floating-stat stat-top"><span>🍳</span><div><b>Твои продукты</b><small>Под твои предпочтения</small></div></div>
+          <div class="floating-stat stat-bottom"><span>📅</span><div><b>7 дней</b><small>Готовый план питания</small></div></div>
+          <div class="hero-circle"><span>🥑</span></div>
+        </div>
+      </section>
+
+      <section class="trust-strip" aria-label="Возможности">
+        <div><span class="trust-icon">⌁</span><b>Персональный расчёт</b><small>На основе твоих параметров</small></div>
+        <div><span class="trust-icon">◷</span><b>Удобный график</b><small>3–5 приёмов пищи</small></div>
+        <div><span class="trust-icon">₽</span><b>Контроль бюджета</b><small>Доступные продукты</small></div>
+      </section>
+
+      <section class="builder-section" id="profile">
+        <div class="section-heading">
+          <div><div class="eyebrow">ШАГ 01 / ТВОИ ДАННЫЕ</div><h2>Настроим рацион</h2><p>Чем точнее данные, тем полезнее будет план.</p></div>
+          <div class="step-pill"><span>1</span> Профиль <i></i><span>2</span> Рацион</div>
+        </div>
+
+        <div class="builder-grid">
+          <form class="panel profile-panel" id="profileForm">
+            <div class="panel-title"><div class="panel-icon">♙</div><div><h3>Личные параметры</h3><p>Основная информация</p></div></div>
+            <div class="field-grid three-cols">
+              <label class="field"><span>Возраст, лет</span><input id="age" type="number" min="5" max="100" value="25" required></label>
+              <label class="field"><span>Рост, см</span><input id="height" type="number" min="80" max="250" value="175" required></label>
+              <label class="field"><span>Вес, кг</span><input id="weight" type="number" min="15" max="350" step="0.1" value="70" required></label>
+            </div>
+            <div class="field-grid two-cols">
+              <label class="field"><span>Пол для расчёта взрослой нормы</span><select id="sex"><option value="male">Мужской</option><option value="female">Женский</option><option value="unspecified">Не указывать</option></select></label>
+              <label class="field"><span>Активность</span><select id="activity"><option value="1.2">В основном сижу</option><option value="1.375">Немного хожу, лёгкая активность</option><option value="1.55" selected>Тренировки 3–5 раз в неделю</option><option value="1.725">Высокая активность почти каждый день</option><option value="1.9">Очень высокая физическая нагрузка</option></select></label>
+            </div>
+
+            <div class="field-divider"></div>
+            <div class="panel-title compact-title"><div class="panel-icon">◎</div><div><h3>Твоя цель</h3><p>Выбери направление</p></div></div>
+            <div class="goal-options" role="group" aria-label="Цель питания">
+              <label class="goal-option"><input type="radio" name="goal" value="gain"><span class="goal-symbol">↗</span><b>Набрать массу</b><small>Постепенно и без спешки</small></label>
+              <label class="goal-option selected"><input type="radio" name="goal" value="maintain" checked><span class="goal-symbol">＝</span><b>Поддерживать вес</b><small>Сбалансированный рацион</small></label>
+              <label class="goal-option"><input type="radio" name="goal" value="lose"><span class="goal-symbol">↘</span><b>Снизить вес</b><small>Только для взрослых</small></label>
+            </div>
+
+            <div class="field-divider"></div>
+            <div class="panel-title compact-title"><div class="panel-icon">⌘</div><div><h3>Предпочтения и бюджет</h3><p>Сделаем рацион удобным</p></div></div>
+            <div class="field-grid two-cols">
+              <label class="field"><span>Тип питания</span><select id="diet"><option value="omnivore">Ем всё</option><option value="vegetarian">Вегетарианское</option><option value="vegan">Веганское</option></select></label>
+              <label class="field"><span>Приёмов пищи в день</span><select id="mealCount"><option value="3">3 приёма</option><option value="4" selected>4 приёма</option><option value="5">5 приёмов</option></select></label>
+            </div>
+            <div class="field-grid two-cols">
+              <label class="field"><span>Бюджет на 7 дней, ₽</span><input id="budget" type="number" min="500" max="100000" step="100" value="5600"><small>Вся закупка продуктов на неделю, а не стоимость одного дня.</small></label>
+              <label class="field"><span>Магазин</span><select id="store"><option value="pyaterochka">Пятёрочка</option><option value="baton">Батон</option><option value="average">Средние цены</option></select><small>Можно поправить цены прямо в списке покупок.</small></label>
+            </div>
+            <div class="field-grid two-cols">
+              <label class="field"><span>Время на готовку</span><select id="cookTime"><option value="any">Не важно</option><option value="quick">До 20 минут</option><option value="medium">До 40 минут</option></select></label>
+              <div class="store-info" id="storeInfo">Цены ориентировочные. Точная стоимость зависит от города, магазина, акций и карты лояльности.</div>
+            </div>
+            <label class="field full-field"><span>Аллергии и продукты, которые не ешь</span><input id="avoid" type="text" placeholder="Например: арахис, рыба, молоко, грибы"><small>Перечисли через запятую. Такие продукты будут исключены из подбора.</small></label>
+            <label class="field full-field"><span>Дополнительные пожелания <em>необязательно</em></span><textarea id="notes" rows="2" placeholder="Например: люблю гречку, не люблю творог, хочу брать перекус в школу..."></textarea></label>
+            <label class="safety-check"><input id="medical" type="checkbox"><span><b>Есть особенности здоровья</b><small>Беременность, диабет, заболевания почек или ЖКТ, расстройства пищевого поведения и другие состояния, влияющие на питание.</small></span></label>
+            <div class="form-actions"><button class="generate-button" type="submit">Составить рацион <span>→</span></button><button class="text-button" type="button" id="resetForm">Сбросить</button></div>
+            <p class="form-error" id="formError" role="alert"></p>
+          </form>
+
+          <aside class="side-column">
+            <div class="panel summary-panel">
+              <div class="summary-top"><span class="summary-label">ТВОЙ ПРОФИЛЬ</span><span class="live-dot">●</span></div>
+              <div class="summary-avatar">🧑‍🍳</div>
+              <h3 id="summaryTitle">Твой рацион начинается здесь</h3>
+              <p id="summarySubtitle">Заполни параметры слева, чтобы увидеть персональные рекомендации.</p>
+              <div class="summary-metrics">
+                <div><b id="summaryHeight">—</b><small>Рост</small></div><div><b id="summaryWeight">—</b><small>Вес</small></div><div><b id="summaryAge">—</b><small>Возраст</small></div>
+              </div>
+              <div class="summary-progress" id="summaryProgress"><span></span></div>
+              <small class="summary-foot">Данные используются только в этом браузере.</small>
+            </div>
+            <div class="tip-card"><div class="tip-icon">💡</div><div><b>Небольшая подсказка</b><p>Не обязательно питаться идеально. Регулярность, разнообразие и комфорт важнее строгих запретов.</p></div></div>
+            <div class="safety-note"><span>ⓘ</span><p><b>Важно:</b> сервис помогает планировать обычное питание, но не ставит диагнозы и не заменяет врача или диетолога.</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="results-section hidden" id="results">
+        <div class="section-heading result-heading" id="plan">
+          <div><div class="eyebrow">ШАГ 02 / ТВОЙ ПЛАН</div><h2>Рацион на неделю</h2><p id="planSubtitle">Сбалансированные блюда на каждый день.</p></div>
+          <div class="result-actions"><button class="secondary-button" id="printPlan" type="button">⎙ Печать</button><button class="secondary-button" id="downloadPlan" type="button">↓ Скачать план</button></div>
+        </div>
+        <div class="metrics-grid" id="metricsGrid"></div>
+        <div class="notice hidden" id="safetyNotice"></div>
+        <div class="budget-notice hidden" id="budgetNotice"></div>
+        <div class="days-grid" id="daysGrid"></div>
+        <section class="shopping-section" id="shopping">
+          <div class="shopping-heading"><div><div class="eyebrow">ШАГ 03 / ПОДГОТОВКА</div><h2>Список покупок</h2><p>Корзина с упаковками и примерной стоимостью. Цены можно отредактировать под свой магазин.</p></div><button class="secondary-button" id="copyShopping" type="button">▢ Скопировать список</button></div>
+          <div class="cart-summary" id="cartSummary"></div><div class="shopping-panel" id="shoppingList"></div>
+        </section>
+      </section>
+
+      <section class="how-section">
+        <div class="eyebrow">ПРОСТО И ПОНЯТНО</div><h2>Как работает NUTRIX</h2>
+        <div class="how-grid">
+          <article><span>01</span><div class="how-icon">♙</div><h3>Расскажи о себе</h3><p>Укажи возраст, рост, вес, активность и цель.</p></article>
+          <article><span>02</span><div class="how-icon">◈</div><h3>Настрой предпочтения</h3><p>Выбери тип питания, бюджет и продукты, которые нужно исключить.</p></article>
+          <article><span>03</span><div class="how-icon">✓</div><h3>Получи свой план</h3><p>Смотри меню на неделю, меняй блюда и собирай покупки.</p></article>
+        </div>
+      </section>
+    </main>
+    <footer><a class="brand footer-brand" href="#top"><span class="brand-mark">N</span><span>NUTRIX<span class="brand-dot">.</span></span></a><p>Планирование питания без крайностей.</p><small>Информационный инструмент. Не является медицинской рекомендацией.</small></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

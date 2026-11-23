@@ -1,0 +1,381 @@
+'use strict';
+
+const $ = (id) => document.getElementById(id);
+const dayNames = ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
+const mealMeta = {
+  breakfast:{label:'Завтрак',icon:'🍳',time:'08:00'},
+  snack:{label:'Перекус',icon:'🍎',time:'11:00'},
+  lunch:{label:'Обед',icon:'🍲',time:'14:00'},
+  snack2:{label:'Второй перекус',icon:'🥛',time:'17:00'},
+  dinner:{label:'Ужин',icon:'🥗',time:'19:30'}
+};
+
+// Значения ориентировочные: это примеры обычных блюд, а не медицинская диета.
+const recipes = [
+  {id:'b1',type:'breakfast',name:'Овсянка с бананом и йогуртом',icon:'🥣',diet:['omnivore','vegetarian'],quick:true,cost:95,kcal:480,p:22,c:72,f:12,items:[['Овсяные хлопья',60,'г'],['Молоко',180,'мл'],['Банан',100,'г'],['Йогурт натуральный',100,'г']]},
+  {id:'b2',type:'breakfast',name:'Яйца, тосты и овощи',icon:'🍳',diet:['omnivore','vegetarian'],quick:true,cost:110,kcal:440,p:24,c:42,f:18,items:[['Яйца',2,'шт.'],['Хлеб цельнозерновой',70,'г'],['Помидор',100,'г'],['Огурец',80,'г']]},
+  {id:'b3',type:'breakfast',name:'Творог с ягодами и мёдом',icon:'🫐',diet:['omnivore','vegetarian'],quick:true,cost:130,kcal:410,p:31,c:46,f:9,items:[['Творог',180,'г'],['Ягоды',80,'г'],['Мёд',10,'г'],['Овсяные хлопья',25,'г']]},
+  {id:'b4',type:'breakfast',name:'Гречневая каша с яйцом',icon:'🍚',diet:['omnivore','vegetarian'],quick:false,cost:75,kcal:430,p:19,c:60,f:12,items:[['Гречка сухая',65,'г'],['Яйца',2,'шт.'],['Огурец',100,'г']]},
+  {id:'b5',type:'breakfast',name:'Тост с авокадо и яйцом',icon:'🥑',diet:['omnivore','vegetarian'],quick:true,cost:155,kcal:460,p:20,c:44,f:22,items:[['Хлеб цельнозерновой',80,'г'],['Авокадо',60,'г'],['Яйца',2,'шт.'],['Помидор',80,'г']]},
+  {id:'b6',type:'breakfast',name:'Соевый йогурт с овсянкой и фруктом',icon:'🍌',diet:['vegan','vegetarian'],quick:true,cost:125,kcal:420,p:16,c:67,f:9,items:[['Йогурт соевый',180,'г'],['Овсяные хлопья',50,'г'],['Яблоко',100,'г'],['Семена льна',8,'г']]},
+  {id:'b7',type:'breakfast',name:'Рисовая каша с яблоком',icon:'🍎',diet:['omnivore','vegetarian','vegan'],quick:false,cost:65,kcal:400,p:8,c:82,f:5,items:[['Рис сухой',60,'г'],['Напиток соевый',180,'мл'],['Яблоко',100,'г'],['Корица',2,'г']]},
+  {id:'s1',type:'snack',name:'Яблоко и горсть орехов',icon:'🍏',diet:['omnivore','vegetarian','vegan'],quick:true,cost:75,kcal:220,p:5,c:25,f:13,items:[['Яблоко',150,'г'],['Орехи',20,'г']]},
+  {id:'s2',type:'snack',name:'Йогурт и банан',icon:'🥛',diet:['omnivore','vegetarian'],quick:true,cost:75,kcal:210,p:9,c:34,f:4,items:[['Йогурт натуральный',150,'г'],['Банан',90,'г']]},
+  {id:'s3',type:'snack',name:'Хлебцы с хумусом',icon:'🫘',diet:['omnivore','vegetarian','vegan'],quick:true,cost:85,kcal:230,p:7,c:31,f:8,items:[['Хлебцы',25,'г'],['Хумус',50,'г'],['Морковь',80,'г']]},
+  {id:'s4',type:'snack',name:'Творог с фруктом',icon:'🍐',diet:['omnivore','vegetarian'],quick:true,cost:95,kcal:210,p:23,c:22,f:4,items:[['Творог',120,'г'],['Груша',100,'г']]},
+  {id:'s5',type:'snack',name:'Соевый йогурт с ягодами',icon:'🫐',diet:['vegan','vegetarian'],quick:true,cost:100,kcal:190,p:8,c:28,f:5,items:[['Йогурт соевый',150,'г'],['Ягоды',80,'г'],['Семена тыквы',8,'г']]},
+  {id:'s6',type:'snack',name:'Бутерброд с сыром',icon:'🥪',diet:['omnivore','vegetarian'],quick:true,cost:80,kcal:240,p:12,c:29,f:9,items:[['Хлеб цельнозерновой',60,'г'],['Сыр',25,'г'],['Помидор',60,'г']]},
+  {id:'s7',type:'snack',name:'Банан и арахисовая паста',icon:'🍌',diet:['omnivore','vegetarian','vegan'],quick:true,cost:65,kcal:230,p:6,c:31,f:10,items:[['Банан',100,'г'],['Арахисовая паста',18,'г']]},
+  {id:'l1',type:'lunch',name:'Курица с рисом и овощами',icon:'🍗',diet:['omnivore'],quick:false,cost:185,kcal:620,p:42,c:72,f:15,items:[['Куриное филе',150,'г'],['Рис сухой',75,'г'],['Овощная смесь',180,'г'],['Масло растительное',5,'г']]},
+  {id:'l2',type:'lunch',name:'Гречка с индейкой и салатом',icon:'🥘',diet:['omnivore'],quick:false,cost:205,kcal:590,p:43,c:60,f:14,items:[['Филе индейки',140,'г'],['Гречка сухая',75,'г'],['Огурец',80,'г'],['Помидор',80,'г'],['Масло растительное',5,'г']]},
+  {id:'l3',type:'lunch',name:'Паста с фасолью и томатным соусом',icon:'🍝',diet:['omnivore','vegetarian','vegan'],quick:false,cost:125,kcal:610,p:22,c:94,f:14,items:[['Макароны сухие',80,'г'],['Фасоль консервированная',100,'г'],['Томатный соус',100,'г'],['Масло растительное',5,'г']]},
+  {id:'l4',type:'lunch',name:'Чечевица с рисом и овощами',icon:'🥣',diet:['omnivore','vegetarian','vegan'],quick:false,cost:115,kcal:580,p:24,c:93,f:9,items:[['Чечевица сухая',70,'г'],['Рис сухой',50,'г'],['Морковь',70,'г'],['Лук',40,'г'],['Масло растительное',5,'г']]},
+  {id:'l5',type:'lunch',name:'Рыба с картофелем и салатом',icon:'🐟',diet:['omnivore'],quick:false,cost:230,kcal:570,p:36,c:58,f:18,items:[['Рыба белая',160,'г'],['Картофель',220,'г'],['Капуста',100,'г'],['Масло растительное',5,'г']]},
+  {id:'l6',type:'lunch',name:'Тофу с лапшой и овощами',icon:'🥢',diet:['omnivore','vegetarian','vegan'],quick:true,cost:210,kcal:600,p:27,c:78,f:18,items:[['Тофу',150,'г'],['Лапша сухая',70,'г'],['Овощная смесь',180,'г'],['Соевый соус',10,'мл']]},
+  {id:'l7',type:'lunch',name:'Картофель с яйцами и овощным салатом',icon:'🥔',diet:['omnivore','vegetarian'],quick:true,cost:105,kcal:560,p:22,c:69,f:20,items:[['Картофель',220,'г'],['Яйца',2,'шт.'],['Капуста',100,'г'],['Морковь',50,'г'],['Масло растительное',5,'г']]},
+  {id:'d1',type:'dinner',name:'Запечённая рыба с картофелем',icon:'🐟',diet:['omnivore'],quick:false,cost:220,kcal:560,p:36,c:56,f:17,items:[['Рыба белая',150,'г'],['Картофель',200,'г'],['Брокколи',130,'г'],['Масло растительное',5,'г']]},
+  {id:'d2',type:'dinner',name:'Курица с гречкой и овощами',icon:'🍽️',diet:['omnivore'],quick:false,cost:180,kcal:570,p:41,c:59,f:14,items:[['Куриное филе',130,'г'],['Гречка сухая',65,'г'],['Овощная смесь',180,'г'],['Масло растительное',5,'г']]},
+  {id:'d3',type:'dinner',name:'Омлет с овощами и хлебом',icon:'🍳',diet:['omnivore','vegetarian'],quick:true,cost:125,kcal:510,p:27,c:43,f:23,items:[['Яйца',3,'шт.'],['Помидор',100,'г'],['Шпинат',50,'г'],['Хлеб цельнозерновой',60,'г']]},
+  {id:'d4',type:'dinner',name:'Нут с овощами и булгуром',icon:'🥙',diet:['omnivore','vegetarian','vegan'],quick:false,cost:135,kcal:560,p:21,c:88,f:12,items:[['Нут варёный',150,'г'],['Булгур сухой',60,'г'],['Кабачок',100,'г'],['Помидор',100,'г'],['Масло растительное',5,'г']]},
+  {id:'d5',type:'dinner',name:'Тофу с гречкой и овощами',icon:'🥬',diet:['omnivore','vegetarian','vegan'],quick:false,cost:175,kcal:540,p:27,c:67,f:16,items:[['Тофу',130,'г'],['Гречка сухая',60,'г'],['Овощная смесь',180,'г']]},
+  {id:'d6',type:'dinner',name:'Тушёная фасоль с картофелем',icon:'🫘',diet:['omnivore','vegetarian','vegan'],quick:false,cost:110,kcal:550,p:20,c:91,f:10,items:[['Фасоль консервированная',140,'г'],['Картофель',180,'г'],['Морковь',70,'г'],['Лук',40,'г'],['Масло растительное',5,'г']]},
+  {id:'d7',type:'dinner',name:'Индейка с макаронами и овощами',icon:'🍝',diet:['omnivore'],quick:false,cost:195,kcal:590,p:40,c:69,f:15,items:[['Филе индейки',130,'г'],['Макароны сухие',65,'г'],['Овощная смесь',160,'г'],['Масло растительное',5,'г']]}
+];
+
+// Ориентировочная демонстрационная база цен. Это не онлайн-каталог и не оферта магазина.
+// Размер упаковки указан в тех же единицах, что и ингредиенты рецептов.
+const productCatalog = {
+  'Авокадо': {packSize:150,unit:'г',packLabel:'1 шт. (~150 г)',category:'Овощи, фрукты и другое',pyaterochka:139,baton:129},
+  'Арахисовая паста': {packSize:250,unit:'г',packLabel:'банка 250 г',category:'Белковые продукты',pyaterochka:189,baton:175},
+  'Банан': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:139,baton:125},
+  'Брокколи': {packSize:400,unit:'г',packLabel:'пакет 400 г',category:'Овощи, фрукты и другое',pyaterochka:159,baton:145},
+  'Булгур сухой': {packSize:450,unit:'г',packLabel:'пачка 450 г',category:'Крупы и хлеб',pyaterochka:119,baton:109},
+  'Гречка сухая': {packSize:800,unit:'г',packLabel:'пачка 800 г',category:'Крупы и хлеб',pyaterochka:109,baton:99},
+  'Груша': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:169,baton:155},
+  'Йогурт натуральный': {packSize:250,unit:'г',packLabel:'стакан 250 г',category:'Белковые продукты',pyaterochka:79,baton:72},
+  'Йогурт соевый': {packSize:250,unit:'г',packLabel:'стакан 250 г',category:'Белковые продукты',pyaterochka:119,baton:109},
+  'Кабачок': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:139,baton:125},
+  'Капуста': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:59,baton:54},
+  'Картофель': {packSize:2000,unit:'г',packLabel:'сетка 2 кг',category:'Овощи, фрукты и другое',pyaterochka:119,baton:105},
+  'Корица': {packSize:20,unit:'г',packLabel:'пакетик 20 г',category:'Овощи, фрукты и другое',pyaterochka:49,baton:45},
+  'Куриное филе': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Белковые продукты',pyaterochka:449,baton:419},
+  'Лапша сухая': {packSize:400,unit:'г',packLabel:'пачка 400 г',category:'Крупы и хлеб',pyaterochka:89,baton:82},
+  'Лук': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:49,baton:44},
+  'Макароны сухие': {packSize:450,unit:'г',packLabel:'пачка 450 г',category:'Крупы и хлеб',pyaterochka:69,baton:62},
+  'Масло растительное': {packSize:900,unit:'г',packLabel:'бутылка 1 л (~900 г)',category:'Овощи, фрукты и другое',pyaterochka:159,baton:145},
+  'Молоко': {packSize:900,unit:'мл',packLabel:'пакет 900 мл',category:'Белковые продукты',pyaterochka:89,baton:82},
+  'Морковь': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:49,baton:44},
+  'Мёд': {packSize:250,unit:'г',packLabel:'банка 250 г',category:'Овощи, фрукты и другое',pyaterochka:189,baton:175},
+  'Напиток соевый': {packSize:1000,unit:'мл',packLabel:'пакет 1 л',category:'Белковые продукты',pyaterochka:139,baton:129},
+  'Нут варёный': {packSize:400,unit:'г',packLabel:'банка 400 г',category:'Белковые продукты',pyaterochka:109,baton:99},
+  'Овощная смесь': {packSize:400,unit:'г',packLabel:'пакет 400 г',category:'Овощи, фрукты и другое',pyaterochka:119,baton:109},
+  'Овсяные хлопья': {packSize:500,unit:'г',packLabel:'пачка 500 г',category:'Крупы и хлеб',pyaterochka:89,baton:79},
+  'Огурец': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:169,baton:149},
+  'Орехи': {packSize:150,unit:'г',packLabel:'пакет 150 г',category:'Белковые продукты',pyaterochka:189,baton:169},
+  'Помидор': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:199,baton:179},
+  'Рис сухой': {packSize:900,unit:'г',packLabel:'пачка 900 г',category:'Крупы и хлеб',pyaterochka:119,baton:109},
+  'Рыба белая': {packSize:400,unit:'г',packLabel:'пакет 400 г',category:'Белковые продукты',pyaterochka:269,baton:249},
+  'Семена льна': {packSize:150,unit:'г',packLabel:'пакет 150 г',category:'Белковые продукты',pyaterochka:99,baton:89},
+  'Семена тыквы': {packSize:100,unit:'г',packLabel:'пакет 100 г',category:'Белковые продукты',pyaterochka:139,baton:125},
+  'Соевый соус': {packSize:150,unit:'мл',packLabel:'бутылка 150 мл',category:'Овощи, фрукты и другое',pyaterochka:79,baton:72},
+  'Сыр': {packSize:200,unit:'г',packLabel:'кусок 200 г',category:'Белковые продукты',pyaterochka:179,baton:165},
+  'Творог': {packSize:180,unit:'г',packLabel:'пачка 180 г',category:'Белковые продукты',pyaterochka:99,baton:92},
+  'Томатный соус': {packSize:350,unit:'г',packLabel:'пакет/банка 350 г',category:'Овощи, фрукты и другое',pyaterochka:89,baton:79},
+  'Тофу': {packSize:200,unit:'г',packLabel:'упаковка 200 г',category:'Белковые продукты',pyaterochka:159,baton:149},
+  'Фасоль консервированная': {packSize:400,unit:'г',packLabel:'банка 400 г',category:'Белковые продукты',pyaterochka:89,baton:82},
+  'Филе индейки': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Белковые продукты',pyaterochka:599,baton:559},
+  'Хлеб цельнозерновой': {packSize:400,unit:'г',packLabel:'буханка 400 г',category:'Крупы и хлеб',pyaterochka:89,baton:79},
+  'Хлебцы': {packSize:100,unit:'г',packLabel:'пачка 100 г',category:'Крупы и хлеб',pyaterochka:69,baton:62},
+  'Хумус': {packSize:200,unit:'г',packLabel:'упаковка 200 г',category:'Белковые продукты',pyaterochka:129,baton:119},
+  'Чечевица сухая': {packSize:450,unit:'г',packLabel:'пачка 450 г',category:'Крупы и хлеб',pyaterochka:129,baton:119},
+  'Шпинат': {packSize:100,unit:'г',packLabel:'пакет 100 г',category:'Овощи, фрукты и другое',pyaterochka:99,baton:89},
+  'Яблоко': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:119,baton:109},
+  'Ягоды': {packSize:300,unit:'г',packLabel:'пакет 300 г',category:'Овощи, фрукты и другое',pyaterochka:189,baton:175},
+  'Яйца': {packSize:10,unit:'шт.',packLabel:'упаковка 10 шт.',category:'Белковые продукты',pyaterochka:129,baton:119}
+};
+
+let currentPlan = null;
+let toastTimer = null;
+
+function getFormData(){
+  return {
+    age:Number($('age').value),height:Number($('height').value),weight:Number($('weight').value),sex:$('sex').value,
+    activity:Number($('activity').value),goal:document.querySelector('input[name="goal"]:checked')?.value||'maintain',
+    diet:$('diet').value,mealCount:Number($('mealCount').value),budget:Number($('budget').value||0),store:$('store').value,
+    cookTime:$('cookTime').value,avoid:$('avoid').value.split(',').map(x=>x.trim().toLocaleLowerCase('ru')).filter(Boolean),
+    notes:$('notes').value.trim(),medical:$('medical').checked
+  };
+}
+function validate(data){
+  if(!Number.isFinite(data.age)||data.age<5||data.age>100)return 'Укажи возраст от 5 до 100 лет.';
+  if(!Number.isFinite(data.height)||data.height<80||data.height>250)return 'Проверь рост: допустимый диапазон — 80–250 см.';
+  if(!Number.isFinite(data.weight)||data.weight<15||data.weight>350)return 'Проверь вес: допустимый диапазон — 15–350 кг.';
+  if(data.age>=18&&data.sex==='unspecified')return 'Для взрослого расчёта выбери пол или включи режим без медицинских расчётов.';
+  if(!Number.isFinite(data.budget)||data.budget<500||data.budget>100000)return 'Укажи бюджет на неделю от 500 до 100 000 ₽.';
+  return '';
+}
+function adultEstimate(d){
+  const s=d.sex==='male'?5:-161;
+  const bmr=10*d.weight+6.25*d.height-5*d.age+s;
+  const tdee=bmr*d.activity;
+  let target=tdee;
+  if(d.goal==='gain')target=tdee*1.08;
+  if(d.goal==='lose')target=tdee*.90;
+  const floor=d.sex==='male'?1600:1400;
+  let floorApplied=false;
+  if(d.goal==='lose'&&target<floor){target=floor;floorApplied=true;}
+  const protein=Math.round(d.weight*(d.goal==='lose'?1.5:1.35));
+  const fat=Math.round(target*.30/9);
+  const carbs=Math.max(0,Math.round((target-protein*4-fat*9)/4));
+  return {bmr:Math.round(bmr),tdee:Math.round(tdee),target:Math.round(target),protein,fat,carbs,floorApplied};
+}
+function recipeAllowed(r,d){
+  if(!r.diet.includes(d.diet))return false;
+  if(d.cookTime==='quick'&&!r.quick)return false;
+  const text=[r.name,...r.items.map(x=>x[0])].join(' ').toLocaleLowerCase('ru');
+  const aliases={
+    'молоко':['молоко','йогурт','творог','сыр'], 'молочный':['молоко','йогурт','творог','сыр'], 'лактоза':['молоко','йогурт','творог','сыр'],
+    'арахис':['арахис','орехи'], 'орех':['орехи','арахис'], 'орехи':['орехи','арахис'],
+    'глютен':['хлеб','макароны','булгур','лапша','хлебцы','овсяные хлопья'], 'пшеница':['хлеб','макароны','булгур','лапша'],
+    'соя':['тофу','соевый','соевый соус'], 'яйцо':['яйца'], 'яйца':['яйца'], 'рыба':['рыба']
+  };
+  return !d.avoid.some(term=>{
+    if(!term)return false;
+    const terms=aliases[term]||[term];
+    return terms.some(alias=>text.includes(alias));
+  });
+}
+function getProductPrice(name,store){
+  const item=productCatalog[name];
+  if(!item)return {packSize:1000,unit:'г',packLabel:'условная упаковка',price:100,category:'Овощи, фрукты и другое'};
+  const price=store==='baton'?item.baton:store==='average'?Math.round((item.pyaterochka+item.baton)/2):item.pyaterochka;
+  return {...item,price};
+}
+function marginalPurchaseCost(recipe,amounts,store,scale){
+  let total=0;
+  recipe.items.forEach(([name,amount,unit])=>{
+    const key=name+'|'+unit;const info=getProductPrice(name,store);const before=amounts.get(key)||0;
+    const oldPacks=Math.ceil(before/info.packSize);const newPacks=Math.ceil((before+amount*scale)/info.packSize);
+    total+=(newPacks-oldPacks)*info.price;
+  });
+  return total;
+}
+function addRecipeAmounts(recipe,amounts,scale){
+  recipe.items.forEach(([name,amount,unit])=>{const key=name+'|'+unit;amounts.set(key,(amounts.get(key)||0)+amount*scale);});
+}
+function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale){
+  let options=recipes.filter(r=>r.type===type&&recipeAllowed(r,d));
+  if(!options.length)return null;
+  const notUsed=options.filter(r=>!used.has(r.id));
+  if(notUsed.length)options=notUsed;
+  if(d.budget>0){
+    const varietyPenalty=d.budget<2500?5:d.budget<4000?35:d.budget<6000?110:160;
+    return options.map(r=>({r,score:marginalPurchaseCost(r,amounts,d.store,scale)+(repeatCounts.get(r.id)||0)*varietyPenalty}))
+      .sort((a,b)=>a.score-b.score||a.r.cost-b.r.cost)[0].r;
+  }
+  const start=(dayIndex*3+(type==='breakfast'?0:type==='snack'?2:type==='lunch'?1:3))%options.length;
+  return options[start];
+}
+function buildShoppingCart(days,store){
+  const amounts=new Map();
+  days.forEach(day=>day.meals.forEach(meal=>meal.ingredients.forEach(i=>{
+    const key=i.name+'|'+i.unit;amounts.set(key,(amounts.get(key)||0)+i.amount);
+  })));
+  const cart=[...amounts.entries()].map(([key,amount])=>{
+    const [name,unit]=key.split('|');const info=getProductPrice(name,store);
+    const packCount=Math.max(1,Math.ceil(amount/info.packSize));
+    return {key,name,unit,amount,packSize:info.packSize,packLabel:info.packLabel,category:info.category,price:info.price,packCount,total:packCount*info.price};
+  }).sort((a,b)=>a.category.localeCompare(b.category,'ru')||a.name.localeCompare(b.name,'ru'));
+  return cart;
+}
+function updateCartTotals(plan){
+  plan.cartCost=plan.cart.reduce((sum,item)=>sum+item.packCount*item.price,0);
+  plan.cartCost=Math.round(plan.cartCost);
+}
+function buildMealTypes(count){
+  if(count===3)return ['breakfast','lunch','dinner'];
+  if(count===5)return ['breakfast','snack','lunch','snack2','dinner'];
+  return ['breakfast','snack','lunch','dinner'];
+}
+function scaleAmount(amount,scale,unit){
+  const n=amount*scale;
+  if(unit==='шт.')return `${Math.max(1,Math.round(n*2)/2)} шт.`;
+  if(unit==='мл')return `${Math.round(n/10)*10} мл`;
+  return `${Math.max(1,Math.round(n/5)*5)} г`;
+}
+function createPlan(d){
+  const adult=d.age>=18&&!d.medical;
+  const calc=adult?adultEstimate(d):null;
+  const mealTypes=buildMealTypes(d.mealCount);
+  const baseCalories={3:1650,4:1850,5:2050}[d.mealCount];
+  const rawScale=calc?calc.target/baseCalories:1;
+  const scale=calc?Math.max(.78,Math.min(1.35,rawScale)):1;
+  const scaleCapped=!!calc&&Math.abs(rawScale-scale)>.001;
+  const days=[];const amounts=new Map();const repeatCounts=new Map();
+  for(let day=0;day<7;day++){
+    const used=new Set();const meals=[];
+    for(const type of mealTypes){
+      const recipeType=type==='snack2'?'snack':type;
+      const recipe=pickRecipe(recipeType,d,day,used,amounts,repeatCounts,scale);
+      if(!recipe)continue;
+      used.add(recipe.id);repeatCounts.set(recipe.id,(repeatCounts.get(recipe.id)||0)+1);addRecipeAmounts(recipe,amounts,scale);
+      const mealScale=scale;
+      meals.push({type,recipe,scale:mealScale,kcal:Math.round(recipe.kcal*mealScale),p:Math.round(recipe.p*mealScale),c:Math.round(recipe.c*mealScale),f:Math.round(recipe.f*mealScale),cost:Math.round(recipe.cost*mealScale),ingredients:recipe.items.map(([name,amount,unit])=>({name,amount:amount*mealScale,unit}))});
+    }
+    days.push({name:dayNames[day],meals});
+  }
+  const totals=days.map(day=>day.meals.reduce((a,m)=>({kcal:a.kcal+m.kcal,p:a.p+m.p,c:a.c+m.c,f:a.f+m.f,cost:a.cost+m.cost}),{kcal:0,p:0,c:0,f:0,cost:0}));
+  const avg=totals.reduce((a,t)=>({kcal:a.kcal+t.kcal,p:a.p+t.p,c:a.c+t.c,f:a.f+t.f,cost:a.cost+t.cost}),{kcal:0,p:0,c:0,f:0,cost:0});
+  Object.keys(avg).forEach(k=>avg[k]=Math.round(avg[k]/7));
+  const plan={data:d,adult,calc,days,totals,avg,scale,rawScale,scaleCapped,baseCalories,cart:[],cartCost:0};
+  plan.cart=buildShoppingCart(days,d.store);updateCartTotals(plan);
+  return plan;
+}
+function formatIngredients(meal){return meal.ingredients.map(i=>`${i.name} — ${scaleAmount(i.amount,1,i.unit)}`).join(' · ');}
+function renderSummary(d){
+  $('summaryTitle').textContent=d.age<18?'Профиль подростка':`Профиль: ${d.goal==='gain'?'набор массы':d.goal==='lose'?'снижение веса':'поддержание веса'}`;
+  $('summarySubtitle').textContent=d.age<18?'Безопасный режим питания с учётом возраста и роста.':d.medical?'Общий план без медицинских расчётов.':'Параметры сохранены для расчёта рациона.';
+  $('summaryHeight').textContent=`${d.height} см`;$('summaryWeight').textContent=`${d.weight} кг`;$('summaryAge').textContent=`${d.age} лет`;
+  $('summaryProgress').style.width='100%';
+}
+function renderBudgetNotice(plan){
+  const d=plan.data;const budget=$('budgetNotice');let message='';
+  if(d.budget>0)message=`Ориентировочная корзина на 7 дней (${storeName(d.store)}): ${plan.cartCost.toLocaleString('ru-RU')} ₽ при бюджете ${d.budget.toLocaleString('ru-RU')} ₽. `+(plan.cartCost<=d.budget?`Остаётся примерно ${(d.budget-plan.cartCost).toLocaleString('ru-RU')} ₽.`:`Превышение бюджета — примерно ${(plan.cartCost-d.budget).toLocaleString('ru-RU')} ₽. Попробуй увеличить бюджет или изменить предпочтения; приложение не будет урезать порции до небезопасного уровня.`);
+  if(plan.scaleCapped)message+=(message?' ':'')+'Порции ограничены безопасным диапазоном масштабирования, поэтому меню может не полностью совпасть с расчётной энергопотребностью. Для точной индивидуальной настройки обратись к диетологу.';
+  budget.textContent=message;budget.classList.toggle('hidden',!message);
+}
+function renderPlan(plan, scrollToPlan=true){
+  currentPlan=plan;
+  const {data:d,adult,calc}=plan;
+  $('results').classList.remove('hidden');
+  $('planSubtitle').textContent=adult?`План на 7 дней • ${d.mealCount} приёма пищи • ${d.goal==='gain'?'плавный набор':d.goal==='lose'?'умеренное снижение':'поддержание'}`:'Пример сбалансированного меню на 7 дней. Размер порций можно корректировать по аппетиту и рекомендациям специалиста.';
+  const metrics=$('metricsGrid');metrics.innerHTML='';
+  if(adult){
+    const items=[['Ориентир энергии',`${calc.target} ккал`,'Расчётная оценка на день'],['Белок',`${calc.protein} г`,'Ориентир на день'],['Жиры',`${calc.fat} г`,'Ориентир на день'],['Углеводы',`${calc.carbs} г`,'Ориентир на день']];
+    items.forEach(([label,value,sub])=>metrics.insertAdjacentHTML('beforeend',`<div class="metric-card"><span>${label}</span><b>${value}</b><small>${sub}</small></div>`));
+  }else{
+    const items=[['Возраст',`${d.age} лет`,'Учитывается режим для возраста'],['Рост',`${d.height} см`,'Сохранён в профиле'],['Вес',`${d.weight} кг`,'Без взрослой оценки ИМТ'],['Питание',`${d.mealCount} раза`,'Регулярный режим']];
+    items.forEach(([label,value,sub])=>metrics.insertAdjacentHTML('beforeend',`<div class="metric-card"><span>${label}</span><b>${value}</b><small>${sub}</small></div>`));
+  }
+  const safety=$('safetyNotice');
+  if(d.age<18){safety.classList.remove('hidden');safety.textContent='Режим до 18 лет: приложение не рассчитывает дефицит калорий, целевой вес или взрослые нормы БЖУ. Рост и вес у подростков оценивают по возрастно-половым кривым роста. Не используй этот пример для похудения; при вопросах о весе обратись к педиатру или квалифицированному диетологу.';}
+  else if(d.medical){safety.classList.remove('hidden');safety.textContent='Указаны особенности здоровья. Поэтому приложение не рассчитывает калории и БЖУ и показывает только общий пример меню. При медицинских состояниях рацион, ограничения и порции нужно согласовать с лечащим специалистом.';}
+  else{safety.classList.add('hidden');}
+  renderBudgetNotice(plan);
+  const daysGrid=$('daysGrid');daysGrid.innerHTML='';
+  plan.days.forEach((day,index)=>{
+    const total=plan.totals[index];
+    let rows='';
+    day.meals.forEach((meal,mealIndex)=>{
+      const meta=mealMeta[meal.type];
+      rows+=`<div class="meal-row"><div class="meal-icon">${meal.recipe.icon||meta.icon}</div><div class="meal-info"><h4>${meta.label}: ${meal.recipe.name}</h4><p>${formatIngredients(meal)}</p>${adult?`<div class="meal-kcal">≈ ${meal.kcal} ккал</div>`:''}</div><div class="meal-meta"><span class="meal-time">${meta.time}</span><button class="replace-meal" type="button" data-day="${index}" data-meal="${mealIndex}" aria-label="Заменить блюдо: ${meal.recipe.name}" title="Заменить блюдо">↻</button></div></div>`;
+    });
+    daysGrid.insertAdjacentHTML('beforeend',`<article class="day-card"><div class="day-head"><h3>${day.name}</h3><span>${d.mealCount} приёма пищи</span></div><div class="meal-list">${rows||'<p class="empty-meals">Для выбранных ограничений не найдено подходящих блюд.</p>'}</div><div class="day-foot"><span>Ориентировочная стоимость</span><b>≈ ${total.cost} ₽</b></div></article>`);
+  });
+  renderShopping(plan);
+  if(scrollToPlan)$('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function recalculatePlanTotals(plan){
+  plan.totals=plan.days.map(day=>day.meals.reduce((a,m)=>({kcal:a.kcal+m.kcal,p:a.p+m.p,c:a.c+m.c,f:a.f+m.f,cost:a.cost+m.cost}),{kcal:0,p:0,c:0,f:0,cost:0}));
+  plan.avg=plan.totals.reduce((a,t)=>({kcal:a.kcal+t.kcal,p:a.p+t.p,c:a.c+t.c,f:a.f+t.f,cost:a.cost+t.cost}),{kcal:0,p:0,c:0,f:0,cost:0});
+  Object.keys(plan.avg).forEach(k=>plan.avg[k]=Math.round(plan.avg[k]/7));
+}
+function replaceMeal(dayIndex,mealIndex){
+  if(!currentPlan)return;
+  const day=currentPlan.days[dayIndex];const old=day?.meals[mealIndex];if(!old)return;
+  const d=currentPlan.data;const type=old.type==='snack2'?'snack':old.type;
+  const used=new Set(day.meals.filter((m,i)=>i!==mealIndex).map(m=>m.recipe.id));
+  let options=recipes.filter(r=>r.type===type&&recipeAllowed(r,d)&&!used.has(r.id)&&r.id!==old.recipe.id);
+  if(!options.length){showToast('Нет других блюд с такими ограничениями');return;}
+  options.sort((a,b)=>a.cost-b.cost);
+  const chosen=options[(dayIndex+mealIndex)%options.length];
+  const scale=currentPlan.scale;
+  day.meals[mealIndex]={type:old.type,recipe:chosen,scale,kcal:Math.round(chosen.kcal*scale),p:Math.round(chosen.p*scale),c:Math.round(chosen.c*scale),f:Math.round(chosen.f*scale),cost:Math.round(chosen.cost*scale),ingredients:chosen.items.map(([name,amount,unit])=>({name,amount:amount*scale,unit}))};
+  recalculatePlanTotals(currentPlan);currentPlan.cart=buildShoppingCart(currentPlan.days,d.store);updateCartTotals(currentPlan);renderPlan(currentPlan,false);showToast('Блюдо заменено');
+}
+
+function storeName(store){return store==='baton'?'Батон':store==='average'?'средние цены':'Пятёрочка';}
+function formatCartAmount(amount,unit){
+  if(unit==='шт.')return `${Math.round(amount*2)/2} шт.`;
+  if(unit==='мл')return `${Math.round(amount/10)*10} мл`;
+  return `${Math.round(amount/5)*5} г`;
+}
+function renderCartSummary(plan){
+  const budget=plan.data.budget||0;const cost=plan.cartCost||0;const percent=budget?Math.min(100,Math.round(cost/budget*100)):0;
+  const status=cost<=budget?`В бюджете · запас ${Math.max(0,budget-cost).toLocaleString('ru-RU')} ₽`:`Выше бюджета на ${(cost-budget).toLocaleString('ru-RU')} ₽`;
+  const link=plan.data.store==='pyaterochka'?'https://5ka.ru/catalog/':plan.data.store==='baton'?'https://www.krasyar.ru/about/baton/':'';
+  $('cartSummary').innerHTML=`<div class="cart-summary-top"><div><span class="summary-label">МАГАЗИН И БЮДЖЕТ</span><h3>${storeName(plan.data.store)} · 7 дней</h3><p>Примерная стоимость упаковок, которые нужно купить для меню.</p></div><div class="cart-total"><b>${cost.toLocaleString('ru-RU')} ₽</b><small>оценка корзины</small></div></div><div class="cart-progress"><span style="width:${percent}%"></span></div><div class="cart-summary-bottom"><b class="${cost<=budget?'within-budget':'over-budget'}">${status}</b><span>Бюджет: ${budget.toLocaleString('ru-RU')} ₽</span></div><small class="cart-disclaimer">Цены демонстрационные, не обновляются автоматически. Они могут отличаться по городу, магазину, акциям и карте лояльности. Исправь цену упаковки в списке ниже, если знаешь цену на полке. ${link?`<a href="${link}" target="_blank" rel="noopener">${plan.data.store==='pyaterochka'?'Открыть каталог Пятёрочки':'Информация о сети Батон'}</a>`:''}</small>`;
+}
+function renderShopping(plan){
+  const shopping=$('shoppingList');shopping.innerHTML='';
+  const groups=['Крупы и хлеб','Белковые продукты','Овощи, фрукты и другое'];
+  groups.forEach(group=>{
+    const items=plan.cart.filter(i=>i.category===group);if(!items.length)return;
+    let html=`<div class="shopping-group"><h3>${group}</h3>`;
+    items.forEach(item=>{
+      const index=plan.cart.indexOf(item);
+      html+=`<div class="shopping-line"><label class="shopping-item"><input type="checkbox"><span><b>${item.name}</b><small>Нужно: ${formatCartAmount(item.amount,item.unit)} · купить: ${item.packCount} × ${item.packLabel}</small></span></label><div class="shopping-price"><label>₽ / уп.<input class="price-edit" type="number" min="0" step="1" value="${item.price}" data-index="${index}" aria-label="Цена упаковки: ${item.name}"></label><b><span class="line-total">${item.total.toLocaleString('ru-RU')}</span> ₽</b></div></div>`;
+    });
+    html+='</div>';shopping.insertAdjacentHTML('beforeend',html);
+  });
+  if(!plan.cart.length)shopping.innerHTML='<p>Нет продуктов для списка. Проверь ограничения и попробуй другие параметры.</p>';
+  renderCartSummary(plan);renderBudgetNotice(plan);
+}
+function saveProfile(d){
+  const safe={...d,avoid:d.avoid.join(', ')};
+  try{localStorage.setItem('nutrix-profile',JSON.stringify(safe));}catch(e){}
+}
+function loadProfile(){
+  try{
+    const saved=JSON.parse(localStorage.getItem('nutrix-profile')||'null');if(!saved)return;
+    ['age','height','weight','sex','activity','diet','mealCount','budget','store','cookTime','notes','medical'].forEach(k=>{if(saved[k]!==undefined)$(k).type==='checkbox'?$(k).checked=!!saved[k]:$(k).value=saved[k];});
+    $('avoid').value=saved.avoid||'';
+    const radio=document.querySelector(`input[name="goal"][value="${saved.goal}"]`);if(radio)radio.checked=true;
+    updateGoalStyles();updateSummaryPreview();
+  }catch(e){/* повреждённые локальные данные просто игнорируются */}
+}
+function updateStoreInfo(){
+  const store=$('store')?.value;const info=$('storeInfo');if(!info)return;
+  if(store==='baton')info.innerHTML='«Батон» — региональная сеть, представленная в Красноярском крае, Хакасии и Тыве. Если в твоём городе этой сети нет, выбери другой магазин. <a href="https://www.krasyar.ru/about/baton/" target="_blank" rel="noopener">О сети</a>';
+  else if(store==='pyaterochka')info.innerHTML='Каталог Пятёрочки доступен онлайн, но цены и наличие зависят от выбранного адреса доставки и акций. <a href="https://5ka.ru/catalog/" target="_blank" rel="noopener">Открыть каталог</a>';
+  else info.textContent='Используется усреднённая оценка между двумя наборами цен. Фактическая сумма зависит от магазина и региона.';
+}
+function updateGoalStyles(){document.querySelectorAll('.goal-option').forEach(el=>el.classList.toggle('selected',el.querySelector('input').checked));}
+function updateSummaryPreview(){
+  const d=getFormData();$('summaryHeight').textContent=d.height?`${d.height} см`:'—';$('summaryWeight').textContent=d.weight?`${d.weight} кг`:'—';$('summaryAge').textContent=d.age?`${d.age} лет`:'—';
+  $('summaryTitle').textContent=d.age<18?'Профиль подростка':'Твой профиль';
+  $('summarySubtitle').textContent=d.age<18?'Для подростков используется безопасный режим без подсчёта дефицита.':'Заполни параметры, чтобы собрать рацион под свои цели.';
+}
+function showToast(message){const t=$('toast');t.textContent=message;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2400);}
+function downloadText(filename,text){const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);}
+function exportPlan(){
+  if(!currentPlan)return;
+  const p=currentPlan;let out='NUTRIX — РАЦИОН НА 7 ДНЕЙ\n\n';
+  out+=`Профиль: ${p.data.age} лет, ${p.data.height} см, ${p.data.weight} кг\nЦель: ${p.data.age<18?'безопасный режим для несовершеннолетних':p.data.goal}\nМагазин: ${storeName(p.data.store)}\nБюджет на 7 дней: ${p.data.budget} ₽\nОценка корзины: ${p.cartCost} ₽\n\n`;
+  p.days.forEach((day,i)=>{out+=`${day.name}\n`;day.meals.forEach(m=>{out+=`- ${mealMeta[m.type].label}: ${m.recipe.name}\n  ${formatIngredients(m)}\n`;});if(p.adult)out+=`Итого: около ${p.totals[i].kcal} ккал; Б ${p.totals[i].p} г / Ж ${p.totals[i].f} г / У ${p.totals[i].c} г\n`;out+='\n';});
+  out+='\nСПИСОК ПОКУПОК\n';p.cart.forEach(i=>{out+=`- ${i.name}: нужно ${formatCartAmount(i.amount,i.unit)}, купить ${i.packCount} × ${i.packLabel}, около ${i.total} ₽\n`;});
+  out+='Примечание: примерный план, не медицинская рекомендация. Цены и пищевая ценность ориентировочные, их можно уточнить вручную.\n';downloadText('nutrix-racion-na-nedelyu.txt',out);
+}
+function copyShopping(){
+  if(!currentPlan?.cart?.length){showToast('Сначала составь рацион');return;}
+  const text='СПИСОК ПОКУПОК NUTRIX\n'+currentPlan.cart.map(i=>`□ ${i.name}: ${formatCartAmount(i.amount,i.unit)}; купить ${i.packCount} × ${i.packLabel}; ≈ ${i.total} ₽`).join('\n')+`\n\nИтого: ≈ ${currentPlan.cartCost} ₽`;
+  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(()=>showToast('Список скопирован')).catch(()=>downloadText('spisok-pokupok.txt',text));
+  else downloadText('spisok-pokupok.txt',text);
+}
+
+$('profileForm').addEventListener('submit',e=>{
+  e.preventDefault();const d=getFormData();const err=validate(d);$('formError').textContent=err;if(err)return;
+  const plan=createPlan(d);saveProfile(d);renderSummary(d);renderPlan(plan);
+});
+document.querySelectorAll('input[name="goal"]').forEach(r=>r.addEventListener('change',updateGoalStyles));
+['age','height','weight','sex','activity','diet','mealCount','budget','store','cookTime','avoid','notes','medical'].forEach(id=>{if($(id)){$(id).addEventListener('input',updateSummaryPreview);$(id).addEventListener('change',updateSummaryPreview);}});
+$('store').addEventListener('change',updateStoreInfo);
+$('shoppingList').addEventListener('change',e=>{const input=e.target.closest('.price-edit');if(!input||!currentPlan)return;const item=currentPlan.cart[Number(input.dataset.index)];if(!item)return;item.price=Math.max(0,Number(input.value)||0);item.total=item.packCount*item.price;updateCartTotals(currentPlan);const line=input.closest('.shopping-line')?.querySelector('.line-total');if(line)line.textContent=item.total.toLocaleString('ru-RU');renderCartSummary(currentPlan);renderBudgetNotice(currentPlan);});
+$('resetForm').addEventListener('click',()=>{localStorage.removeItem('nutrix-profile');$('profileForm').reset();$('formError').textContent='';updateGoalStyles();updateSummaryPreview();updateStoreInfo();$('results').classList.add('hidden');showToast('Параметры сброшены');});
+$('daysGrid').addEventListener('click',e=>{const btn=e.target.closest('.replace-meal');if(btn)replaceMeal(Number(btn.dataset.day),Number(btn.dataset.meal));});
+$('printPlan').addEventListener('click',()=>window.print());
+$('downloadPlan').addEventListener('click',exportPlan);
+$('copyShopping').addEventListener('click',copyShopping);
+$('themeToggle').addEventListener('click',()=>{document.body.classList.toggle('dark');const dark=document.body.classList.contains('dark');$('themeToggle').textContent=dark?'☀':'☾';try{localStorage.setItem('nutrix-theme',dark?'dark':'light');}catch(e){}});
+try{if(localStorage.getItem('nutrix-theme')==='dark'){document.body.classList.add('dark');$('themeToggle').textContent='☀';}}catch(e){}
+loadProfile();updateSummaryPreview();updateStoreInfo();
