@@ -70,3 +70,5 @@
 body.dark .cloud-state{background:#3a3325;color:#e9d5a5}
 body.dark .cloud-state.is-online{background:#173d35;color:#91dfbf}
 @media(max-width:680px){.cloud-open-button{padding:8px 9px;font-size:9px}.cloud-open-button span{display:none}#cloudContent{padding:18px}.cloud-modal-head h2{font-size:20px}.cloud-section{padding:14px}.cloud-button-row>*{flex:1}.shared-view{padding-top:22px}.shared-view-head{padding:20px}.shared-days-grid{grid-template-columns:1fr}.shared-cart{grid-template-columns:1fr}.shared-shop-head{align-items:flex-start;flex-direction:column}.shared-actions>*{width:100%}.cloud-share-result{grid-template-columns:1fr}.cloud-share-result .cloud-link-button{grid-column:auto}}
+
+.shared-mode .top-nav{display:none}
