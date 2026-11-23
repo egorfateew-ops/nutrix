@@ -56,18 +56,65 @@
     info[1].forEach(step=>{const li=document.createElement('li');li.textContent=step;steps.appendChild(li);});
     $('recipeDialog').showModal();
   }
+  const restoredProgressPlans=new WeakSet();
+  function progressStorageKey(p){return 'nutrix-meal-progress:'+(p.progressId||'unknown');}
+  function completedCount(p){return Object.values(p.completedMeals||{}).filter(Boolean).length;}
+  function totalMealCount(p){return (p.days||[]).reduce((sum,day)=>sum+(day.meals||[]).length,0);}
+  function restoreMealProgress(p){
+    if(restoredProgressPlans.has(p))return;
+    const saved=read(progressStorageKey(p)),clean={};
+    Object.entries(saved||{}).forEach(([key,value])=>{if(/^([0-6]):([0-4])$/.test(key)&&value===true)clean[key]=true;});
+    p.completedMeals={...clean,...(p.completedMeals||{})};
+    Object.keys(p.completedMeals).forEach(key=>{if(p.completedMeals[key]!==true)delete p.completedMeals[key];});
+    write(progressStorageKey(p),p.completedMeals);restoredProgressPlans.add(p);
+  }
+  function updateMealProgressUI(){
+    const p=plan();if(!p)return;
+    restoreMealProgress(p);
+    const done=completedCount(p),total=totalMealCount(p),percent=total?Math.round(done/total*100):0;
+    const panel=$('mealWeekProgress');
+    if(panel)panel.innerHTML='<div class="meal-week-top"><div><span class="eyebrow">ТВОЯ НЕДЕЛЯ</span><b>'+done+' из '+total+' блюд отмечено</b></div><strong>'+percent+'%</strong></div><div class="meal-week-track"><span style="width:'+percent+'%"></span></div><small>Отмечай блюда после приёма пищи. Прогресс сохраняется вместе с рационом.</small>';
+    document.querySelectorAll('#daysGrid .day-card').forEach((card,index)=>{
+      const day=p.days[index];if(!day)return;
+      const dayDone=day.meals.reduce((sum,meal,mealIndex)=>sum+(p.completedMeals[index+':'+mealIndex]?1:0),0);
+      const label=card.querySelector('.day-head span');
+      if(label){label.textContent=dayDone+' / '+day.meals.length+' выполнено';label.classList.add('day-progress-label');}
+      day.meals.forEach((meal,mealIndex)=>{
+        const row=card.querySelectorAll('.meal-row')[mealIndex];if(!row)return;
+        const button=row.querySelector('.meal-check-button');if(!button)return;
+        const checked=!!p.completedMeals[index+':'+mealIndex];
+        button.classList.toggle('is-complete',checked);button.setAttribute('aria-pressed',String(checked));
+        button.textContent=checked?'Готово ✓':'Отметить';
+        button.title=checked?'Убрать отметку о съеденном блюде':'Отметить блюдо как съеденное';
+      });
+    });
+  }
+  function ensureMealProgressPanel(){
+    const grid=$('daysGrid');if(!grid)return;
+    let panel=$('mealWeekProgress');
+    if(!panel){panel=document.createElement('section');panel.id='mealWeekProgress';panel.className='meal-week-progress';grid.parentNode.insertBefore(panel,grid);}
+  }
   function enhanceMeals(){
     const p=plan();if(!p)return;
+    restoreMealProgress(p);ensureMealProgressPanel();
     document.querySelectorAll('#daysGrid .meal-row').forEach(row=>{
-      const replace=row.querySelector('.replace-meal');if(!replace||row.querySelector('.recipe-details'))return;
-      const actions=document.createElement('div');actions.className='meal-action-buttons';
-      const detail=document.createElement('button');detail.type='button';detail.className='recipe-details';detail.textContent='Рецепт';detail.title='Посмотреть ингредиенты и способ приготовления';detail.dataset.day=replace.dataset.day;detail.dataset.meal=replace.dataset.meal;
-      replace.parentNode.insertBefore(actions,replace);actions.append(detail,replace);
+      const replace=row.querySelector('.replace-meal');if(!replace)return;
+      let actions=row.querySelector('.meal-action-buttons');
+      if(!actions){actions=document.createElement('div');actions.className='meal-action-buttons';replace.parentNode.insertBefore(actions,replace);}
+      if(!actions.querySelector('.recipe-details')){
+        const detail=document.createElement('button');detail.type='button';detail.className='recipe-details';detail.textContent='Рецепт';detail.title='Посмотреть ингредиенты и способ приготовления';detail.dataset.day=replace.dataset.day;detail.dataset.meal=replace.dataset.meal;actions.appendChild(detail);
+      }
+      if(!actions.querySelector('.meal-check-button')){
+        const check=document.createElement('button');check.type='button';check.className='meal-check-button';check.dataset.day=replace.dataset.day;check.dataset.meal=replace.dataset.meal;check.textContent='Отметить';actions.appendChild(check);
+      }
+      if(replace.parentNode!==actions)actions.appendChild(replace);
     });
     document.querySelectorAll('#daysGrid .day-card').forEach((card,index)=>{
-      const summary=card.querySelector('.day-foot span');const total=p.totals[index];if(!summary||!total)return;
-      const nextText=p.adult?total.kcal+' ккал · Б '+total.p+' г · Ж '+total.f+' г · У '+total.c+' г':'Порции — примерные';if(summary.textContent!==nextText)summary.textContent=nextText;
+      const summary=card.querySelector('.day-foot span'),total=p.totals[index];if(!summary||!total)return;
+      const nextText=p.adult?total.kcal+' ккал · Б '+total.p+' г · Ж '+total.f+' г · У '+total.c+' г':'Порции — примерные';
+      if(summary.textContent!==nextText)summary.textContent=nextText;
     });
+    updateMealProgressUI();
   }
   function addShoppingControls(){
     const heading=document.querySelector('.shopping-heading');if(!heading||$('clearShoppingChecks'))return;
@@ -115,5 +162,17 @@
   if(days)new MutationObserver(runEnhancements).observe(days,{childList:true,subtree:true});
   if(shopping)new MutationObserver(runEnhancements).observe(shopping,{childList:true,subtree:true});
   runEnhancements();registerOffline();
-  if(days)days.addEventListener('click',event=>{const button=event.target.closest('.recipe-details');if(button)openRecipe(Number(button.dataset.day),Number(button.dataset.meal));});
+  if(days)days.addEventListener('click',event=>{
+    const check=event.target.closest('.meal-check-button');
+    if(check){
+      const p=plan();if(!p)return;
+      const day=Number(check.dataset.day),meal=Number(check.dataset.meal),key=day+':'+meal;
+      if(!p.days[day]||!p.days[day].meals[meal])return;
+      if(p.completedMeals[key])delete p.completedMeals[key];else p.completedMeals[key]=true;
+      write(progressStorageKey(p),p.completedMeals);updateMealProgressUI();
+      window.dispatchEvent(new CustomEvent('nutrix:meal-progress-changed',{detail:{plan:p,day,meal,completed:!!p.completedMeals[key]}}));
+      return;
+    }
+    const button=event.target.closest('.recipe-details');if(button)openRecipe(Number(button.dataset.day),Number(button.dataset.meal));
+  });
 })();
