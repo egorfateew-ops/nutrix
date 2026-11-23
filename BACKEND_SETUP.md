@@ -16,15 +16,16 @@
 В таблице meal_plans хранятся приватные данные профиля. Другие участники не получают к ним прямого доступа. Они могут работать только с общим списком покупок.
 
 ## 3. Развернуть функции защищённого обмена
-Нужен Node.js и Supabase CLI. В терминале в папке репозитория выполни:
+Нужен Node.js 20 или новее. Склонируй репозиторий на компьютер и открой терминал в папке проекта. Выполни:
 
 ~~~bash
-npm install -g supabase
-supabase login
-supabase link --project-ref YOUR_PROJECT_REF
-supabase functions deploy get-shared-plan
-supabase functions deploy join-shared-plan
+npx supabase@latest login
+npx supabase@latest link --project-ref YOUR_PROJECT_REF
+npx supabase@latest functions deploy get-shared-plan
+npx supabase@latest functions deploy join-shared-plan
 ~~~
+
+Если Windows спросит разрешение на запуск команды, подтверди. Команды используют уже подготовленные файлы из папки supabase.
 
 YOUR_PROJECT_REF — идентификатор проекта из его URL в Supabase Dashboard. Файл supabase/config.toml уже задаёт публичный режим только для чтения общей ссылки. Присоединение к общему рациону требует действующей авторизации.
 
