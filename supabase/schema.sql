@@ -35,6 +35,13 @@ create table if not exists public.shopping_lists (
   price_overrides jsonb not null default '{}'::jsonb,
   updated_at timestamptz not null default now()
 );
+create table if not exists public.training_plans (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null unique references auth.users(id) on delete cascade,
+  plan_data jsonb not null,
+  updated_at timestamptz not null default now()
+);
+
 create table if not exists public.progress_entries (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
@@ -87,17 +94,20 @@ alter table public.meal_plans enable row level security;
 alter table public.plan_members enable row level security;
 alter table public.shopping_lists enable row level security;
 alter table public.progress_entries enable row level security;
+alter table public.training_plans enable row level security;
 
 revoke all on table public.profiles from anon, authenticated;
 revoke all on table public.meal_plans from anon, authenticated;
 revoke all on table public.plan_members from anon, authenticated;
 revoke all on table public.shopping_lists from anon, authenticated;
 revoke all on table public.progress_entries from anon, authenticated;
+revoke all on table public.training_plans from anon, authenticated;
 grant select, insert, update, delete on table public.profiles to authenticated;
 grant select, insert, update, delete on table public.meal_plans to authenticated;
 grant select on table public.plan_members to authenticated;
 grant select, insert, update, delete on table public.shopping_lists to authenticated;
 grant select, insert, delete on table public.progress_entries to authenticated;
+grant select, insert, update, delete on table public.training_plans to authenticated;
 
 drop policy if exists profiles_select_own on public.profiles;
 create policy profiles_select_own on public.profiles for select to authenticated using (user_id = (select auth.uid()));
@@ -107,6 +117,15 @@ drop policy if exists profiles_update_own on public.profiles;
 create policy profiles_update_own on public.profiles for update to authenticated using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
 drop policy if exists profiles_delete_own on public.profiles;
 create policy profiles_delete_own on public.profiles for delete to authenticated using (user_id = (select auth.uid()));
+
+drop policy if exists training_plans_select_own on public.training_plans;
+create policy training_plans_select_own on public.training_plans for select to authenticated using (user_id = (select auth.uid()));
+drop policy if exists training_plans_insert_own on public.training_plans;
+create policy training_plans_insert_own on public.training_plans for insert to authenticated with check (user_id = (select auth.uid()));
+drop policy if exists training_plans_update_own on public.training_plans;
+create policy training_plans_update_own on public.training_plans for update to authenticated using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+drop policy if exists training_plans_delete_own on public.training_plans;
+create policy training_plans_delete_own on public.training_plans for delete to authenticated using (user_id = (select auth.uid()));
 
 drop policy if exists progress_entries_select_own on public.progress_entries;
 create policy progress_entries_select_own on public.progress_entries for select to authenticated using (user_id = (select auth.uid()));
