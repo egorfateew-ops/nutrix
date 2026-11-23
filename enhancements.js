@@ -66,7 +66,7 @@
     });
     document.querySelectorAll('#daysGrid .day-card').forEach((card,index)=>{
       const summary=card.querySelector('.day-foot span');const total=p.totals[index];if(!summary||!total)return;
-      summary.textContent=p.adult?total.kcal+' ккал · Б '+total.p+' г · Ж '+total.f+' г · У '+total.c+' г':'Порции — примерные';
+      const nextText=p.adult?total.kcal+' ккал · Б '+total.p+' г · Ж '+total.f+' г · У '+total.c+' г':'Порции — примерные';if(summary.textContent!==nextText)summary.textContent=nextText;
     });
   }
   function addShareButton(){
