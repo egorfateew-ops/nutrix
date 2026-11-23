@@ -74,6 +74,8 @@
       if (button) deleteProgressEntry(button.dataset.progressId);
     });
     $('cloudHistory').addEventListener('click', event => {
+      const remove = event.target.closest('[data-delete-plan-id]');
+      if (remove) { deletePlan(remove.dataset.deletePlanId); return; }
       const button = event.target.closest('[data-plan-id]');
       if (button) loadPlan(button.dataset.planId);
     });
@@ -528,6 +530,20 @@
     await loadProgressEntries();
   }
 
+  async function deletePlan(planId) {
+    if (!db || !session || !planId) return;
+    if (!window.confirm('Удалить этот рацион из личной истории?')) return;
+    const { error } = await db.from('meal_plans')
+      .delete().eq('id', planId).eq('owner_id', session.user.id);
+    if (error) return setMessage('Не удалось удалить рацион: ' + error.message, true);
+    if (activePlanId === planId) {
+      activePlanId = null;
+      activePlanOwner = null;
+    }
+    setMessage('Рацион удалён из личной истории.');
+    await loadHistory();
+  }
+
   async function loadHistory() {
     if (!db || !session) return;
     const list = $('cloudHistory');
@@ -548,6 +564,8 @@
       return;
     }
     data.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'cloud-history-row';
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'cloud-history-item';
@@ -557,7 +575,14 @@
       const date = document.createElement('small');
       date.textContent = new Date(item.created_at).toLocaleString('ru-RU');
       button.append(title, date);
-      list.appendChild(button);
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'cloud-history-delete';
+      remove.dataset.deletePlanId = item.id;
+      remove.textContent = 'Удалить';
+      remove.setAttribute('aria-label', 'Удалить рацион ' + (item.title || 'NUTRIX'));
+      row.append(button, remove);
+      list.appendChild(row);
     });
   }
 
