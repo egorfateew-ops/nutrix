@@ -1,0 +1,94 @@
+/* NUTRIX home calisthenics */
+.training-section{padding:70px 0 78px;scroll-margin-top:20px;border-top:1px solid var(--line)}
+.training-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin-bottom:25px}
+.training-heading h2,.training-result-head h2{font-size:32px;line-height:1.2;letter-spacing:-1.3px;margin:0 0 7px}
+.training-heading p,.training-result-head p{max-width:650px;margin:0;color:var(--muted);font-size:13px}
+.training-pill{border:1px solid var(--line);border-radius:30px;padding:9px 13px;background:var(--surface);color:var(--muted);font-size:10px;font-weight:800;white-space:nowrap}
+.training-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(230px,.75fr);gap:18px;align-items:start}
+.training-form,.training-aside-card,.training-aside-note{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px #214e700b}
+.training-form{padding:24px}
+.training-form-title{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}
+.training-form-title>div{display:flex;align-items:center;gap:12px}
+.training-step{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:11px;background:var(--blue-soft);color:var(--blue);font-size:11px;font-weight:800}
+.training-form-title h3{font-size:14px;margin:0 0 2px}
+.training-form-title p{font-size:10px;color:var(--muted);margin:0}
+.training-text-button,.training-reset{border:0;background:transparent;color:var(--blue);font:800 10px 'Manrope',sans-serif;cursor:pointer;padding:8px}
+.training-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:13px}
+.training-fields-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.training-field{display:grid;gap:6px;min-width:0;color:var(--text);font-size:10px;font-weight:800}
+.training-field>span{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap}
+.training-field small{font-size:8px;color:var(--muted);font-weight:600}
+.training-field input,.training-field select{width:100%;min-width:0;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--text);font:600 11px 'Manrope',sans-serif;outline:none}
+.training-field input:focus,.training-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #0876c91a}
+.training-field input::placeholder{color:#9aa8b7}
+.training-divider{height:1px;background:var(--line);margin:21px 0}
+.training-form-title.compact{margin-bottom:15px}
+.training-safety-check{display:flex;align-items:flex-start;gap:10px;padding:13px;margin-top:7px;border:1px solid #f0dfc5;background:#fffaf1;border-radius:12px}
+.training-safety-check input{margin:3px 0 0;accent-color:var(--blue)}
+.training-safety-check span{display:grid;gap:4px}
+.training-safety-check b{font-size:10px;color:var(--text)}
+.training-safety-check small{font-size:9px;color:var(--muted);line-height:1.5}
+body.dark .training-safety-check{background:#332b20;border-color:#59452d}
+.training-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.training-generate{display:inline-flex;align-items:center;justify-content:center;gap:18px;padding:13px 17px;border:0;border-radius:11px;background:linear-gradient(110deg,#0b84d5,#075d9e);color:white;font:800 11px 'Manrope',sans-serif;cursor:pointer;box-shadow:0 8px 18px #0876c922}
+.training-generate span{font-size:17px}
+.training-reset{color:var(--muted)}
+.training-form-message,.training-save-status{min-height:15px;margin:9px 0 0;color:var(--green);font-size:10px;line-height:1.5}
+.training-form-message.is-error,.training-save-status.is-error{color:#c05b46}
+.training-aside{display:grid;gap:12px}
+.training-aside-card{padding:19px}
+.training-aside-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:var(--blue-soft);font-size:20px;margin-bottom:12px}
+.training-aside-card h3{font-size:13px;margin:0 0 6px}
+.training-aside-card p{font-size:10px;line-height:1.65;color:var(--muted);margin:0}
+.training-aside-blue{background:linear-gradient(145deg,#f1f8ff,#e3f2ff);border-color:#d7eaf8}
+body.dark .training-aside-blue{background:linear-gradient(145deg,#1b3348,#1a2e40);border-color:var(--line)}
+.training-aside-note{padding:15px;font-size:9px;line-height:1.65;color:var(--muted);box-shadow:none}
+.training-aside-note b{color:var(--text)}
+.training-result{padding-top:34px;scroll-margin-top:20px}
+.training-result[hidden]{display:none!important}
+.training-result-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px}
+.training-result-actions{display:flex;gap:7px;flex-wrap:wrap}
+.training-secondary{border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--text);padding:9px 11px;font:800 9px 'Manrope',sans-serif;cursor:pointer}
+.training-secondary:hover{border-color:var(--blue);color:var(--blue)}
+.training-safety-notice{padding:13px 16px;border:1px solid #cfe3f4;border-radius:12px;background:var(--blue-soft);color:var(--text);font-size:10px;line-height:1.6;margin-bottom:16px}
+body.dark .training-safety-notice{background:#1b354b;border-color:#2a4e68}
+.training-week{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.training-day-card{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 8px 22px #214e7009}
+.training-day-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 17px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.training-day-label{display:block;color:var(--blue);font-size:9px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;margin-bottom:4px}
+.training-day-head h3{font-size:13px;line-height:1.35;margin:0}
+.training-day-tag{flex:0 0 auto;padding:5px 8px;border-radius:30px;background:var(--blue-soft);color:var(--blue);font-size:8px;font-weight:800}
+.training-day-tag.recovery{background:#e9f6ef;color:#27825a}
+body.dark .training-day-tag.recovery{background:#1d3c2d;color:#9ad9b2}
+.training-day-warmup{margin:0;padding:11px 17px;border-bottom:1px solid var(--line);font-size:9px;line-height:1.55;color:var(--muted)}
+.training-exercise-row{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:9px;align-items:start;padding:12px 16px;border-bottom:1px solid var(--line)}
+.training-exercise-row:last-child{border-bottom:0}
+.training-exercise-number{font-size:9px;color:var(--blue);font-weight:800;padding-top:2px}
+.training-exercise-body{min-width:0}
+.training-exercise-body>b{display:block;font-size:10px;line-height:1.4}
+.training-exercise-body>p{font-size:9px;line-height:1.5;color:var(--muted);margin:4px 0}
+.training-exercise-options{display:block;font-size:8px;line-height:1.5;color:var(--muted);margin-top:5px}
+.training-exercise-meta{text-align:right;white-space:nowrap;padding-top:1px}
+.training-exercise-meta>b{display:block;font-size:9px}
+.training-exercise-meta>small{display:block;color:var(--muted);font-size:8px;margin-top:3px}
+.training-recovery-tag{margin:0;padding:9px 16px;background:#f0f8f3;color:#32805a;font-size:9px;line-height:1.5}
+body.dark .training-recovery-tag{background:#1c392b;color:#a4d7b5}
+.training-day-foot{padding:10px 16px;margin:0;border-top:1px solid var(--line);color:var(--muted);font-size:8px}
+.training-guidance-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:15px}
+.training-guidance-grid article{padding:15px;border:1px solid var(--line);border-radius:13px;background:var(--surface)}
+.training-guidance-grid article>span{color:var(--blue);font-size:9px;font-weight:800}
+.training-guidance-grid h3{font-size:11px;margin:6px 0}
+.training-guidance-grid p{font-size:9px;line-height:1.6;color:var(--muted);margin:0}
+@media(max-width:900px){.training-layout{grid-template-columns:1fr}.training-aside{grid-template-columns:repeat(2,minmax(0,1fr))}.training-aside-note{grid-column:span 2}}
+@media(max-width:680px){.training-section{padding:55px 0}.training-heading,.training-result-head{align-items:flex-start;flex-direction:column}.training-heading h2,.training-result-head h2{font-size:27px}.training-pill{white-space:normal}.training-form{padding:17px}.training-fields-three{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.training-field{font-size:9px}.training-field input,.training-field select{padding:10px 7px;font-size:10px}.training-aside{grid-template-columns:1fr 1fr}.training-week{grid-template-columns:1fr}.training-guidance-grid{grid-template-columns:1fr}.training-result-actions{width:100%}.training-secondary{flex:1}.training-exercise-row{grid-template-columns:20px minmax(0,1fr) auto;padding:11px 12px}.training-exercise-meta>b{font-size:8px}.training-actions{align-items:stretch}.training-generate{flex:1}}
+@media(max-width:400px){.training-fields,.training-fields-three{grid-template-columns:1fr}.training-aside{grid-template-columns:1fr}.training-aside-note{grid-column:auto}.training-form-title{align-items:flex-start}.training-form-title.compact{margin-bottom:13px}.training-exercise-row{grid-template-columns:18px minmax(0,1fr) auto;gap:6px}}
+@media print{
+ body.training-print-mode{background:#fff;color:#111}
+ body.training-print-mode .topbar,body.training-print-mode .hero,body.training-print-mode .trust-strip,body.training-print-mode .builder-section,body.training-print-mode .results-section,body.training-print-mode .how-section,body.training-print-mode footer,body.training-print-mode .training-heading,body.training-print-mode .training-layout,body.training-print-mode .training-result-actions{display:none!important}
+ body.training-print-mode .app-shell{max-width:none;padding:0}
+ body.training-print-mode .training-section{padding:0;border:0}
+ body.training-print-mode .training-result{display:block!important;padding:0}
+ body.training-print-mode .training-week{grid-template-columns:1fr 1fr}
+ body.training-print-mode .training-day-card,body.training-print-mode .training-guidance-grid{break-inside:avoid}
+}
+@media(prefers-reduced-motion:reduce){.training-generate,.training-secondary{transition:none}}
