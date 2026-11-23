@@ -9,8 +9,9 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="enhancements.css">
+  <link rel="stylesheet" href="training.css">
   <link rel="stylesheet" href="cloud.css">
-  <meta name="description" content="NUTRIX — персональный генератор сбалансированного рациона на неделю.">
+  <meta name="description" content="NUTRIX — персональный рацион, список покупок и домашний план тренировок.">
   <title>NUTRIX — персональный рацион</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,6 +29,7 @@
         <a href="#profile">Профиль</a>
         <a href="#plan">Рацион</a>
         <a href="#shopping">Покупки</a>
+        <a href="#training">Тренировки</a>
       </nav>
       <button class="cloud-open-button" id="cloudOpen" type="button"><span>☁</span> Облако</button>
       <button class="icon-button" id="themeToggle" type="button" aria-label="Переключить тему" title="Переключить тему">☾</button>
@@ -144,6 +146,53 @@
         </section>
       </section>
 
+
+      <section class="training-section" id="training">
+        <div class="training-heading">
+          <div><div class="eyebrow">ШАГ 04 / ДВИЖЕНИЕ</div><h2>Тренировки без инвентаря</h2><p>Персональный план домашней калистеники по возрасту, уровню подготовки, доступному времени и текущим возможностям.</p></div>
+          <div class="training-pill">⌁ Только вес тела · без гантелей и турника</div>
+        </div>
+        <div class="training-layout">
+          <form id="trainingForm" class="training-form">
+            <div class="training-form-title"><div><span class="training-step">01</span><div><h3>Данные и уровень</h3><p>Возраст, рост и вес можно перенести из профиля питания.</p></div></div><button class="training-text-button" id="trainingUseProfile" type="button">↗ Из профиля</button></div>
+            <div class="training-fields training-fields-three">
+              <label class="training-field"><span>Возраст, лет</span><input id="trainingAge" type="number" min="13" max="100" required placeholder="Например, 25"></label>
+              <label class="training-field"><span>Рост, см <small>необязательно</small></span><input id="trainingHeight" type="number" min="100" max="230" placeholder="180"></label>
+              <label class="training-field"><span>Вес, кг <small>необязательно</small></span><input id="trainingWeight" type="number" min="30" max="250" step="0.1" placeholder="75"></label>
+            </div>
+            <div class="training-fields">
+              <label class="training-field"><span>Опыт тренировок</span><select id="trainingExperience"><option value="beginner">Начинаю с нуля</option><option value="returning" selected>Возвращаюсь после перерыва</option><option value="regular">Тренируюсь регулярно</option></select></label>
+              <label class="training-field"><span>Главная цель</span><select id="trainingGoal"><option value="general">Общая физическая форма</option><option value="strength">Стать сильнее</option><option value="endurance">Выносливость</option><option value="mobility">Подвижность и контроль тела</option></select></label>
+            </div>
+            <div class="training-fields">
+              <label class="training-field"><span>Тренировок в неделю</span><select id="trainingFrequency"><option value="2">2 раза</option><option value="3" selected>3 раза</option><option value="4">4 раза</option></select><small>До 18 лет — не более трёх занятий.</small></label>
+              <label class="training-field"><span>Время на тренировку</span><select id="trainingDuration"><option value="20">Около 20 минут</option><option value="30" selected>Около 30 минут</option><option value="40">Около 40 минут</option></select></label>
+            </div>
+            <div class="training-divider"></div>
+            <div class="training-form-title compact"><div><span class="training-step">02</span><div><h3>Текущие возможности</h3><p>Укажи то, что уже знаешь. Не проверяй максимум до отказа.</p></div></div></div>
+            <div class="training-fields training-fields-three">
+              <label class="training-field"><span>Чистые отжимания</span><input id="trainingPushups" type="number" min="0" max="100" placeholder="Не знаю"></label>
+              <label class="training-field"><span>Приседания подряд</span><input id="trainingSquats" type="number" min="0" max="150" placeholder="Не знаю"></label>
+              <label class="training-field"><span>Планка, секунд</span><input id="trainingPlank" type="number" min="0" max="300" placeholder="Не знаю"></label>
+            </div>
+            <label class="training-safety-check"><input id="trainingLimitations" type="checkbox"><span><b>Есть травма, боль, хроническое состояние или ограничения врача</b><small>Если да, сначала согласуй упражнения со специалистом. Сервис не будет подбирать нагрузку вслепую.</small></span></label>
+            <div class="training-actions"><button class="training-generate" type="submit">Составить тренировочный план <span>→</span></button><button class="training-reset" id="trainingReset" type="button">Сбросить</button></div>
+            <p class="training-form-message" id="trainingFormMessage" role="status" aria-live="polite"></p>
+          </form>
+          <aside class="training-aside">
+            <div class="training-aside-card"><div class="training-aside-icon">🏠</div><h3>Никакого оборудования</h3><p>Отжимания, приседания, выпады, ягодичный мост, упражнения на корпус и контроль лопаток. Нужны только свободный участок пола и стена.</p></div>
+            <div class="training-aside-card training-aside-blue"><div class="training-aside-icon">🧭</div><h3>Нагрузка по уровню</h3><p>Учитываются возраст, опыт и известное количество чистых повторений. Рост и вес — контекст, а не повод назначать больше повторов.</p></div>
+            <div class="training-aside-note"><b>Честное ограничение:</b> без турника, эспандера или другого сопротивления нельзя полноценно заменить тяговые упражнения для спины. План добавит работу с лопатками, но это не подтягивания.</div>
+          </aside>
+        </div>
+        <section id="trainingResult" class="training-result" hidden>
+          <div class="training-result-head"><div><div class="eyebrow">ТВОЯ ПРОГРАММА</div><h2 id="trainingPlanTitle">План тренировок</h2><p id="trainingPlanSummary"></p></div><div class="training-result-actions"><button class="training-secondary" id="trainingSave" type="button">Сохранить план</button><button class="training-secondary" id="trainingDownload" type="button">Скачать</button><button class="training-secondary" id="trainingPrint" type="button">Печать</button></div></div>
+          <div id="trainingSafetyNotice" class="training-safety-notice"></div>
+          <div id="trainingWeek" class="training-week"></div>
+          <div class="training-guidance-grid"><article><span>01</span><h3>Перед занятием</h3><p id="trainingWarmup"></p></article><article><span>02</span><h3>Как прогрессировать</h3><p id="trainingProgression"></p></article><article><span>03</span><h3>Восстановление</h3><p id="trainingRecovery"></p></article></div>
+          <p class="training-save-status" id="trainingSaveStatus" role="status" aria-live="polite"></p>
+        </section>
+      </section>
       <section class="how-section">
         <div class="eyebrow">ПРОСТО И ПОНЯТНО</div><h2>Как работает NUTRIX</h2>
         <div class="how-grid">
@@ -162,5 +211,6 @@
   <script src="app.js"></script>
   <script src="enhancements.js"></script>
   <script src="cloud.js"></script>
+  <script src="training.js"></script>
 </body>
 </html>
