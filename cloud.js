@@ -32,16 +32,19 @@
     node.textContent = message || '';
     node.className = 'cloud-message' + (error ? ' is-error' : '');
   };
-  const showDialog = () => {
+  const showDialog = async () => {
     updatePanel();
     if (!$('cloudDialog').open) $('cloudDialog').showModal();
-    if (session) loadHistory();
+    if (session) {
+      await loadProfileFromCloud(true);
+      await Promise.all([loadHistory(), loadProgressEntries()]);
+    }
   };
   const hideDialog = () => { if ($('cloudDialog').open) $('cloudDialog').close(); };
 
   function buildPanel() {
     $('cloudContent').innerHTML =
-      '<div class="cloud-modal-head"><div><div class="eyebrow">NUTRIX CLOUD</div><h2>Общий аккаунт и база</h2><p>Профиль, сохранённые рационы и совместные покупки.</p></div><button class="icon-button" id="cloudClose" type="button" aria-label="Закрыть">×</button></div>' +
+      '<div class="cloud-modal-head"><div><div class="eyebrow">NUTRIX · ЛИЧНЫЙ КАБИНЕТ</div><h2>Твой профиль</h2><p>Рационы, замеры и настройки хранятся отдельно в твоём аккаунте.</p></div><button class="icon-button" id="cloudClose" type="button" aria-label="Закрыть">×</button></div>' +
       '<div id="cloudMessage" class="cloud-message" role="status"></div>' +
       '<section class="cloud-section" id="cloudConfigSection"><div class="cloud-section-head"><div><h3>Подключение базы</h3><p>Supabase Project URL и Publishable key</p></div><span id="cloudConnectionState" class="cloud-state">Не подключено</span></div>' +
       '<div id="cloudConfigForm" class="cloud-config-form"><label>Project URL<input id="cloudProjectUrl" type="url" placeholder="https://xxxx.supabase.co" autocomplete="url"></label><label>Publishable key<input id="cloudPublishableKey" type="password" placeholder="sb_publishable_..." autocomplete="off"></label><button class="cloud-primary" id="cloudSaveConfig" type="button">Подключить базу</button><small>Используй только Publishable key. Secret key и service_role сюда вставлять нельзя.</small></div>' +
@@ -49,9 +52,13 @@
       '<section class="cloud-section" id="cloudAuthSection"><div class="cloud-section-head"><div><h3>Аккаунт</h3><p>Регистрация и вход по электронной почте</p></div></div>' +
       '<div id="cloudAuthForm" class="cloud-auth-form"><label>Имя для отображения<input id="cloudDisplayName" type="text" placeholder="Как тебя называть"></label><label>Электронная почта<input id="cloudEmail" type="email" placeholder="name@example.com" autocomplete="email"></label><label>Пароль<input id="cloudPassword" type="password" placeholder="Не менее 8 символов" autocomplete="current-password"></label><div class="cloud-button-row"><button class="cloud-primary" id="cloudSignIn" type="button">Войти</button><button class="cloud-secondary" id="cloudSignUp" type="button">Создать аккаунт</button></div></div>' +
       '<div id="cloudAccount" class="cloud-account" hidden><div class="cloud-user-line"><div class="cloud-avatar">N</div><div><b id="cloudUserEmail"></b><small id="cloudUserName"></small></div></div><div class="cloud-button-row"><button class="cloud-primary" id="cloudSaveProfile" type="button">Сохранить профиль</button><button class="cloud-secondary" id="cloudLoadProfile" type="button">Загрузить профиль</button></div><button class="cloud-link-button" id="cloudSignOut" type="button">Выйти из аккаунта</button></div></section>' +
-      '<section class="cloud-section" id="cloudPlansSection"><div class="cloud-section-head"><div><h3>Мои рационы</h3><p>История сохранённых планов</p></div><button class="cloud-link-button" id="cloudHistoryRefresh" type="button">Обновить</button></div>' +
-      '<div class="cloud-button-row"><button class="cloud-primary" id="cloudSaveCurrentPlan" type="button">Сохранить текущий рацион</button><button class="cloud-secondary" id="cloudCreateShare" type="button">Создать ссылку</button></div><div id="cloudShareResult" class="cloud-share-result" hidden><input id="cloudShareUrl" readonly><button class="cloud-secondary" id="cloudCopyShare" type="button">Копировать</button><button class="cloud-link-button" id="cloudDisableShare" type="button">Отключить ссылку</button></div><div id="cloudHistory" class="cloud-history"><p>Войди в аккаунт, чтобы увидеть историю.</p></div></section>' +
-      '<div class="cloud-footer-note">Без подключения облака генератор продолжает работать локально. Облачная база активируется после настройки Supabase.</div>';
+      '<section class="cloud-section" id="cloudProgressSection" hidden><div class="cloud-section-head"><div><h3>Мой прогресс</h3><p>Личная история веса и замеров</p></div><button class="cloud-link-button" id="cloudProgressRefresh" type="button">Обновить</button></div>' +
+      '<form id="cloudProgressForm" class="cloud-progress-form"><label>Дата замера<input id="progressDate" type="date" required></label><label>Вес, кг<input id="progressWeight" type="number" min="15" max="350" step="0.1" placeholder="Например, 72.5" required></label><label>Рост, см<input id="progressHeight" type="number" min="80" max="250" step="0.1" placeholder="Необязательно"></label><label>Талия, см<input id="progressWaist" type="number" min="30" max="200" step="0.1" placeholder="Необязательно"></label><label class="progress-note-field">Заметка<input id="progressNote" type="text" maxlength="300" placeholder="Самочувствие, тренировки и т. п."></label><button class="cloud-primary progress-submit" type="submit">Добавить замер</button></form>' +
+      '<div id="progressSummary" class="progress-summary"></div><div id="progressChart" class="progress-chart"><p>Добавь первый замер, чтобы увидеть историю.</p></div><div id="progressHistory" class="progress-history"></div>' +
+      '<p class="cloud-footer-note">Это дневник наблюдений, а не медицинская оценка. Для пользователей младше 18 лет график не задаёт целевой вес и не предлагает снижать его.</p></section>' +
+      '<section class="cloud-section" id="cloudPlansSection"><div class="cloud-section-head"><div><h3>Мои рационы</h3><p>Только твоя личная история</p></div><button class="cloud-link-button" id="cloudHistoryRefresh" type="button">Обновить</button></div>' +
+      '<div class="cloud-button-row"><button class="cloud-primary" id="cloudSaveCurrentPlan" type="button">Сохранить текущий рацион</button></div><div id="cloudHistory" class="cloud-history"><p>Войди в аккаунт, чтобы увидеть историю.</p></div></section>' +
+      '<div class="cloud-footer-note">Каждый аккаунт хранит собственные профиль, рационы, цены и замеры. Другие пользователи их не видят.</div>';
 
     $('cloudClose').addEventListener('click', hideDialog);
     $('cloudSaveConfig').addEventListener('click', saveConfig);
@@ -65,10 +72,13 @@
     $('cloudSaveProfile').addEventListener('click', saveProfileToCloud);
     $('cloudLoadProfile').addEventListener('click', loadProfileFromCloud);
     $('cloudSaveCurrentPlan').addEventListener('click', () => savePlan(window.NUTRIX && window.NUTRIX.plan, !activePlanId || activePlanOwner !== (currentUser() && currentUser().id)));
-    $('cloudCreateShare').addEventListener('click', createShareLink);
-    $('cloudCopyShare').addEventListener('click', copyShareLink);
-    $('cloudDisableShare').addEventListener('click', disableShareLink);
     $('cloudHistoryRefresh').addEventListener('click', loadHistory);
+    $('cloudProgressRefresh').addEventListener('click', loadProgressEntries);
+    $('cloudProgressForm').addEventListener('submit', saveProgressEntry);
+    $('progressHistory').addEventListener('click', event => {
+      const button = event.target.closest('[data-progress-id]');
+      if (button) deleteProgressEntry(button.dataset.progressId);
+    });
     $('cloudHistory').addEventListener('click', event => {
       const button = event.target.closest('[data-plan-id]');
       if (button) loadPlan(button.dataset.planId);
@@ -88,6 +98,7 @@
     $('cloudAuthForm').hidden = !configured || !!user;
     $('cloudAccount').hidden = !configured || !user;
     $('cloudPlansSection').hidden = !configured || !user;
+    $('cloudProgressSection').hidden = !configured || !user;
     if (configured) {
       const cfg = readConfig();
       $('cloudProjectLabel').textContent = cfg && cfg.url ? new URL(cfg.url).hostname : 'Supabase';
@@ -151,7 +162,6 @@
       await initializeClient();
       if (db) {
         setMessage('База подключена. Теперь можно зарегистрироваться или войти.');
-        if (pendingShareToken) await loadSharedView(pendingShareToken);
       }
     } catch (error) {
       setMessage(error.message, true);
@@ -163,10 +173,13 @@
     const email = $('cloudEmail').value.trim();
     const password = $('cloudPassword').value;
     if (!email || !password) return setMessage('Заполни электронную почту и пароль.', true);
-    const { error } = await db.auth.signInWithPassword({ email, password });
+    const { data, error } = await db.auth.signInWithPassword({ email, password });
     if (error) return setMessage(error.message, true);
+    session = data.session;
+    updatePanel();
     setMessage('Вход выполнен.');
-    await loadHistory();
+    await loadProfileFromCloud(true);
+    await Promise.all([loadHistory(), loadProgressEntries()]);
   }
 
   async function signUp() {
@@ -185,7 +198,13 @@
     });
     if (error) return setMessage(error.message, true);
     if (!data.session) setMessage('Аккаунт создан. Проверь почту и подтверди адрес, затем войди.');
-    else setMessage('Аккаунт создан. Добро пожаловать в NUTRIX.');
+    else {
+      session = data.session;
+      updatePanel();
+      setMessage('Аккаунт создан. Добро пожаловать в NUTRIX.');
+      await saveProfileToCloud();
+      await Promise.all([loadHistory(), loadProgressEntries()]);
+    }
   }
 
   async function signOut() {
@@ -195,9 +214,17 @@
     session = null;
     activePlanId = null;
     activePlanOwner = null;
+    try {
+      localStorage.removeItem('nutrix-profile');
+      localStorage.removeItem('nutrix-shopping-checks');
+      localStorage.removeItem('nutrix-price-overrides');
+    } catch (_) {}
+    const form = $('profileForm');
+    if (form) form.reset();
+    if ($('results')) $('results').classList.add('hidden');
+    if (window.NUTRIX && window.NUTRIX.clearPlan) window.NUTRIX.clearPlan();
     updatePanel();
-    setMessage('Ты вышел из аккаунта. Локальный генератор продолжает работать.');
-    if (pendingShareToken) await loadSharedView(pendingShareToken);
+    setMessage('Ты вышел из аккаунта. Личные данные этого аккаунта больше не отображаются.');
   }
 
   async function saveProfileToCloud() {
@@ -227,6 +254,7 @@
       node.dispatchEvent(new Event('input', { bubbles: true }));
       node.dispatchEvent(new Event('change', { bubbles: true }));
     });
+    if ($('progressHeight') && profile.height) $('progressHeight').value = profile.height;
     $('avoid').value = Array.isArray(profile.avoid) ? profile.avoid.join(', ') : (profile.avoid || '');
     $('avoid').dispatchEvent(new Event('input', { bubbles: true }));
     const radio = document.querySelector('input[name="goal"][value="' + (profile.goal || 'maintain') + '"]');
@@ -236,18 +264,24 @@
     }
   }
 
-  async function loadProfileFromCloud() {
+  async function loadProfileFromCloud(silent = false) {
     if (!db || !session) return;
     const { data, error } = await db.from('profiles')
       .select('display_name,profile_json')
       .eq('user_id', session.user.id)
       .maybeSingle();
     if (error) return setMessage('Не удалось загрузить профиль: ' + error.message, true);
-    if (!data) return setMessage('В облаке пока нет сохранённого профиля.');
+    if (!data) {
+      if (!silent) setMessage('В облаке пока нет сохранённого профиля. Заполни анкету и сохрани её.');
+      return;
+    }
     applyProfile(data.profile_json);
     if (data.display_name) $('cloudDisplayName').value = data.display_name;
-    setMessage('Профиль загружен из облака.');
-    toast('Профиль загружен');
+    if (data.profile_json && data.profile_json.height && $('progressHeight')) $('progressHeight').value = data.profile_json.height;
+    if (!silent) {
+      setMessage('Профиль загружен из облака.');
+      toast('Профиль загружен');
+    }
   }
 
   function applyShoppingState(plan, state) {
@@ -349,10 +383,164 @@
     $('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  function localDateValue() {
+    const date = new Date();
+    return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+  }
+
+  async function saveProgressEntry(event) {
+    event.preventDefault();
+    if (!db || !session) return setMessage('Войди в аккаунт, чтобы сохранять замеры.', true);
+    const measuredOn = $('progressDate').value;
+    const weight = Number($('progressWeight').value);
+    const height = $('progressHeight').value === '' ? null : Number($('progressHeight').value);
+    const waist = $('progressWaist').value === '' ? null : Number($('progressWaist').value);
+    const note = $('progressNote').value.trim();
+    if (!measuredOn || measuredOn > localDateValue()) return setMessage('Укажи сегодняшнюю или прошедшую дату замера.', true);
+    if (!Number.isFinite(weight) || weight < 15 || weight > 350) return setMessage('Проверь вес: допустимый диапазон 15–350 кг.', true);
+    if (height !== null && (!Number.isFinite(height) || height < 80 || height > 250)) return setMessage('Проверь рост: допустимый диапазон 80–250 см.', true);
+    if (waist !== null && (!Number.isFinite(waist) || waist < 30 || waist > 200)) return setMessage('Проверь обхват талии: допустимый диапазон 30–200 см.', true);
+    const { error } = await db.from('progress_entries').insert({
+      user_id: session.user.id, measured_on: measuredOn, weight_kg: weight,
+      height_cm: height, waist_cm: waist, note
+    });
+    if (error) return setMessage('Не удалось сохранить замер: ' + error.message, true);
+    $('progressWeight').value = '';
+    $('progressWaist').value = '';
+    $('progressNote').value = '';
+    $('progressDate').value = localDateValue();
+    setMessage('Замер сохранён в твоём личном дневнике.');
+    toast('Замер сохранён');
+    await loadProgressEntries();
+  }
+
+  function renderProgressChart(entries) {
+    const host = $('progressChart');
+    if (!host) return;
+    host.replaceChildren();
+    const points = entries.slice().sort((a, b) => a.measured_on.localeCompare(b.measured_on)).slice(-12);
+    if (points.length < 2) {
+      const empty = document.createElement('p');
+      empty.textContent = points.length ? 'Есть один замер. Добавь ещё один в другой день, чтобы увидеть динамику.' : 'Добавь первый замер, чтобы увидеть график.';
+      host.appendChild(empty);
+      return;
+    }
+    const ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg');
+    const width = 640, height = 230, left = 54, right = 18, top = 18, bottom = 42;
+    svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', 'График истории веса');
+    const values = points.map(p => Number(p.weight_kg));
+    let min = Math.min(...values), max = Math.max(...values);
+    if (max - min < 0.5) { min -= 0.5; max += 0.5; } else { min -= 0.25; max += 0.25; }
+    const x = i => left + i * (width - left - right) / (points.length - 1);
+    const y = value => top + (max - value) * (height - top - bottom) / (max - min);
+    for (let i = 0; i <= 4; i++) {
+      const value = max - (max - min) * i / 4, yy = y(value);
+      const line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', left); line.setAttribute('x2', width - right);
+      line.setAttribute('y1', yy); line.setAttribute('y2', yy); line.setAttribute('class', 'progress-grid-line');
+      svg.appendChild(line);
+      const label = document.createElementNS(ns, 'text');
+      label.setAttribute('x', left - 9); label.setAttribute('y', yy + 4);
+      label.setAttribute('text-anchor', 'end'); label.setAttribute('class', 'progress-axis-label');
+      label.textContent = value.toFixed(1).replace('.', ','); svg.appendChild(label);
+    }
+    const path = document.createElementNS(ns, 'polyline');
+    path.setAttribute('points', points.map((p, i) => x(i) + ',' + y(Number(p.weight_kg))).join(' '));
+    path.setAttribute('class', 'progress-line'); svg.appendChild(path);
+    points.forEach((p, i) => {
+      const dot = document.createElementNS(ns, 'circle');
+      dot.setAttribute('cx', x(i)); dot.setAttribute('cy', y(Number(p.weight_kg)));
+      dot.setAttribute('r', '4.5'); dot.setAttribute('class', 'progress-dot');
+      const title = document.createElementNS(ns, 'title');
+      title.textContent = p.measured_on + ': ' + Number(p.weight_kg).toFixed(1) + ' кг';
+      dot.appendChild(title); svg.appendChild(dot);
+    });
+    [points[0], points[points.length - 1]].forEach((p, i) => {
+      const label = document.createElementNS(ns, 'text');
+      label.setAttribute('x', i ? width - right : left);
+      label.setAttribute('y', height - 12);
+      label.setAttribute('text-anchor', i ? 'end' : 'start');
+      label.setAttribute('class', 'progress-axis-label');
+      label.textContent = p.measured_on.slice(5).replace('-', '.'); svg.appendChild(label);
+    });
+    host.appendChild(svg);
+  }
+
+  function renderProgressHistory(entries) {
+    const summary = $('progressSummary'), history = $('progressHistory');
+    if (!summary || !history) return;
+    summary.replaceChildren(); history.replaceChildren();
+    if (!entries.length) {
+      const empty = document.createElement('p');
+      empty.className = 'progress-empty';
+      empty.textContent = 'Пока нет замеров. Добавь первый вес и, если хочешь, рост и талию.';
+      history.appendChild(empty); renderProgressChart([]); return;
+    }
+    const newest = entries[0], oldest = entries[entries.length - 1];
+    const delta = Number(newest.weight_kg) - Number(oldest.weight_kg);
+    [
+      ['Последний вес', Number(newest.weight_kg).toFixed(1).replace('.', ',') + ' кг'],
+      ['Записей', String(entries.length)],
+      ['Изменение за период', entries.length > 1 ? (delta > 0 ? '+' : '') + delta.toFixed(1).replace('.', ',') + ' кг' : '—']
+    ].forEach(([label, value]) => {
+      const card = document.createElement('div'); card.className = 'progress-stat';
+      const small = document.createElement('small'); small.textContent = label;
+      const strong = document.createElement('b'); strong.textContent = value;
+      card.append(small, strong); summary.appendChild(card);
+    });
+    renderProgressChart(entries);
+    entries.forEach(entry => {
+      const row = document.createElement('div'); row.className = 'progress-entry';
+      const details = document.createElement('div'); details.className = 'progress-entry-details';
+      const date = document.createElement('b');
+      date.textContent = new Date(entry.measured_on + 'T00:00:00').toLocaleDateString('ru-RU');
+      const values = [Number(entry.weight_kg).toFixed(1).replace('.', ',') + ' кг'];
+      if (entry.height_cm) values.push(Number(entry.height_cm).toFixed(1).replace('.', ',') + ' см рост');
+      if (entry.waist_cm) values.push(Number(entry.waist_cm).toFixed(1).replace('.', ',') + ' см талия');
+      const sub = document.createElement('small'); sub.textContent = values.join(' · ');
+      details.append(date, sub);
+      if (entry.note) { const note = document.createElement('p'); note.textContent = entry.note; details.appendChild(note); }
+      const remove = document.createElement('button');
+      remove.type = 'button'; remove.className = 'progress-delete';
+      remove.textContent = 'Удалить'; remove.dataset.progressId = entry.id;
+      remove.setAttribute('aria-label', 'Удалить замер от ' + entry.measured_on);
+      row.append(details, remove); history.appendChild(row);
+    });
+  }
+
+  async function loadProgressEntries() {
+    if (!db || !session) return;
+    const history = $('progressHistory'); if (!history) return;
+    history.innerHTML = '<p class="progress-empty">Загружаю личные замеры...</p>';
+    const { data, error } = await db.from('progress_entries')
+      .select('id,measured_on,weight_kg,height_cm,waist_cm,note,created_at')
+      .eq('user_id', session.user.id)
+      .order('measured_on', { ascending: false })
+      .order('created_at', { ascending: false }).limit(100);
+    if (error) {
+      history.textContent = 'Не удалось загрузить дневник. Выполни миграцию personal_progress.sql: ' + error.message;
+      return;
+    }
+    renderProgressHistory(data || []);
+  }
+
+  async function deleteProgressEntry(id) {
+    if (!db || !session || !id) return;
+    const { error } = await db.from('progress_entries')
+      .delete().eq('id', id).eq('user_id', session.user.id);
+    if (error) return setMessage('Не удалось удалить замер: ' + error.message, true);
+    setMessage('Замер удалён из личного дневника.');
+    await loadProgressEntries();
+  }
+
   async function loadHistory() {
     if (!db || !session) return;
     const list = $('cloudHistory');
-    list.innerHTML = '<p>Загружаю историю...</p>';
+    if (!list) return;
+    list.innerHTML = '<p>Загружаю личную историю...</p>';
     const { data, error } = await db.from('meal_plans')
       .select('id,title,created_at,share_enabled')
       .order('created_at', { ascending: false }).limit(20);
@@ -640,12 +828,8 @@
   async function boot() {
     buildPanel();
     $('cloudOpen').addEventListener('click', showDialog);
+    $('progressDate').value = localDateValue();
     await initializeClient();
-    const token = new URLSearchParams(location.search).get('share');
-    if (token) {
-      pendingShareToken = token;
-      await loadSharedView(token);
-    }
   }
 
   window.addEventListener('nutrix:plan-rendered', async event => {
