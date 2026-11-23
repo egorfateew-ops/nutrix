@@ -28,7 +28,7 @@ supabase functions deploy join-shared-plan
 
 YOUR_PROJECT_REF — идентификатор проекта из его URL в Supabase Dashboard. Файл supabase/config.toml уже задаёт публичный режим только для чтения общей ссылки. Присоединение к общему рациону требует действующей авторизации.
 
-Edge Functions используют серверные переменные Supabase. Секретный service_role ключ не добавляй в GitHub и не вставляй в браузер.
+Edge Functions используют серверные переменные Supabase, в том числе SUPABASE_SECRET_KEYS и SUPABASE_PUBLISHABLE_KEYS. Секретный ключ не добавляй в GitHub и не вставляй в браузер.
 
 ## 4. Включить адрес сайта для подтверждения почты
 В Supabase открой Authentication → URL Configuration:
@@ -44,7 +44,7 @@ Edge Functions используют серверные переменные Supa
 4. Сохрани подключение.
 5. Зарегистрируй аккаунт.
 
-В браузере используется только Publishable key. Никогда не вставляй в сайт service_role, Secret key или пароль базы данных.
+В браузере используется только Publishable key (обычно начинается с sb_publishable_). Никогда не вставляй в сайт Secret key (sb_secret_), service_role или пароль базы данных.
 
 ## 6. Проверка
 - Зарегистрируй два разных аккаунта.
