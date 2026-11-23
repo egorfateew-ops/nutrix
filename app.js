@@ -111,6 +111,7 @@ function validate(data){
   if(!Number.isFinite(data.height)||data.height<80||data.height>250)return 'Проверь рост: допустимый диапазон — 80–250 см.';
   if(!Number.isFinite(data.weight)||data.weight<15||data.weight>350)return 'Проверь вес: допустимый диапазон — 15–350 кг.';
   if(data.age<18&&data.goal==='lose')return 'Для несовершеннолетних NUTRIX не составляет рацион для снижения веса. Выбери поддержание веса и при вопросах о питании обратись к педиатру.';
+  if(data.age>=18&&data.sex==='unspecified'&&data.goal==='lose')return 'Чтобы рассчитать ориентир для снижения веса, укажи пол для формулы или выбери поддержание веса.';
   if(data.age>=18&&data.goal==='lose'&&(data.weight/((data.height/100)**2))<18.5)return 'При указанных параметрах индекс массы тела ниже 18,5. NUTRIX не будет составлять рацион для снижения веса — выбери поддержание и обсуди вес со специалистом.';
   if(data.medical&&data.goal==='lose')return 'При отмеченных особенностях здоровья сервис не составляет план для снижения веса. Выбери поддержание и согласуй изменения питания со специалистом.';
   if(!Number.isFinite(data.budget)||data.budget<500||data.budget>100000)return 'Укажи бюджет на неделю от 500 до 100 000 ₽.';
