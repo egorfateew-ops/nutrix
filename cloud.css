@@ -72,3 +72,31 @@ body.dark .cloud-state.is-online{background:#173d35;color:#91dfbf}
 @media(max-width:680px){.cloud-open-button{padding:8px 9px;font-size:9px}.cloud-open-button span{display:none}#cloudContent{padding:18px}.cloud-modal-head h2{font-size:20px}.cloud-section{padding:14px}.cloud-button-row>*{flex:1}.shared-view{padding-top:22px}.shared-view-head{padding:20px}.shared-days-grid{grid-template-columns:1fr}.shared-cart{grid-template-columns:1fr}.shared-shop-head{align-items:flex-start;flex-direction:column}.shared-actions>*{width:100%}.cloud-share-result{grid-template-columns:1fr}.cloud-share-result .cloud-link-button{grid-column:auto}}
 
 .shared-mode .top-nav{display:none}
+
+/* Personal progress diary */
+.cloud-progress-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.cloud-progress-form label{display:grid;gap:5px;color:var(--muted);font-size:9px;font-weight:800}
+.cloud-progress-form input{width:100%;min-width:0;border:1px solid var(--line);border-radius:9px;padding:10px;background:var(--bg);color:var(--text);font:600 11px 'Manrope',sans-serif}
+.cloud-progress-form .progress-note-field{grid-column:1/-1}
+.cloud-progress-form .progress-submit{grid-column:1/-1;justify-self:start}
+.progress-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:15px 0}
+.progress-stat{padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--bg)}
+.progress-stat small,.progress-stat b{display:block}
+.progress-stat small{font-size:8px;color:var(--muted);line-height:1.4}
+.progress-stat b{font-size:16px;margin-top:5px;letter-spacing:-.4px}
+.progress-chart{padding:10px 4px;border:1px solid var(--line);border-radius:12px;background:var(--bg);min-height:74px}
+.progress-chart>p,.progress-empty{font-size:10px;color:var(--muted);text-align:center;padding:10px;margin:0}
+.progress-chart svg{display:block;width:100%;height:auto;max-height:250px;overflow:visible}
+.progress-grid-line{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+.progress-axis-label{fill:var(--muted);font-size:10px}
+.progress-line{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.progress-dot{fill:var(--blue);stroke:var(--surface);stroke-width:2}
+.progress-history{display:grid;gap:7px;margin-top:12px}
+.progress-entry{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.progress-entry-details{min-width:0}
+.progress-entry-details b,.progress-entry-details small{display:block}
+.progress-entry-details b{font-size:10px}
+.progress-entry-details small{font-size:9px;color:var(--muted);margin-top:3px}
+.progress-entry-details p{font-size:9px;color:var(--muted);margin:5px 0 0;overflow-wrap:anywhere}
+.progress-delete{border:0;background:transparent;color:#c45b5b;font:800 9px 'Manrope',sans-serif;cursor:pointer;padding:7px}
+@media(max-width:520px){.cloud-progress-form{grid-template-columns:1fr 1fr}.progress-summary{gap:5px}.progress-stat{padding:9px}.progress-stat b{font-size:13px}.progress-entry{align-items:flex-start}.progress-delete{padding:5px}}
