@@ -1,0 +1,7 @@
+project_id = "nutrix"
+
+[functions.get-shared-plan]
+verify_jwt = false
+
+[functions.join-shared-plan]
+verify_jwt = true
