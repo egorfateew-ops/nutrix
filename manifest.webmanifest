@@ -1,0 +1,19 @@
+{
+  "name": "NUTRIX — персональный рацион",
+  "short_name": "NUTRIX",
+  "description": "Планирование питания и списка покупок на неделю.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f9fd",
+  "theme_color": "#0b72c6",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
