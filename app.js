@@ -4688,7 +4688,7 @@ function renderPlan(plan, scrollToPlan=true){
   $('planSubtitle').textContent=adult?`План на 7 дней • ${d.mealCount} приёма пищи • ${d.goal==='gain'?'плавный набор':d.goal==='lose'?'умеренное снижение':'поддержание'}`:'Пример сбалансированного меню на 7 дней. Размер порций можно корректировать по аппетиту и рекомендациям специалиста.';
   const metrics=$('metricsGrid');metrics.innerHTML='';
   if(adult){
-    const items=[['Ориентир энергии',`${calc.target} ккал`,'Расчётная оценка на день'],['Среднее меню',`${plan.avg.kcal} ккал`,'Сумма выбранных блюд за день'],['Белок',`${calc.protein} г`,'Фитнес-ориентир на день'],['Жиры',`${calc.fat} г`,'Ориентир на день'],['Углеводы',`${calc.carbs} г`,'Ориентир на день']];
+    const items=[['Ориентир энергии',`${calc.target} ккал`,'Расчётная оценка на день'],['Среднее меню',`${plan.avg.kcal} ккал`,'Сумма выбранных блюд за день'],['Белок',`${calc.protein} г`,`Фитнес-ориентир · в меню ≈ ${plan.avg.p} г`],['Жиры',`${calc.fat} г`,'Ориентир на день'],['Углеводы',`${calc.carbs} г`,'Ориентир на день']];
     items.forEach(([label,value,sub])=>metrics.insertAdjacentHTML('beforeend',`<div class="metric-card"><span>${label}</span><b>${value}</b><small>${sub}</small></div>`));
   }else{
     const items=[['Возраст',`${d.age} лет`,'Учитывается режим для возраста'],['Рост',`${d.height} см`,'Сохранён в профиле'],['Вес',`${d.weight} кг`,'Без взрослой оценки ИМТ'],['Питание',`${d.mealCount} раза`,'Регулярный режим']];
