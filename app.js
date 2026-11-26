@@ -2812,6 +2812,974 @@ const recipes = [
         "г"
       ]
     ]
+  },
+  {
+    "id": "b19",
+    "type": "breakfast",
+    "name": "Омлет с курицей, помидором и перцем",
+    "icon": "🍳",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 80,
+    "kcal": 398,
+    "p": 32,
+    "c": 31,
+    "f": 17,
+    "items": [
+      [
+        "Яйца",
+        2,
+        "шт."
+      ],
+      [
+        "Куриное филе",
+        60,
+        "г"
+      ],
+      [
+        "Помидор",
+        80,
+        "г"
+      ],
+      [
+        "Перец болгарский",
+        50,
+        "г"
+      ],
+      [
+        "Хлеб",
+        50,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        3,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "b20",
+    "type": "breakfast",
+    "name": "Творожная миска с йогуртом и яблоком",
+    "icon": "🥣",
+    "diet": [
+      "omnivore",
+      "vegetarian"
+    ],
+    "quick": true,
+    "cost": 110,
+    "kcal": 368,
+    "p": 32,
+    "c": 35,
+    "f": 12,
+    "items": [
+      [
+        "Творог",
+        150,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        100,
+        "г"
+      ],
+      [
+        "Овсяные хлопья",
+        20,
+        "г"
+      ],
+      [
+        "Яблоко",
+        100,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "b21",
+    "type": "breakfast",
+    "name": "Лаваш с индейкой и свежими овощами",
+    "icon": "🌯",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 100,
+    "kcal": 285,
+    "p": 26,
+    "c": 34,
+    "f": 5,
+    "items": [
+      [
+        "Филе индейки",
+        80,
+        "г"
+      ],
+      [
+        "Лаваш тонкий",
+        60,
+        "г"
+      ],
+      [
+        "Огурец",
+        50,
+        "г"
+      ],
+      [
+        "Помидор",
+        50,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        25,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "b22",
+    "type": "breakfast",
+    "name": "Гречка с яйцами и овощным салатом",
+    "icon": "🍳",
+    "diet": [
+      "omnivore",
+      "vegetarian"
+    ],
+    "quick": false,
+    "cost": 55,
+    "kcal": 390,
+    "p": 21,
+    "c": 46,
+    "f": 15,
+    "items": [
+      [
+        "Гречка сухая",
+        55,
+        "г"
+      ],
+      [
+        "Яйца",
+        2,
+        "шт."
+      ],
+      [
+        "Помидор",
+        80,
+        "г"
+      ],
+      [
+        "Огурец",
+        80,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        3,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "b23",
+    "type": "breakfast",
+    "name": "Тост с творогом, яйцом и овощами",
+    "icon": "🥪",
+    "diet": [
+      "omnivore",
+      "vegetarian"
+    ],
+    "quick": true,
+    "cost": 70,
+    "kcal": 355,
+    "p": 28,
+    "c": 35,
+    "f": 12,
+    "items": [
+      [
+        "Творог",
+        100,
+        "г"
+      ],
+      [
+        "Яйца",
+        1,
+        "шт."
+      ],
+      [
+        "Хлеб",
+        60,
+        "г"
+      ],
+      [
+        "Огурец",
+        70,
+        "г"
+      ],
+      [
+        "Помидор",
+        50,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "b24",
+    "type": "breakfast",
+    "name": "Тёплый сэндвич с курицей и сыром",
+    "icon": "🥪",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 85,
+    "kcal": 370,
+    "p": 31,
+    "c": 37,
+    "f": 11,
+    "items": [
+      [
+        "Куриное филе",
+        80,
+        "г"
+      ],
+      [
+        "Хлеб",
+        70,
+        "г"
+      ],
+      [
+        "Сыр",
+        20,
+        "г"
+      ],
+      [
+        "Помидор",
+        60,
+        "г"
+      ],
+      [
+        "Огурец",
+        40,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s19",
+    "type": "snack",
+    "name": "Творог с йогуртом и яблоком",
+    "icon": "🥛",
+    "diet": [
+      "omnivore",
+      "vegetarian"
+    ],
+    "quick": true,
+    "cost": 75,
+    "kcal": 270,
+    "p": 28,
+    "c": 22,
+    "f": 7,
+    "items": [
+      [
+        "Творог",
+        150,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        60,
+        "г"
+      ],
+      [
+        "Яблоко",
+        100,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s20",
+    "type": "snack",
+    "name": "Сэндвич с индейкой и овощами",
+    "icon": "🥪",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 55,
+    "kcal": 245,
+    "p": 21,
+    "c": 30,
+    "f": 5,
+    "items": [
+      [
+        "Филе индейки",
+        60,
+        "г"
+      ],
+      [
+        "Хлеб",
+        60,
+        "г"
+      ],
+      [
+        "Огурец",
+        50,
+        "г"
+      ],
+      [
+        "Помидор",
+        50,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        15,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s21",
+    "type": "snack",
+    "name": "Яйцо, творог и огурец с хлебом",
+    "icon": "🥚",
+    "diet": [
+      "omnivore",
+      "vegetarian"
+    ],
+    "quick": true,
+    "cost": 45,
+    "kcal": 259,
+    "p": 22,
+    "c": 21,
+    "f": 10,
+    "items": [
+      [
+        "Яйца",
+        1,
+        "шт."
+      ],
+      [
+        "Творог",
+        80,
+        "г"
+      ],
+      [
+        "Огурец",
+        100,
+        "г"
+      ],
+      [
+        "Хлеб",
+        30,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s22",
+    "type": "snack",
+    "name": "Тост с сардинами и помидором",
+    "icon": "🐟",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 55,
+    "kcal": 259,
+    "p": 22,
+    "c": 24,
+    "f": 9,
+    "items": [
+      [
+        "Сардины консервированные",
+        70,
+        "г"
+      ],
+      [
+        "Хлеб",
+        40,
+        "г"
+      ],
+      [
+        "Помидор",
+        70,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s23",
+    "type": "snack",
+    "name": "Творог с йогуртом и бананом",
+    "icon": "🍌",
+    "diet": [
+      "omnivore",
+      "vegetarian"
+    ],
+    "quick": true,
+    "cost": 65,
+    "kcal": 231,
+    "p": 21,
+    "c": 24,
+    "f": 7,
+    "items": [
+      [
+        "Творог",
+        100,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        80,
+        "г"
+      ],
+      [
+        "Банан",
+        70,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l20",
+    "type": "lunch",
+    "name": "Куриные фрикадельки с гречкой и брокколи",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 100,
+    "kcal": 509,
+    "p": 36,
+    "c": 54,
+    "f": 12,
+    "items": [
+      [
+        "Фарш куриный",
+        140,
+        "г"
+      ],
+      [
+        "Гречка сухая",
+        60,
+        "г"
+      ],
+      [
+        "Брокколи замороженная",
+        100,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        4,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l21",
+    "type": "lunch",
+    "name": "Говядина с рисом и брокколи",
+    "icon": "🥩",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 120,
+    "kcal": 508,
+    "p": 34,
+    "c": 55,
+    "f": 15,
+    "items": [
+      [
+        "Фарш говяжий",
+        120,
+        "г"
+      ],
+      [
+        "Рис сухой",
+        60,
+        "г"
+      ],
+      [
+        "Брокколи замороженная",
+        120,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        3,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l22",
+    "type": "lunch",
+    "name": "Индейка с картофелем и капустным салатом",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 110,
+    "kcal": 398,
+    "p": 39,
+    "c": 43,
+    "f": 9,
+    "items": [
+      [
+        "Филе индейки",
+        140,
+        "г"
+      ],
+      [
+        "Картофель",
+        200,
+        "г"
+      ],
+      [
+        "Капуста",
+        100,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Помидор",
+        50,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        4,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l23",
+    "type": "lunch",
+    "name": "Минтай с гречкой и овощами",
+    "icon": "🐟",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 100,
+    "kcal": 404,
+    "p": 38,
+    "c": 48,
+    "f": 8,
+    "items": [
+      [
+        "Минтай",
+        150,
+        "г"
+      ],
+      [
+        "Гречка сухая",
+        60,
+        "г"
+      ],
+      [
+        "Брокколи замороженная",
+        100,
+        "г"
+      ],
+      [
+        "Помидор",
+        80,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        4,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l24",
+    "type": "lunch",
+    "name": "Курица с макаронами, перцем и томатами",
+    "icon": "🍝",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 105,
+    "kcal": 471,
+    "p": 39,
+    "c": 59,
+    "f": 8,
+    "items": [
+      [
+        "Куриное филе",
+        130,
+        "г"
+      ],
+      [
+        "Макароны сухие",
+        65,
+        "г"
+      ],
+      [
+        "Томатный соус",
+        60,
+        "г"
+      ],
+      [
+        "Перец болгарский",
+        60,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l25",
+    "type": "lunch",
+    "name": "Чечевичный суп с курицей",
+    "icon": "🍲",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 75,
+    "kcal": 411,
+    "p": 34,
+    "c": 55,
+    "f": 7,
+    "items": [
+      [
+        "Куриное филе",
+        80,
+        "г"
+      ],
+      [
+        "Чечевица сухая",
+        50,
+        "г"
+      ],
+      [
+        "Картофель",
+        100,
+        "г"
+      ],
+      [
+        "Морковь",
+        60,
+        "г"
+      ],
+      [
+        "Лук",
+        30,
+        "г"
+      ],
+      [
+        "Томатный соус",
+        50,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d19",
+    "type": "dinner",
+    "name": "Курица из духовки с картофелем и брокколи",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 100,
+    "kcal": 401,
+    "p": 37,
+    "c": 42,
+    "f": 10,
+    "items": [
+      [
+        "Куриное филе",
+        130,
+        "г"
+      ],
+      [
+        "Картофель",
+        180,
+        "г"
+      ],
+      [
+        "Брокколи замороженная",
+        120,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        4,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d20",
+    "type": "dinner",
+    "name": "Минтай с рисом и овощной смесью",
+    "icon": "🐟",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 95,
+    "kcal": 426,
+    "p": 34,
+    "c": 55,
+    "f": 8,
+    "items": [
+      [
+        "Минтай",
+        150,
+        "г"
+      ],
+      [
+        "Рис сухой",
+        55,
+        "г"
+      ],
+      [
+        "Овощная смесь замороженная",
+        150,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        4,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d21",
+    "type": "dinner",
+    "name": "Котлеты из индейки с гречкой и салатом",
+    "icon": "🍽️",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 115,
+    "kcal": 434,
+    "p": 39,
+    "c": 45,
+    "f": 11,
+    "items": [
+      [
+        "Филе индейки",
+        130,
+        "г"
+      ],
+      [
+        "Яйца",
+        0.5,
+        "шт."
+      ],
+      [
+        "Гречка сухая",
+        55,
+        "г"
+      ],
+      [
+        "Капуста",
+        100,
+        "г"
+      ],
+      [
+        "Помидор",
+        80,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        3,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d22",
+    "type": "dinner",
+    "name": "Говядина с фасолью в томатном соусе",
+    "icon": "🥘",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 90,
+    "kcal": 370,
+    "p": 29,
+    "c": 32,
+    "f": 13,
+    "items": [
+      [
+        "Фарш говяжий",
+        100,
+        "г"
+      ],
+      [
+        "Фасоль консервированная",
+        100,
+        "г"
+      ],
+      [
+        "Морковь",
+        60,
+        "г"
+      ],
+      [
+        "Томатный соус",
+        80,
+        "г"
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        3,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d23",
+    "type": "dinner",
+    "name": "Омлет с творогом, брокколи и томатами",
+    "icon": "🍳",
+    "diet": [
+      "omnivore",
+      "vegetarian"
+    ],
+    "quick": true,
+    "cost": 85,
+    "kcal": 373,
+    "p": 32,
+    "c": 25,
+    "f": 17,
+    "items": [
+      [
+        "Яйца",
+        2,
+        "шт."
+      ],
+      [
+        "Творог",
+        80,
+        "г"
+      ],
+      [
+        "Брокколи замороженная",
+        80,
+        "г"
+      ],
+      [
+        "Помидор",
+        80,
+        "г"
+      ],
+      [
+        "Хлеб",
+        40,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d24",
+    "type": "dinner",
+    "name": "Индейка с чечевицей и овощами",
+    "icon": "🍲",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 95,
+    "kcal": 390,
+    "p": 36,
+    "c": 45,
+    "f": 7,
+    "items": [
+      [
+        "Филе индейки",
+        90,
+        "г"
+      ],
+      [
+        "Чечевица сухая",
+        40,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ],
+      [
+        "Томатный соус",
+        60,
+        "г"
+      ],
+      [
+        "Брокколи замороженная",
+        80,
+        "г"
+      ]
+    ]
   }
 ];
 
@@ -3121,6 +4089,46 @@ const productCatalog = {
     "category": "Крупы и хлеб",
     "pyaterochka": 69,
     "baton": 65
+  },
+  "Перец болгарский": {
+    "packSize": 500,
+    "unit": "г",
+    "packLabel": "упаковка 500 г",
+    "category": "Овощи, фрукты и другое",
+    "pyaterochka": 159,
+    "baton": 149
+  },
+  "Брокколи замороженная": {
+    "packSize": 400,
+    "unit": "г",
+    "packLabel": "пакет 400 г",
+    "category": "Овощи, фрукты и другое",
+    "pyaterochka": 149,
+    "baton": 139
+  },
+  "Овощная смесь замороженная": {
+    "packSize": 400,
+    "unit": "г",
+    "packLabel": "пакет 400 г",
+    "category": "Овощи, фрукты и другое",
+    "pyaterochka": 119,
+    "baton": 109
+  },
+  "Чечевица сухая": {
+    "packSize": 450,
+    "unit": "г",
+    "packLabel": "пачка 450 г",
+    "category": "Крупы и хлеб",
+    "pyaterochka": 119,
+    "baton": 109
+  },
+  "Сардины консервированные": {
+    "packSize": 240,
+    "unit": "г",
+    "packLabel": "банка 240 г",
+    "category": "Мясо, птица и рыба",
+    "pyaterochka": 139,
+    "baton": 129
   }
 };;
 
@@ -3179,8 +4187,8 @@ function recipeAllowed(r,d){
     'глютен':['хлеб','макароны сухие','овсяные хлопья','мука','лаваш тонкий'],
     'пшеница':['хлеб','макароны сухие','мука','лаваш тонкий'],
     'яйцо':['яйца'],'яйца':['яйца'],
-    'рыба':['минтай','тунец консервированный'],
-    'морепродукты':['минтай','тунец консервированный'],
+    'рыба':['минтай','тунец консервированный','сардины консервированные'],
+    'морепродукты':['минтай','тунец консервированный','сардины консервированные'],
     'мясо':['куриное филе','куриное бедро без кожи','фарш говяжий','фарш куриный','филе индейки','свинина (лопатка)','куриная печень'],
     'птица':['куриное филе','куриное бедро без кожи','фарш куриный','филе индейки','куриная печень'],
     'курица':['куриное филе','куриное бедро без кожи','фарш куриный','куриная печень'],
@@ -3189,7 +4197,13 @@ function recipeAllowed(r,d){
     'свинина':['свинина (лопатка)'],
     'печень':['куриная печень'],
     'тунец':['тунец консервированный'],
-    'грибы':['шампиньоны']
+    'грибы':['шампиньоны'],
+    'перец':['перец болгарский'],
+    'брокколи':['брокколи замороженная'],
+    'чечевица':['чечевица сухая'],
+    'бобовые':['фасоль консервированная','чечевица сухая'],
+    'сардины':['сардины консервированные'],
+    'овощная смесь':['овощная смесь замороженная']
   };
   return !d.avoid.some(term=>{
     if(!term)return false;
@@ -3216,20 +4230,92 @@ function marginalPurchaseCost(recipe,amounts,store,scale){
 function addRecipeAmounts(recipe,amounts,scale){
   recipe.items.forEach(([name,amount,unit])=>{const key=name+'|'+unit;amounts.set(key,(amounts.get(key)||0)+amount*scale);});
 }
-function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale){
+const vegetableFoods=new Set(['Помидор','Огурец','Морковь','Капуста','Лук','Шампиньоны','Кукуруза консервированная','Перец болгарский','Брокколи замороженная','Овощная смесь замороженная','Томатный соус']);
+const fruitFoods=new Set(['Банан','Яблоко','Апельсин']);
+const fishFoods=new Set(['Минтай','Тунец консервированный','Сардины консервированные']);
+const legumeFoods=new Set(['Фасоль консервированная','Чечевица сухая']);
+const redMeatFoods=new Set(['Фарш говяжий','Свинина (лопатка)']);
+const animalProteinFoods=new Set(['Куриное филе','Куриное бедро без кожи','Фарш говяжий','Фарш куриный','Филе индейки','Свинина (лопатка)','Куриная печень','Минтай','Тунец консервированный','Сардины консервированные','Яйца','Творог','Сыр','Йогурт натуральный','Кефир','Молоко']);
+const plantProteinFoods=new Set(['Фасоль консервированная','Чечевица сухая']);
+const wholegrainFoods=new Set(['Гречка сухая','Овсяные хлопья','Пшено сухое']);
+function sumRecipeItems(items,foodSet,scale=1){
+  return items.reduce((sum,item)=>sum+(foodSet.has(item[0])?Number(item[1])*scale:0),0);
+}
+function sumAmountMap(amounts,foodSet){
+  let sum=0;
+  amounts.forEach((amount,key)=>{const name=key.slice(0,key.lastIndexOf('|'));if(foodSet.has(name))sum+=Number(amount)||0;});
+  return sum;
+}
+function getProduceTarget(age){
+  return age<6?250:age<10?350:400;
+}
+function calculateNutritionQuality(days,d){
+  const target=getProduceTarget(d.age);
+  let produceTotal=0,fishMeals=0,legumeMeals=0,mainMeals=0,proteinMainMeals=0;
+  const proteinVariety=new Set();
+  days.forEach(day=>(day.meals||[]).forEach(meal=>{
+    const items=meal.ingredients||[];
+    produceTotal+=sumRecipeItems(items,[...vegetableFoods,...fruitFoods].reduce((set,name)=>set.add(name),new Set()));
+    const fish=sumRecipeItems(items,fishFoods),beans=items.filter(x=>x[0]==='Фасоль консервированная').reduce((s,x)=>s+x[1],0),lentils=items.filter(x=>x[0]==='Чечевица сухая').reduce((s,x)=>s+x[1],0);
+    if(fish>=100)fishMeals++;
+    if(beans>=80||lentils>=35)legumeMeals++;
+    if(meal.type!=='snack'&&meal.type!=='snack2'){
+      mainMeals++;
+      if((Number(meal.p)||0)>=(d.diet==='vegan'?15:d.diet==='vegetarian'?18:20))proteinMainMeals++;
+    }
+    items.forEach(x=>{
+      const n=x[0];
+      if(/Куриное|Фарш куриный/.test(n))proteinVariety.add('Птица');
+      if(/Филе индейки/.test(n))proteinVariety.add('Индейка');
+      if(/говяж|Свинина/.test(n))proteinVariety.add('Красное мясо');
+      if(fishFoods.has(n))proteinVariety.add('Рыба');
+      if(['Яйца','Творог','Сыр','Йогурт натуральный','Кефир','Молоко'].includes(n))proteinVariety.add('Яйца и молочные');
+      if(plantProteinFoods.has(n))proteinVariety.add('Бобовые');
+    });
+  }));
+  return {produceAverage:Math.round(produceTotal/Math.max(1,days.length)),produceTarget:target,fishMeals,fishTarget:d.diet==='omnivore'?2:0,legumeMeals,legumeTarget:2,mainMeals,proteinMainMeals,proteinVariety:[...proteinVariety]};
+}
+function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale,dayAmounts=new Map()){
   let options=recipes.filter(r=>r.type===type&&recipeAllowed(r,d));
   if(!options.length)return null;
   const notUsed=options.filter(r=>!used.has(r.id));
   if(notUsed.length)options=notUsed;
-  const meatSources=new Set(['Куриное филе','Куриное бедро без кожи','Фарш говяжий','Фарш куриный','Филе индейки','Свинина (лопатка)','Куриная печень','Тунец консервированный','Минтай']);
-  const proteinScore=r=>Math.min(55,Number(r.p)||0)*(d.diet==='omnivore'?1.8:1.2)+(d.diet==='omnivore'&&r.items.some(i=>meatSources.has(i[0]))?350:0);
-  if(d.budget>0){
-    const varietyPenalty=100000;
-    return options.map(r=>({r,score:marginalPurchaseCost(r,amounts,d.store,scale)-proteinScore(r)+(repeatCounts.get(r.id)||0)*varietyPenalty}))
-      .sort((a,b)=>a.score-b.score||b.r.p-a.r.p||a.r.name.localeCompare(b.r.name,'ru'))[0].r;
-  }
-  const start=(dayIndex*3+(type==='breakfast'?0:type==='snack'?2:type==='lunch'?1:3))%options.length;
-  return options[start];
+  const produceSet=new Set([...vegetableFoods,...fruitFoods]);
+  const dayProduce=sumAmountMap(dayAmounts,produceSet);
+  const weeklyFish=sumAmountMap(amounts,fishFoods);
+  const weeklyLegumes=sumAmountMap(amounts,legumeFoods);
+  const weeklyRedMeat=sumAmountMap(amounts,redMeatFoods);
+  const proteinTarget=type==='snack'?10:type==='breakfast'?(d.diet==='vegan'?12:18):(d.diet==='vegan'?16:d.diet==='vegetarian'?20:25);
+  const scored=options.map((r,index)=>{
+    const protein=Number(r.p)||0;
+    const veg=sumRecipeItems(r.items,vegetableFoods,scale);
+    const produce=sumRecipeItems(r.items,produceSet,scale);
+    const fish=sumRecipeItems(r.items,fishFoods,scale);
+    const legumes=sumRecipeItems(r.items,legumeFoods,scale);
+    const redMeat=sumRecipeItems(r.items,redMeatFoods,scale);
+    const hasAnimal=r.items.some(x=>animalProteinFoods.has(x[0]));
+    const hasPlant=r.items.some(x=>plantProteinFoods.has(x[0]));
+    const hasWholegrain=r.items.some(x=>wholegrainFoods.has(x[0]));
+    let score=Math.max(0,proteinTarget-protein)*1.25-Math.min(5,Math.max(0,protein-proteinTarget)*.12);
+    if(type==='lunch'||type==='dinner')score+=Math.max(0,120-veg)*.09;
+    else if(type==='breakfast')score+=Math.max(0,45-veg)*.035;
+    else score+=Math.max(0,60-produce)*.025;
+    if(dayProduce<getProduceTarget(d.age))score-=Math.min(10,produce*.045);
+    if((type==='lunch'||type==='dinner')&&hasWholegrain)score-=2.5;
+    if(d.diet==='omnivore'&&hasAnimal)score-=2;
+    if(hasPlant&&weeklyLegumes<180)score-=9;
+    if(fish>0&&weeklyFish<240)score-=dayIndex>=4?23:16;
+    if(redMeat>0&&weeklyRedMeat>=250)score+=18;
+    else if(redMeat>0&&weeklyRedMeat>0)score+=3;
+    const primary=r.items.find(x=>animalProteinFoods.has(x[0])||plantProteinFoods.has(x[0]));
+    if(primary&&sumAmountMap(dayAmounts,new Set([primary[0]]))>0)score+=4;
+    score+=(repeatCounts.get(r.id)||0)*45;
+    if(d.budget>0)score+=Math.min(16,marginalPurchaseCost(r,amounts,d.store,scale)*.025);
+    const rotation=(dayIndex*3+(type==='breakfast'?0:type==='snack'?2:type==='lunch'?1:3))%options.length;
+    return {r,score,index,rotation};
+  });
+  scored.sort((a,b)=>a.score-b.score||((a.index-a.rotation+options.length)%options.length)-((b.index-b.rotation+options.length)%options.length)||b.r.p-a.r.p);
+  return scored[0].r;
 }
 function buildShoppingCart(days,store){
   const amounts=new Map();
@@ -3265,12 +4351,13 @@ function createPlan(d){
   const scaleCapped=!!calc&&Math.abs(rawScale-scale)>.001;
   const days=[];const amounts=new Map();const repeatCounts=new Map();
   for(let day=0;day<7;day++){
-    const used=new Set();const meals=[];
+    const used=new Set();const meals=[];const dayAmounts=new Map();
     for(const type of mealTypes){
       const recipeType=type==='snack2'?'snack':type;
-      const recipe=pickRecipe(recipeType,d,day,used,amounts,repeatCounts,scale);
+      const recipe=pickRecipe(recipeType,d,day,used,amounts,repeatCounts,scale,dayAmounts);
       if(!recipe)continue;
-      used.add(recipe.id);repeatCounts.set(recipe.id,(repeatCounts.get(recipe.id)||0)+1);addRecipeAmounts(recipe,amounts,scale);
+      used.add(recipe.id);repeatCounts.set(recipe.id,(repeatCounts.get(recipe.id)||0)+1);
+      addRecipeAmounts(recipe,amounts,scale);addRecipeAmounts(recipe,dayAmounts,scale);
       const mealScale=scale;
       meals.push({type,recipe,scale:mealScale,kcal:Math.round(recipe.kcal*mealScale),p:Math.round(recipe.p*mealScale),c:Math.round(recipe.c*mealScale),f:Math.round(recipe.f*mealScale),cost:Math.round(recipe.cost*mealScale),ingredients:recipe.items.map(([name,amount,unit])=>({name,amount:amount*mealScale,unit}))});
     }
@@ -3280,6 +4367,7 @@ function createPlan(d){
   const avg=totals.reduce((a,t)=>({kcal:a.kcal+t.kcal,p:a.p+t.p,c:a.c+t.c,f:a.f+t.f,cost:a.cost+t.cost}),{kcal:0,p:0,c:0,f:0,cost:0});
   Object.keys(avg).forEach(k=>avg[k]=Math.round(avg[k]/7));
   const plan={data:d,adult,calc,days,totals,avg,scale,rawScale,scaleCapped,baseCalories,cart:[],cartCost:0};
+  plan.quality=calculateNutritionQuality(days,d);
   plan.cart=buildShoppingCart(days,d.store);updateCartTotals(plan);
   return plan;
 }
@@ -3295,6 +4383,20 @@ function renderBudgetNotice(plan){
   if(d.budget>0)message=`Ориентировочная корзина на 7 дней (${storeName(d.store)}): ${plan.cartCost.toLocaleString('ru-RU')} ₽ при бюджете ${d.budget.toLocaleString('ru-RU')} ₽. `+(plan.cartCost<=d.budget?`Остаётся примерно ${(d.budget-plan.cartCost).toLocaleString('ru-RU')} ₽.`:`Превышение бюджета — примерно ${(plan.cartCost-d.budget).toLocaleString('ru-RU')} ₽. Попробуй увеличить бюджет или изменить предпочтения; приложение не будет урезать порции до небезопасного уровня.`);
   if(plan.scaleCapped)message+=(message?' ':'')+'Порции ограничены безопасным диапазоном масштабирования, поэтому меню может не полностью совпасть с расчётной энергопотребностью. Для точной индивидуальной настройки обратись к диетологу.';
   budget.textContent=message;budget.classList.toggle('hidden',!message);
+}
+function renderNutritionQuality(plan){
+  const host=$('nutritionQuality');if(!host)return;
+  const q=plan.quality||calculateNutritionQuality(plan.days,plan.data);
+  const notes=[];
+  if(q.produceAverage<q.produceTarget)notes.push('Добавь к основным блюдам ещё овощи или фрукт: среднее сейчас ниже ориентира.');
+  if(q.fishTarget&&q.fishMeals<q.fishTarget)notes.push('Добавь ещё '+(q.fishTarget-q.fishMeals)+' рыбн'+(q.fishTarget-q.fishMeals===1?'ое блюдо':'ых блюда')+' за неделю.');
+  if(q.legumeMeals<q.legumeTarget)notes.push('Добавь блюда с фасолью или чечевицей для клетчатки и растительного белка.');
+  if(q.mainMeals&&q.proteinMainMeals<q.mainMeals)notes.push('В части основных блюд мало белкового продукта — можно заменить их на курицу, рыбу, яйца, творог или бобовые.');
+  const status=notes.length?'Есть что улучшить':'Основные группы продуктов хорошо представлены';
+  const fishText=q.fishTarget?(q.fishMeals+' / '+q.fishTarget+' рыбных порции'):'учитывается выбранный тип питания';
+  const legumesText=q.legumeMeals+' / '+q.legumeTarget+' блюд с бобовыми';
+  const coverage=q.mainMeals?Math.round(q.proteinMainMeals/q.mainMeals*100):0;
+  host.innerHTML='<div class="nutrition-quality-head"><div><span class="eyebrow">ПРОВЕРКА МЕНЮ</span><h3>Баланс рациона</h3><p>Оценка по ингредиентам выбранных блюд, а не медицинское заключение.</p></div><span class="nutrition-quality-status '+(notes.length?'needs-work':'is-good')+'">'+status+'</span></div><div class="nutrition-quality-metrics"><div><b>'+q.produceAverage+' г</b><span>овощи и фрукты в среднем за день</span><small>ориентир: около '+q.produceTarget+' г</small></div><div><b>'+fishText+'</b><span>рыба за неделю</span><small>'+(q.fishTarget?'старайся включать разные виды':'с учётом твоего типа питания')+'</small></div><div><b>'+legumesText+'</b><span>бобовые</span><small>фасоль, чечевица и другие</small></div><div><b>'+coverage+'%</b><span>основных блюд с достаточным белковым компонентом</span><small>по ориентиру генератора</small></div></div>'+(notes.length?'<ul class="nutrition-quality-notes">'+notes.map(n=>'<li>'+n+'</li>').join('')+'</ul>':'<p class="nutrition-quality-note-good">В меню есть источники белка, гарниры и разнообразные продукты. Сохраняй разнообразие и меняй блюда по вкусу.</p>')+'<p class="nutrition-quality-foot">Показатели приблизительные: точный состав зависит от марки продуктов, веса после приготовления и реальных порций. Для детей и подростков это пример меню, а не план для изменения веса.</p>';
 }
 function renderPlan(plan, scrollToPlan=true){
   currentPlan=plan;
@@ -3317,6 +4419,7 @@ function renderPlan(plan, scrollToPlan=true){
   else if(d.sex==='unspecified'){safety.classList.remove('hidden');safety.textContent='Пол для расчёта не указан. NUTRIX показывает пример меню, но не рассчитывает индивидуальную энергетическую потребность и нормы БЖУ.';}
   else{safety.classList.add('hidden');}
   renderBudgetNotice(plan);
+  renderNutritionQuality(plan);
   const daysGrid=$('daysGrid');daysGrid.innerHTML='';
   plan.days.forEach((day,index)=>{
     const total=plan.totals[index];
@@ -3340,12 +4443,18 @@ function replaceMeal(dayIndex,mealIndex){
   if(!currentPlan)return;
   const day=currentPlan.days[dayIndex];const old=day?.meals[mealIndex];if(!old)return;
   const d=currentPlan.data;const type=old.type==='snack2'?'snack':old.type;
-  const used=new Set(day.meals.filter((m,i)=>i!==mealIndex).map(m=>m.recipe.id));
-  let options=recipes.filter(r=>r.type===type&&recipeAllowed(r,d)&&!used.has(r.id)&&r.id!==old.recipe.id);
-  if(!options.length){showToast('Нет других блюд с такими ограничениями');return;}
-  options.sort((a,b)=>a.cost-b.cost);
-  const chosen=options[(dayIndex+mealIndex)%options.length];
+  const used=new Set(day.meals.filter((m,i)=>i!==mealIndex).map(m=>m.recipe.id));used.add(old.recipe.id);
+  const weekAmounts=new Map(),dayAmounts=new Map(),repeatCounts=new Map();
+  currentPlan.days.forEach((entry,di)=>entry.meals.forEach((meal,mi)=>{
+    if(di===dayIndex&&mi===mealIndex)return;
+    const scale=Number(meal.scale)||currentPlan.scale||1;
+    addRecipeAmounts(meal.recipe,weekAmounts,scale);
+    repeatCounts.set(meal.recipe.id,(repeatCounts.get(meal.recipe.id)||0)+1);
+    if(di===dayIndex)addRecipeAmounts(meal.recipe,dayAmounts,scale);
+  }));
   const scale=currentPlan.scale;
+  const chosen=pickRecipe(type,d,dayIndex,used,weekAmounts,repeatCounts,scale,dayAmounts);
+  if(!chosen){showToast('Нет подходящих блюд с такими ограничениями');return;}
   day.meals[mealIndex]={type:old.type,recipe:chosen,scale,kcal:Math.round(chosen.kcal*scale),p:Math.round(chosen.p*scale),c:Math.round(chosen.c*scale),f:Math.round(chosen.f*scale),cost:Math.round(chosen.cost*scale),ingredients:chosen.items.map(([name,amount,unit])=>({name,amount:amount*scale,unit}))};
   if(currentPlan.completedMeals)delete currentPlan.completedMeals[dayIndex+':'+mealIndex];
   try{
