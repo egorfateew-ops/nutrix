@@ -110,13 +110,15 @@
       const day=p.days[index];if(!day)return;
       const dayDone=day.meals.reduce((sum,meal,mealIndex)=>sum+(p.completedMeals[index+':'+mealIndex]?1:0),0);
       const label=card.querySelector('.day-head span');
-      if(label){label.textContent=dayDone+' / '+day.meals.length+' выполнено';label.classList.add('day-progress-label');}
+      const labelText=dayDone+' / '+day.meals.length+' выполнено';
+      if(label&&label.textContent!==labelText){label.textContent=labelText;label.classList.add('day-progress-label');}
       day.meals.forEach((meal,mealIndex)=>{
         const row=card.querySelectorAll('.meal-row')[mealIndex];if(!row)return;
         const button=row.querySelector('.meal-check-button');if(!button)return;
         const checked=!!p.completedMeals[index+':'+mealIndex];
         button.classList.toggle('is-complete',checked);button.setAttribute('aria-pressed',String(checked));
-        button.textContent=checked?'Готово ✓':'Отметить';
+        const buttonText=checked?'Готово ✓':'Отметить';
+        if(button.textContent!==buttonText)button.textContent=buttonText;
         button.title=checked?'Убрать отметку о съеденном блюде':'Отметить блюдо как съеденное';
       });
     });
@@ -190,10 +192,12 @@
     if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }
   function runEnhancements(){enhanceMeals();addShoppingControls();restoreShoppingState();persistShoppingChanges();addInstallButton();}
-  const days=$('daysGrid'),shopping=$('shoppingList');
-  if(days)new MutationObserver(runEnhancements).observe(days,{childList:true,subtree:true});
-  if(shopping)new MutationObserver(runEnhancements).observe(shopping,{childList:true,subtree:true});
-  runEnhancements();registerOffline();
+  // Do not observe childList mutations here: enhanceMeals updates text nodes
+  // inside #daysGrid, which would retrigger the observer indefinitely.
+  // The core app emits this event after every initial or replacement plan render.
+  window.addEventListener('nutrix:plan-rendered',runEnhancements);
+  runEnhancements();
+  registerOffline();
   if(days)days.addEventListener('click',event=>{
     const check=event.target.closest('.meal-check-button');
     if(check){
