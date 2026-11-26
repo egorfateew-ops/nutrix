@@ -72,7 +72,7 @@
         </div>
 
         <div class="builder-grid">
-          <form class="panel profile-panel" id="profileForm">
+          <form class="panel profile-panel" id="profileForm" novalidate>
             <div class="panel-title"><div class="panel-icon">♙</div><div><h3>Личные параметры</h3><p>Основная информация</p></div></div>
             <div class="field-grid three-cols">
               <label class="field"><span>Возраст, лет</span><input id="age" type="number" min="5" max="100" value="25" required></label>
@@ -109,7 +109,7 @@
             <label class="field full-field"><span>Аллергии и продукты, которые не ешь</span><input id="avoid" type="text" placeholder="Например: арахис, рыба, молоко, грибы"><small>Перечисли через запятую. Такие продукты будут исключены из подбора.</small></label>
             <label class="field full-field"><span>Дополнительные пожелания <em>необязательно</em></span><textarea id="notes" rows="2" placeholder="Например: люблю гречку, не люблю творог, хочу брать перекус в школу..."></textarea></label>
             <label class="safety-check"><input id="medical" type="checkbox"><span><b>Есть особенности здоровья</b><small>Беременность, диабет, заболевания почек или ЖКТ, расстройства пищевого поведения и другие состояния, влияющие на питание.</small></span></label>
-            <div class="form-actions"><button class="generate-button" type="submit">Составить рацион <span>→</span></button><button class="text-button" type="button" id="resetForm">Сбросить</button></div>
+            <div class="form-actions"><button class="generate-button" id="generatePlanButton" type="submit">Составить рацион <span>→</span></button><button class="text-button" type="button" id="resetForm">Сбросить</button></div>
             <p class="form-error" id="formError" role="alert"></p>
           </form>
 
