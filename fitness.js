@@ -115,6 +115,82 @@
     const pct=workoutsTotal?Math.min(100,Math.round(workoutsDone/workoutsTotal*100)):0;
     host.innerHTML='<div class="fitness-week-line"><span>Завершённые тренировки</span><b>'+workoutsDone+' из '+workoutsTotal+'</b></div><div class="fitness-week-track"><span style="width:'+pct+'%"></span></div><div class="fitness-week-line"><span>Отмеченные приёмы пищи</span><b>'+mealsDone+' из '+mealsTotal+'</b></div><p>Регулярность важнее идеального выполнения. Пропущенный день не обнуляет твой прогресс.</p>';
   }
+  const WELLNESS_GUEST_KEY='nutrix-wellness-v1:guest';
+  function wellnessStorageKey(){
+    const cloud=window.NUTRIX_CLOUD;
+    return cloud&&cloud.userId?'nutrix-wellness-v1:user:'+cloud.userId:WELLNESS_GUEST_KEY;
+  }
+  function wellnessDateKey(date){
+    const d=date||new Date();
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+  function readWellness(){
+    try{
+      const value=JSON.parse(localStorage.getItem(wellnessStorageKey())||'{}');
+      return value&&typeof value==='object'&&!Array.isArray(value)?value:{};
+    }catch(_){return {};}
+  }
+  function saveWellness(data){
+    try{
+      const keys=Object.keys(data).sort();
+      if(keys.length>60)keys.slice(0,keys.length-60).forEach(key=>delete data[key]);
+      localStorage.setItem(wellnessStorageKey(),JSON.stringify(data));
+      return true;
+    }catch(_){return false;}
+  }
+  function currentWellnessRecord(data){
+    const key=wellnessDateKey();
+    if(!data[key])data[key]={water:0,sleep:'',energy:'',soreness:''};
+    return data[key];
+  }
+  function wellnessAdvice(record){
+    if(!record||record.sleep===''||record.energy===''||record.soreness==='')return 'Отметь сон и самочувствие — здесь появится спокойная подсказка на день.';
+    const sleep=Number(record.sleep),energy=Number(record.energy),soreness=Number(record.soreness);
+    if(sleep<=5||energy<=2||soreness>=4)return 'Сегодня не форсируй нагрузку: выбери облегчённый вариант или отдых. Если чувствуешь боль или недомогание, тренировку лучше пропустить.';
+    if(sleep>=7&&energy>=4&&soreness<=2)return 'Самочувствие по твоим отметкам хорошее. Выполняй привычный план, но не увеличивай нагрузку резко.';
+    return 'Ориентируйся на ощущения и технику. Если разминка даётся тяжело, снизь нагрузку или выбери восстановительный день.';
+  }
+  function renderWellness(){
+    const host=$('fitnessRecovery');if(!host)return;
+    const data=readWellness(),record=data[wellnessDateKey()]||{water:0,sleep:'',energy:'',soreness:''};
+    const water=Math.max(0,Math.min(40,Number(record.water)||0));
+    $('fitnessWaterCount').textContent=String(water);
+    $('fitnessWaterVolume').textContent=(water*250)+' мл';
+    $('fitnessSleep').value=record.sleep===''?'':String(record.sleep);
+    $('fitnessEnergy').value=record.energy===''?'':String(record.energy);
+    $('fitnessSoreness').value=record.soreness===''?'':String(record.soreness);
+    $('fitnessRecoveryAdvice').textContent=wellnessAdvice(record);
+    $('fitnessRecoveryStatus').textContent=record.updatedAt?'Последнее сохранение: '+new Date(record.updatedAt).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}):'Отметки сохраняются на этом устройстве.';
+    const rows=[];
+    for(let offset=6;offset>=0;offset--){
+      const date=new Date();date.setHours(12,0,0,0);date.setDate(date.getDate()-offset);
+      const key=wellnessDateKey(date),entry=data[key];if(!entry)continue;
+      const label=offset===0?'Сегодня':date.toLocaleDateString('ru-RU',{weekday:'short',day:'numeric'});
+      const details=[];
+      if(entry.water)details.push((Number(entry.water)*250)+' мл воды');
+      if(entry.sleep!=='')details.push(entry.sleep+' ч сна');
+      if(entry.energy!=='')details.push('энергия '+entry.energy+'/5');
+      if(entry.soreness!=='')details.push('мышцы '+entry.soreness+'/5');
+      rows.push('<div class="fitness-recovery-history-row"><b>'+escapeHtml(label)+'</b><span>'+escapeHtml(details.join(' · ')||'Нет отметок')+'</span></div>');
+    }
+    $('fitnessRecoveryHistory').innerHTML=rows.length?rows.join(''):'<p>История появится после первой отметки.</p>';
+  }
+  function updateWater(delta){
+    const data=readWellness(),record=currentWellnessRecord(data);
+    record.water=Math.max(0,Math.min(40,(Number(record.water)||0)+delta));
+    record.updatedAt=new Date().toISOString();
+    if(!saveWellness(data))return toast('Не удалось сохранить отметку. Проверь свободное место в браузере.');
+    renderWellness();
+  }
+  function saveRecoveryCheckin(event){
+    event.preventDefault();
+    const sleep=$('fitnessSleep').value,energy=$('fitnessEnergy').value,soreness=$('fitnessSoreness').value;
+    if(!sleep||!energy||!soreness){$('fitnessRecoveryStatus').textContent='Заполни все три пункта.';return;}
+    const data=readWellness(),record=currentWellnessRecord(data);
+    record.sleep=Number(sleep);record.energy=Number(energy);record.soreness=Number(soreness);record.updatedAt=new Date().toISOString();
+    if(!saveWellness(data)){$('fitnessRecoveryStatus').textContent='Не удалось сохранить. Проверь свободное место в браузере.';return;}
+    renderWellness();toast('Отметка о восстановлении сохранена.');
+  }
   function render(){
     const nutrition=getNutritionPlan(),training=getTrainingPlan();
     const empty=$('fitnessEmpty'),dashboard=$('fitnessDashboard');
@@ -239,6 +315,10 @@
     const start=event.target.closest('[data-action="start-workout"]');
     if(start)startWorkout(Number(start.dataset.index));
   });
+  const recoveryForm=$('fitnessRecoveryForm');
+  if(recoveryForm)recoveryForm.addEventListener('submit',saveRecoveryCheckin);
+  const recoveryHost=$('fitnessRecovery');
+  if(recoveryHost)recoveryHost.addEventListener('click',event=>{const button=event.target.closest('[data-action="water-plus"],[data-action="water-minus"]');if(!button)return;updateWater(button.dataset.action==='water-plus'?1:-1);});
   ['nutrix:plan-rendered','nutrix:meal-progress-changed','nutrix:training-plan-rendered','nutrix:workout-completed','nutrix:auth-changed'].forEach(name=>window.addEventListener(name,render));
   window.addEventListener('nutrix:start-workout',event=>{if(event.detail&&Number.isInteger(Number(event.detail.index)))startWorkout(Number(event.detail.index));});
   render();
