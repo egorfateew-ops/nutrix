@@ -178,7 +178,12 @@ function adultEstimate(d){
   return {bmr:Math.round(bmr),tdee:Math.round(tdee),target:Math.round(target),protein,fat,carbs,floorApplied};
 }
 function recipeAllowed(r,d){
-  if(!r.diet.includes(d.diet))return false;
+  const dietAllowed=d.diet==='omnivore'
+    ? true
+    : d.diet==='vegetarian'
+      ? r.diet.includes('vegetarian')||r.diet.includes('vegan')
+      : r.diet.includes('vegan');
+  if(!dietAllowed)return false;
   if(d.cookTime==='quick'&&!r.quick)return false;
   const ingredients=r.items.map(x=>x[0].toLocaleLowerCase('ru'));
   const aliases={
