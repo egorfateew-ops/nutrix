@@ -40,6 +40,37 @@ const recipes = [
   {id:'d5',type:'dinner',name:'Тофу с гречкой и овощами',icon:'🥬',diet:['omnivore','vegetarian','vegan'],quick:false,cost:175,kcal:540,p:27,c:67,f:16,items:[['Тофу',130,'г'],['Гречка сухая',60,'г'],['Овощная смесь',180,'г']]},
   {id:'d6',type:'dinner',name:'Тушёная фасоль с картофелем',icon:'🫘',diet:['omnivore','vegetarian','vegan'],quick:false,cost:110,kcal:550,p:20,c:91,f:10,items:[['Фасоль консервированная',140,'г'],['Картофель',180,'г'],['Морковь',70,'г'],['Лук',40,'г'],['Масло растительное',5,'г']]},
   {id:'d7',type:'dinner',name:'Индейка с макаронами и овощами',icon:'🍝',diet:['omnivore'],quick:false,cost:195,kcal:590,p:40,c:69,f:15,items:[['Филе индейки',130,'г'],['Макароны сухие',65,'г'],['Овощная смесь',160,'г'],['Масло растительное',5,'г']]}
+
+,
+  {id:'b8',type:'breakfast',name:'Шакшука с помидорами и перцем',icon:'🍅',diet:['omnivore','vegetarian'],quick:true,cost:125,kcal:420,p:20,c:42,f:18,items:[['Яйца',2,'шт.'],['Помидор',180,'г'],['Лук',30,'г'],['Перец сладкий',50,'г'],['Хлеб цельнозерновой',40,'г'],['Масло растительное',5,'г']]},
+  {id:'b9',type:'breakfast',name:'Сырники с ягодами и йогуртом',icon:'🥞',diet:['omnivore','vegetarian'],quick:false,cost:145,kcal:430,p:30,c:45,f:13,items:[['Творог',150,'г'],['Яйца',1,'шт.'],['Овсяные хлопья',25,'г'],['Йогурт натуральный',50,'г'],['Ягоды',50,'г']]},
+  {id:'b10',type:'breakfast',name:'Банановые овсяные панкейки',icon:'🥞',diet:['omnivore','vegetarian','vegan'],quick:true,cost:85,kcal:390,p:13,c:58,f:8,items:[['Овсяные хлопья',50,'г'],['Банан',70,'г'],['Напиток соевый',80,'мл'],['Семена льна',5,'г']]},
+  {id:'b11',type:'breakfast',name:'Тосты с хумусом и овощами',icon:'🥪',diet:['omnivore','vegetarian','vegan'],quick:true,cost:95,kcal:360,p:12,c:52,f:8,items:[['Хлеб цельнозерновой',70,'г'],['Хумус',45,'г'],['Помидор',70,'г'],['Огурец',50,'г']]},
+  {id:'b12',type:'breakfast',name:'Пшённая каша с тыквой',icon:'🎃',diet:['omnivore','vegetarian','vegan'],quick:true,cost:85,kcal:390,p:13,c:68,f:7,items:[['Пшено сухое',55,'г'],['Напиток соевый',150,'мл'],['Тыква',100,'г'],['Корица',1,'г']]},
+  {id:'b13',type:'breakfast',name:'Соевый йогурт с яблоком и орехами',icon:'🍏',diet:['omnivore','vegetarian','vegan'],quick:true,cost:105,kcal:370,p:15,c:50,f:12,items:[['Йогурт соевый',180,'г'],['Овсяные хлопья',30,'г'],['Яблоко',80,'г'],['Орехи',10,'г']]},
+  {id:'b14',type:'breakfast',name:'Тофу-скрэмбл со шпинатом',icon:'🥬',diet:['omnivore','vegetarian','vegan'],quick:true,cost:135,kcal:360,p:20,c:35,f:15,items:[['Тофу',120,'г'],['Помидор',80,'г'],['Шпинат',30,'г'],['Хлеб цельнозерновой',40,'г'],['Масло растительное',3,'г']]},
+  {id:'s8',type:'snack',name:'Смузи из соевого йогурта с ягодами',icon:'🫐',diet:['omnivore','vegetarian','vegan'],quick:true,cost:95,kcal:190,p:8,c:30,f:5,items:[['Йогурт соевый',150,'г'],['Ягоды',80,'г'],['Банан',50,'г']]},
+  {id:'s9',type:'snack',name:'Морковь с хумусом',icon:'🥕',diet:['omnivore','vegetarian','vegan'],quick:true,cost:65,kcal:180,p:5,c:25,f:8,items:[['Морковь',120,'г'],['Хумус',50,'г']]},
+  {id:'s10',type:'snack',name:'Запечённое яблоко с овсянкой',icon:'🍎',diet:['omnivore','vegetarian','vegan'],quick:true,cost:55,kcal:180,p:4,c:36,f:3,items:[['Яблоко',150,'г'],['Овсяные хлопья',15,'г'],['Корица',1,'г']]},
+  {id:'s11',type:'snack',name:'Финиково-овсяные шарики',icon:'🌰',diet:['omnivore','vegetarian','vegan'],quick:true,cost:70,kcal:195,p:5,c:38,f:4,items:[['Финики',25,'г'],['Овсяные хлопья',20,'г'],['Семена льна',5,'г']]},
+  {id:'s12',type:'snack',name:'Огурец с хумусом и кунжутом',icon:'🥒',diet:['omnivore','vegetarian','vegan'],quick:true,cost:75,kcal:150,p:5,c:17,f:7,items:[['Огурец',120,'г'],['Хумус',45,'г'],['Кунжут',5,'г']]},
+  {id:'s13',type:'snack',name:'Апельсин с тыквенными семечками',icon:'🍊',diet:['omnivore','vegetarian','vegan'],quick:true,cost:75,kcal:180,p:5,c:24,f:8,items:[['Апельсин',150,'г'],['Семена тыквы',15,'г']]},
+  {id:'s14',type:'snack',name:'Банановый тост с арахисовой пастой',icon:'🍌',diet:['omnivore','vegetarian','vegan'],quick:true,cost:65,kcal:190,p:6,c:30,f:7,items:[['Хлеб цельнозерновой',35,'г'],['Банан',50,'г'],['Арахисовая паста',10,'г']]},
+  {id:'l8',type:'lunch',name:'Боул с индейкой и булгуром',icon:'🥙',diet:['omnivore'],quick:false,cost:205,kcal:610,p:42,c:68,f:14,items:[['Филе индейки',130,'г'],['Булгур сухой',60,'г'],['Огурец',60,'г'],['Помидор',60,'г'],['Шпинат',20,'г'],['Масло растительное',5,'г']]},
+  {id:'l9',type:'lunch',name:'Рис с тунцом и кукурузой',icon:'🐟',diet:['omnivore'],quick:true,cost:185,kcal:590,p:35,c:78,f:10,items:[['Тунец консервированный',100,'г'],['Рис сухой',65,'г'],['Кукуруза консервированная',50,'г'],['Огурец',50,'г']]},
+  {id:'l10',type:'lunch',name:'Лаваш с курицей и овощами',icon:'🌯',diet:['omnivore'],quick:true,cost:175,kcal:600,p:39,c:66,f:16,items:[['Куриное филе',120,'г'],['Лаваш',60,'г'],['Помидор',50,'г'],['Огурец',50,'г'],['Йогурт натуральный',35,'г']]},
+  {id:'l11',type:'lunch',name:'Перец с фасолью в томатном соусе',icon:'🫑',diet:['omnivore','vegetarian','vegan'],quick:true,cost:125,kcal:560,p:20,c:91,f:9,items:[['Перец сладкий',120,'г'],['Рис сухой',45,'г'],['Фасоль консервированная',90,'г'],['Томатный соус',70,'г'],['Лук',20,'г'],['Масло растительное',4,'г']]},
+  {id:'l12',type:'lunch',name:'Овощное рагу с нутом',icon:'🍲',diet:['omnivore','vegetarian','vegan'],quick:true,cost:130,kcal:540,p:19,c:82,f:12,items:[['Нут варёный',140,'г'],['Кабачок',100,'г'],['Морковь',50,'г'],['Лук',25,'г'],['Томатный соус',60,'г'],['Масло растительное',5,'г']]},
+  {id:'l13',type:'lunch',name:'Гречка с шампиньонами и тофу',icon:'🍄',diet:['omnivore','vegetarian','vegan'],quick:true,cost:145,kcal:560,p:25,c:66,f:17,items:[['Гречка сухая',60,'г'],['Шампиньоны',120,'г'],['Тофу',80,'г'],['Лук',25,'г'],['Масло растительное',5,'г']]},
+  {id:'l14',type:'lunch',name:'Кускус с нутом и овощами',icon:'🥗',diet:['omnivore','vegetarian','vegan'],quick:true,cost:140,kcal:570,p:20,c:91,f:10,items:[['Кускус сухой',60,'г'],['Нут варёный',100,'г'],['Перец сладкий',50,'г'],['Помидор',70,'г'],['Лимон',5,'г'],['Масло растительное',5,'г']]},
+  {id:'d8',type:'dinner',name:'Куриные котлеты с картофельным пюре',icon:'🍽️',diet:['omnivore'],quick:false,cost:195,kcal:570,p:38,c:58,f:17,items:[['Куриное филе',120,'г'],['Картофель',150,'г'],['Молоко',50,'мл'],['Яйца',0.5,'шт.'],['Капуста',70,'г'],['Масло растительное',5,'г']]},
+  {id:'d9',type:'dinner',name:'Белая рыба с рисом и брокколи',icon:'🐟',diet:['omnivore'],quick:false,cost:225,kcal:520,p:36,c:63,f:10,items:[['Рыба белая',150,'г'],['Рис сухой',60,'г'],['Брокколи',120,'г'],['Лимон',5,'г'],['Масло растительное',5,'г']]},
+  {id:'d10',type:'dinner',name:'Салат с тунцом, яйцом и картофелем',icon:'🥗',diet:['omnivore'],quick:true,cost:175,kcal:450,p:32,c:42,f:14,items:[['Тунец консервированный',90,'г'],['Яйца',1,'шт.'],['Картофель',120,'г'],['Огурец',70,'г'],['Помидор',70,'г'],['Масло растительное',5,'г']]},
+  {id:'d11',type:'dinner',name:'Чечевичные котлеты с овощным салатом',icon:'🧆',diet:['omnivore','vegetarian','vegan'],quick:false,cost:115,kcal:480,p:22,c:75,f:9,items:[['Чечевица сухая',60,'г'],['Овсяные хлопья',15,'г'],['Морковь',50,'г'],['Лук',20,'г'],['Капуста',60,'г'],['Масло растительное',5,'г']]},
+  {id:'d12',type:'dinner',name:'Тыква с нутом и булгуром',icon:'🎃',diet:['omnivore','vegetarian','vegan'],quick:false,cost:135,kcal:520,p:18,c:88,f:10,items:[['Тыква',150,'г'],['Нут варёный',120,'г'],['Булгур сухой',50,'г'],['Лук',20,'г'],['Масло растительное',5,'г']]},
+  {id:'d13',type:'dinner',name:'Тофу в томатном соусе со шпинатом и рисом',icon:'🍅',diet:['omnivore','vegetarian','vegan'],quick:false,cost:165,kcal:500,p:25,c:62,f:14,items:[['Тофу',130,'г'],['Рис сухой',50,'г'],['Томатный соус',80,'г'],['Шпинат',40,'г'],['Масло растительное',5,'г']]},
+  {id:'d14',type:'dinner',name:'Кабачковые оладьи с соевым соусом-йогуртом',icon:'🥒',diet:['omnivore','vegetarian','vegan'],quick:true,cost:115,kcal:390,p:17,c:48,f:13,items:[['Кабачок',150,'г'],['Овсяные хлопья',25,'г'],['Семена льна',5,'г'],['Йогурт соевый',60,'г'],['Зелень',5,'г'],['Масло растительное',5,'г']]}
+
 ];
 
 // Ориентировочная демонстрационная база цен. Это не онлайн-каталог и не оферта магазина.
@@ -91,7 +122,21 @@ const productCatalog = {
   'Шпинат': {packSize:100,unit:'г',packLabel:'пакет 100 г',category:'Овощи, фрукты и другое',pyaterochka:99,baton:89},
   'Яблоко': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:119,baton:109},
   'Ягоды': {packSize:300,unit:'г',packLabel:'пакет 300 г',category:'Овощи, фрукты и другое',pyaterochka:189,baton:175},
-  'Яйца': {packSize:10,unit:'шт.',packLabel:'упаковка 10 шт.',category:'Белковые продукты',pyaterochka:129,baton:119}
+  'Яйца': {packSize:10,unit:'шт.',packLabel:'упаковка 10 шт.',category:'Белковые продукты',pyaterochka:129,baton:119},
+  'Апельсин': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:149,baton:139},
+  'Кефир': {packSize:900,unit:'мл',packLabel:'пакет 900 мл',category:'Белковые продукты',pyaterochka:89,baton:82},
+  'Кукуруза консервированная': {packSize:340,unit:'г',packLabel:'банка 340 г',category:'Овощи, фрукты и другое',pyaterochka:89,baton:82},
+  'Кускус сухой': {packSize:450,unit:'г',packLabel:'пачка 450 г',category:'Крупы и хлеб',pyaterochka:119,baton:109},
+  'Кунжут': {packSize:100,unit:'г',packLabel:'пакет 100 г',category:'Крупы и хлеб',pyaterochka:89,baton:82},
+  'Лаваш': {packSize:200,unit:'г',packLabel:'упаковка 200 г',category:'Крупы и хлеб',pyaterochka:79,baton:72},
+  'Лимон': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:139,baton:129},
+  'Перец сладкий': {packSize:500,unit:'г',packLabel:'упаковка 500 г',category:'Овощи, фрукты и другое',pyaterochka:159,baton:145},
+  'Пшено сухое': {packSize:800,unit:'г',packLabel:'пачка 800 г',category:'Крупы и хлеб',pyaterochka:99,baton:89},
+  'Тунец консервированный': {packSize:185,unit:'г',packLabel:'банка 185 г',category:'Белковые продукты',pyaterochka:159,baton:149},
+  'Тыква': {packSize:1000,unit:'г',packLabel:'1 кг',category:'Овощи, фрукты и другое',pyaterochka:99,baton:89},
+  'Финики': {packSize:200,unit:'г',packLabel:'пакет 200 г',category:'Овощи, фрукты и другое',pyaterochka:129,baton:119},
+  'Шампиньоны': {packSize:400,unit:'г',packLabel:'упаковка 400 г',category:'Овощи, фрукты и другое',pyaterochka:149,baton:139},
+  'Зелень': {packSize:50,unit:'г',packLabel:'пучок 50 г',category:'Овощи, фрукты и другое',pyaterochka:59,baton:55}
 };
 
 let currentPlan = null;
@@ -140,7 +185,7 @@ function recipeAllowed(r,d){
     'молоко':['молоко','йогурт натуральный','творог','сыр'],'молочный':['молоко','йогурт натуральный','творог','сыр'],'молочные продукты':['молоко','йогурт натуральный','творог','сыр'],'лактоза':['молоко','йогурт натуральный','творог','сыр'],
     'арахис':['арахисовая паста','орехи'],'орех':['орехи','арахисовая паста'],'орехи':['орехи','арахисовая паста'],
     'глютен':['хлеб цельнозерновой','хлебцы','макароны сухие','булгур сухой','лапша сухая','овсяные хлопья'],'пшеница':['хлеб цельнозерновой','макароны сухие','булгур сухой','лапша сухая'],
-    'соя':['тофу','йогурт соевый','напиток соевый','соевый соус'],'яйцо':['яйца'],'яйца':['яйца'],'рыба':['рыба белая']
+    'соя':['тофу','йогурт соевый','напиток соевый','соевый соус'],'яйцо':['яйца'],'яйца':['яйца'],'рыба':['рыба белая','тунец консервированный'],'морепродукты':['рыба белая','тунец консервированный'],'грибы':['шампиньоны'],'молоко':['молоко','йогурт натуральный','творог','сыр','кефир'],'молочные продукты':['молоко','йогурт натуральный','творог','сыр','кефир'],'молочный':['молоко','йогурт натуральный','творог','сыр','кефир'],'глютен':['хлеб цельнозерновой','хлебцы','макароны сухие','булгур сухой','лапша сухая','овсяные хлопья','лаваш','кускус сухой']
   };
   return !d.avoid.some(term=>{
     if(!term)return false;
@@ -173,9 +218,10 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale){
   const notUsed=options.filter(r=>!used.has(r.id));
   if(notUsed.length)options=notUsed;
   if(d.budget>0){
-    const varietyPenalty=d.budget<2500?5:d.budget<4000?35:d.budget<6000?110:160;
+    // Сначала расходуем разные рецепты; к повтору возвращаемся только после перебора доступных вариантов.
+    const varietyPenalty=1200;
     return options.map(r=>({r,score:marginalPurchaseCost(r,amounts,d.store,scale)+(repeatCounts.get(r.id)||0)*varietyPenalty}))
-      .sort((a,b)=>a.score-b.score||a.r.cost-b.r.cost)[0].r;
+      .sort((a,b)=>a.score-b.score||a.r.cost-b.r.cost||a.r.name.localeCompare(b.r.name,'ru'))[0].r;
   }
   const start=(dayIndex*3+(type==='breakfast'?0:type==='snack'?2:type==='lunch'?1:3))%options.length;
   return options[start];
@@ -382,10 +428,33 @@ function copyShopping(){
   else downloadText('spisok-pokupok.txt',text);
 }
 
-$('profileForm').addEventListener('submit',e=>{
-  e.preventDefault();const d=getFormData();const err=validate(d);$('formError').textContent=err;if(err)return;
-  const plan=createPlan(d);saveProfile(d);renderSummary(d);renderPlan(plan);
-});
+function submitNutritionPlan(event){
+  if(event)event.preventDefault();
+  const button=$('generatePlanButton');
+  const errorNode=$('formError');
+  if(button&&button.dataset.busy==='1')return;
+  if(button){button.dataset.busy='1';button.disabled=true;button.setAttribute('aria-busy','true');button.innerHTML='Составляем рацион…';}
+  try{
+    const d=getFormData();
+    const err=validate(d);
+    errorNode.textContent=err;
+    if(err)return;
+    const plan=createPlan(d);
+    const expected=d.mealCount*7;
+    const actual=plan.days.reduce((sum,day)=>sum+day.meals.length,0);
+    if(!actual)throw new Error('Не найдено ни одного блюда для выбранных ограничений.');
+    saveProfile(d);renderSummary(d);renderPlan(plan);
+    if(actual<expected)errorNode.textContent='Для части приёмов пищи не нашлось подходящих блюд. Измени тип питания, время готовки или список исключений.';
+    else errorNode.textContent='';
+    showToast('Рацион на 7 дней готов');
+  }catch(error){
+    console.error('NUTRIX plan generation failed:',error);
+    errorNode.textContent='Не удалось составить рацион. Проверь параметры и обнови страницу. Если ошибка повторится, сообщи нам.';
+  }finally{
+    if(button){button.dataset.busy='0';button.disabled=false;button.removeAttribute('aria-busy');button.innerHTML='Составить рацион <span>→</span>';}
+  }
+}
+$('profileForm').addEventListener('submit',submitNutritionPlan);
 document.querySelectorAll('input[name="goal"]').forEach(r=>r.addEventListener('change',updateGoalStyles));
 ['age','height','weight','sex','activity','diet','mealCount','budget','store','cookTime','avoid','notes','medical'].forEach(id=>{if($(id)){$(id).addEventListener('input',updateSummaryPreview);$(id).addEventListener('change',updateSummaryPreview);}});
 $('store').addEventListener('change',updateStoreInfo);
