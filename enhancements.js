@@ -478,6 +478,157 @@
       "Выкладывай небольшие оладьи на разогретую сковороду с маслом.",
       "Обжарь с двух сторон до готовности и подай с томатным соусом."
     ]
+  ],
+  "b15": [
+    15,
+    [
+      "Нарежь куриное филе и приготовь на сковороде до полной готовности.",
+      "Добавь помидор и прогрей 1–2 минуты.",
+      "Взбей яйца, залей курицу с овощами и готовь под крышкой.",
+      "Посыпь сыром, дай ему расплавиться и подай с хлебом."
+    ]
+  ],
+  "b16": [
+    10,
+    [
+      "Свари яйцо вкрутую 9–10 минут и остуди.",
+      "Слей жидкость с тунца и разомни его вилкой с йогуртом.",
+      "Нарежь яйцо и огурец, смешай с тунцом.",
+      "Выложи начинку на хлеб или подсушенные тосты."
+    ]
+  ],
+  "b17": [
+    15,
+    [
+      "Нарежь курицу и приготовь на сковороде до полной готовности.",
+      "Нарежь огурец, сыр натри.",
+      "Смажь лаваш йогуртом, выложи курицу, огурец и сыр.",
+      "Сверни рулет и прогрей на сухой сковороде с двух сторон."
+    ]
+  ],
+  "b18": [
+    30,
+    [
+      "Разомни творог, добавь яйцо, овсяные хлопья и йогурт.",
+      "Нарежь яблоко маленькими кубиками и вмешай в массу.",
+      "Переложи смесь в небольшую форму.",
+      "Запекай при 180 °C около 20–25 минут до плотной середины."
+    ]
+  ],
+  "s15": [
+    3,
+    [
+      "Переложи творог в миску.",
+      "Добавь йогурт и перемешай.",
+      "Нарежь банан и добавь сверху."
+    ]
+  ],
+  "s16": [
+    10,
+    [
+      "Отвари яйца вкрутую 9–10 минут и остуди.",
+      "Нарежь хлеб и огурец.",
+      "Очисти яйца и подай всё вместе."
+    ]
+  ],
+  "s17": [
+    12,
+    [
+      "Нарежь курицу тонкими кусочками и приготовь до полной готовности.",
+      "Смешай йогурт с солью, если используешь.",
+      "Нарежь огурец.",
+      "Собери сэндвич с курицей, огурцом и соусом."
+    ]
+  ],
+  "s18": [
+    5,
+    [
+      "Слей жидкость с тунца и кукурузы.",
+      "Нарежь огурец небольшими кубиками.",
+      "Смешай тунец, огурец и кукурузу.",
+      "Добавь йогурт и перемешай."
+    ]
+  ],
+  "l15": [
+    25,
+    [
+      "Отвари макароны по инструкции.",
+      "Нарежь куриное филе и приготовь до полной готовности.",
+      "Добавь лук и томатный соус, туши 4–5 минут.",
+      "Смешай с макаронами."
+    ]
+  ],
+  "l16": [
+    30,
+    [
+      "Промой рис и отвари.",
+      "Нарежь индейку небольшими кусочками.",
+      "Потуши индейку с луком и морковью до полной готовности.",
+      "Подай с рисом."
+    ]
+  ],
+  "l17": [
+    25,
+    [
+      "Промой гречку и отвари.",
+      "Нарежь лук, морковь натри.",
+      "Обжарь фарш, разбивая комочки, до полной готовности.",
+      "Добавь овощи, потуши до мягкости и подай с гречкой."
+    ]
+  ],
+  "l18": [
+    30,
+    [
+      "Отвари очищенный картофель до мягкости.",
+      "Промой печень, удали крупные прожилки и нарежь.",
+      "Потуши лук, добавь печень и готовь до полной готовности внутри.",
+      "Добавь йогурт, прогрей и подай с пюре."
+    ]
+  ],
+  "l19": [
+    35,
+    [
+      "Нарежь свинину небольшими кусочками.",
+      "Обжарь мясо до изменения цвета, добавь лук и немного воды.",
+      "Туши под крышкой до мягкости мяса.",
+      "Добавь картофель и капусту, готовь до мягкости."
+    ]
+  ],
+  "d15": [
+    30,
+    [
+      "Промой гречку и отвари.",
+      "Смешай фарш с яйцом и мелко нарезанным луком.",
+      "Сформируй котлеты и приготовь под крышкой до полной готовности внутри.",
+      "Подай с гречкой."
+    ]
+  ],
+  "d16": [
+    30,
+    [
+      "Промой рис и отвари.",
+      "Нарежь куриное бедро кусочками.",
+      "Потуши курицу с луком и морковью до полной готовности мяса.",
+      "Подай с рисом."
+    ]
+  ],
+  "d17": [
+    30,
+    [
+      "Отвари макароны.",
+      "Мелко нарежь индейку или измельчи в фарш, смешай с яйцом.",
+      "Сформируй фрикадельки и туши в томатном соусе с луком до полной готовности.",
+      "Подай с макаронами."
+    ]
+  ],
+  "d18": [
+    25,
+    [
+      "Промой рис и отвари.",
+      "Нарежь лук, морковь натри и потуши.",
+      "Добавь промытую и нарезанную печень.",
+      "Готовь до полной готовности печени и подай с рисом."
+    ]
   ]
 };
   const read = key => { try { return JSON.parse(localStorage.getItem(key)||'{}'); } catch(e) { return {}; } };
@@ -486,18 +637,76 @@
   const currentStore = () => plan() && plan().data.store || 'pyaterochka';
   const toast = message => window.NUTRIX && window.NUTRIX.showToast ? window.NUTRIX.showToast(message) : null;
 
+  let activeCookInfo=null,cookStepIndex=0,cookDoneSteps=[],cookTimerId=null,cookTimerEnd=0,cookTimerRemaining=0;
+  function paintCookTimer(){
+    const display=$('cookTimerDisplay');if(!display)return;
+    display.textContent=String(Math.floor(cookTimerRemaining/60)).padStart(2,'0')+':'+String(cookTimerRemaining%60).padStart(2,'0');
+  }
+  function stopCookTimer(){
+    if(cookTimerId){clearInterval(cookTimerId);cookTimerId=null;}
+    cookTimerEnd=0;
+    if($('cookTimerToggle'))$('cookTimerToggle').textContent='Запустить таймер';
+  }
+  function updateCookTimer(){
+    if(!cookTimerEnd)return;
+    cookTimerRemaining=Math.max(0,Math.ceil((cookTimerEnd-Date.now())/1000));
+    paintCookTimer();
+    if(cookTimerRemaining<=0){stopCookTimer();toast('Время вышло. Проверь готовность блюда.');}
+  }
+  function resetCookTimer(){
+    stopCookTimer();cookTimerRemaining=(Number($('cookTimerMinutes')?.value)||5)*60;paintCookTimer();
+  }
+  function toggleCookTimer(){
+    if(cookTimerId){
+      cookTimerRemaining=Math.max(0,Math.ceil((cookTimerEnd-Date.now())/1000));stopCookTimer();paintCookTimer();$('cookTimerToggle').textContent='Продолжить';return;
+    }
+    if(!cookTimerRemaining)resetCookTimer();
+    cookTimerEnd=Date.now()+cookTimerRemaining*1000;$('cookTimerToggle').textContent='Пауза';cookTimerId=setInterval(updateCookTimer,250);
+  }
+  function renderCookStep(){
+    if(!activeCookInfo)return;
+    const steps=activeCookInfo[1],total=steps.length;
+    $('cookStepCounter').textContent='Шаг '+(cookStepIndex+1)+' из '+total;
+    $('cookStepText').textContent=steps[cookStepIndex];
+    $('cookProgressFill').style.width=Math.round((cookStepIndex+1)/total*100)+'%';
+    $('cookStepDone').textContent=cookDoneSteps[cookStepIndex]?'Шаг выполнен ✓':'Отметить шаг';
+    $('cookStepDone').classList.toggle('is-done',!!cookDoneSteps[cookStepIndex]);
+    $('cookPrevStep').disabled=cookStepIndex===0;
+    $('cookNextStep').textContent=cookStepIndex===total-1?'Завершить':'Следующий шаг →';
+  }
+  function startCookMode(){
+    if(!activeCookInfo)return;
+    cookStepIndex=0;cookDoneSteps=activeCookInfo[1].map(()=>false);
+    $('recipeView').hidden=true;$('cookMode').hidden=false;resetCookTimer();renderCookStep();
+  }
   function ensureDialog(){
     if($('recipeDialog')) return;
     const dialog=document.createElement('dialog');dialog.id='recipeDialog';dialog.className='recipe-dialog';
-    dialog.innerHTML='<div class="recipe-dialog-inner"><div class="recipe-dialog-head"><div><div class="eyebrow">РЕЦЕПТ NUTRIX</div><h2 id="recipeTitle"></h2><p id="recipeMeta"></p></div><button class="icon-button" id="recipeClose" type="button" aria-label="Закрыть">×</button></div><div class="recipe-dialog-section"><h3>Ингредиенты на порцию</h3><ul id="recipeIngredients"></ul></div><div class="recipe-dialog-section"><h3>Как приготовить</h3><ol id="recipeSteps"></ol></div><div class="recipe-video-wrap"><a id="recipeVideo" class="recipe-video-link" href="#" target="_blank" rel="noopener noreferrer">▶ Смотреть видео приготовления</a><p>Откроются видеоинструкции по этому блюду на YouTube.</p></div><p class="recipe-dialog-note">Проверяй готовность продуктов и учитывай индивидуальные аллергии. Для точной пищевой ценности сверяйся с упаковками.</p></div>';
+    dialog.innerHTML='<div class="recipe-dialog-inner"><div class="recipe-dialog-head"><div><div class="eyebrow">NUTRIX / РЕЦЕПТ</div><h2 id="recipeTitle"></h2><p id="recipeMeta"></p></div><button class="icon-button" id="recipeClose" type="button" aria-label="Закрыть">×</button></div><div id="recipeView"><div class="recipe-dialog-section"><h3>Ингредиенты на порцию</h3><ul id="recipeIngredients"></ul></div><div class="recipe-dialog-section"><h3>Как приготовить</h3><ol id="recipeSteps"></ol></div><div class="recipe-video-wrap"><a id="recipeVideo" class="recipe-video-link" href="#" target="_blank" rel="noopener noreferrer">▶ Смотреть видео приготовления</a><p>Откроются видеоинструкции по этому блюду на YouTube.</p></div><button class="cook-start-button" id="startCooking" type="button">Начать готовить <span>→</span></button><p class="recipe-dialog-note">Проверяй готовность продуктов. Для точной пищевой ценности сверяйся с упаковками.</p></div><section id="cookMode" class="cook-mode" hidden><div class="cook-mode-kicker">РЕЖИМ ГОТОВКИ</div><div class="cook-step-top"><span id="cookStepCounter">Шаг 1 из 3</span><span>Следуй по порядку</span></div><div class="cook-progress"><span id="cookProgressFill"></span></div><article class="cook-step-card"><div class="cook-step-visual">👨‍🍳</div><p id="cookStepText"></p><button id="cookStepDone" class="cook-step-done" type="button">Отметить шаг</button></article><div class="cook-timer-card"><div><b>Таймер</b><small>Для варки, жарки или запекания</small></div><strong id="cookTimerDisplay" aria-live="off">05:00</strong><div class="cook-timer-controls"><select id="cookTimerMinutes" aria-label="Длительность таймера"><option value="1">1 мин</option><option value="3">3 мин</option><option value="5" selected>5 мин</option><option value="10">10 мин</option><option value="15">15 мин</option><option value="20">20 мин</option><option value="30">30 мин</option></select><button id="cookTimerToggle" type="button">Запустить таймер</button><button id="cookTimerReset" type="button">Сбросить</button></div></div><div class="cook-step-nav"><button id="cookPrevStep" type="button">← Назад</button><button id="cookNextStep" type="button">Следующий шаг →</button></div><button id="cookBackRecipe" class="cook-back-recipe" type="button">Вернуться к рецепту</button></section></div>';
     document.body.appendChild(dialog);
     $('recipeClose').addEventListener('click',()=>dialog.close());
+    $('startCooking').addEventListener('click',startCookMode);
+    $('cookPrevStep').addEventListener('click',()=>{if(cookStepIndex>0){cookStepIndex--;renderCookStep();}});
+    $('cookNextStep').addEventListener('click',()=>{
+      if(!activeCookInfo)return;
+      if(cookStepIndex===activeCookInfo[1].length-1){stopCookTimer();$('cookMode').hidden=true;$('recipeView').hidden=false;toast('Приготовление завершено. Проверь готовность блюда.');return;}
+      cookStepIndex++;renderCookStep();
+    });
+    $('cookStepDone').addEventListener('click',()=>{
+      cookDoneSteps[cookStepIndex]=!cookDoneSteps[cookStepIndex];renderCookStep();
+      if(cookDoneSteps.every(Boolean))toast('Все шаги отмечены. Проверь готовность блюда.');
+    });
+    $('cookTimerToggle').addEventListener('click',toggleCookTimer);
+    $('cookTimerReset').addEventListener('click',resetCookTimer);
+    $('cookTimerMinutes').addEventListener('change',resetCookTimer);
+    $('cookBackRecipe').addEventListener('click',()=>{stopCookTimer();$('cookMode').hidden=true;$('recipeView').hidden=false;});
+    dialog.addEventListener('close',stopCookTimer);
     dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
   }
   function openRecipe(dayIndex,mealIndex){
     const meal=plan() && plan().days[dayIndex] && plan().days[dayIndex].meals[mealIndex];if(!meal)return;
     const info=guide[meal.recipe.id];if(!info){toast('Инструкция для блюда пока недоступна');return;}
-    ensureDialog();$('recipeTitle').textContent=meal.recipe.name;
+    ensureDialog();stopCookTimer();$('cookMode').hidden=true;$('recipeView').hidden=false;activeCookInfo=info;$('recipeTitle').textContent=meal.recipe.name;
     $('recipeMeta').textContent=info[0]+' минут · '+(meal.recipe.diet.includes('vegan')?'веганское':meal.recipe.diet.includes('vegetarian')?'вегетарианское':'обычное меню');
     const ingredients=$('recipeIngredients');ingredients.replaceChildren();
     meal.ingredients.forEach(item=>{const li=document.createElement('li');let amount;if(item.unit==='шт.')amount=(Math.round(item.amount*2)/2)+' шт.';else if(item.unit==='мл')amount=(Math.round(item.amount/10)*10)+' мл';else amount=(Math.max(1,Math.round(item.amount/5)*5))+' г';li.textContent=item.name+' — '+amount;ingredients.appendChild(li);});
@@ -571,15 +780,21 @@
     updateMealProgressUI();
   }
   function addShoppingControls(){
-    const heading=document.querySelector('.shopping-heading');if(!heading||$('clearShoppingChecks'))return;
-    const copy=$('copyShopping');const button=document.createElement('button');button.id='clearShoppingChecks';button.type='button';button.className='secondary-button';button.textContent='Снять отметки';
-    if(copy){const group=document.createElement('div');group.className='shopping-actions';copy.parentNode.insertBefore(group,copy);group.append(button,copy);}else heading.append(button);
-    button.addEventListener('click',()=>{
-      const checks=read('nutrix-shopping-checks');const prefix=currentStore()+':';
-      Object.keys(checks).forEach(key=>{if(key.startsWith(prefix))delete checks[key];});write('nutrix-shopping-checks',checks);
-      document.querySelectorAll('#shoppingList .shopping-item input[type=checkbox]').forEach(input=>input.checked=false);
-      toast('Отметки списка покупок очищены');
-    });
+    const heading=document.querySelector('.shopping-heading');if(!heading)return;
+    const copy=$('copyShopping');let group=heading.querySelector('.shopping-actions');
+    if(!group){group=document.createElement('div');group.className='shopping-actions';if(copy){copy.parentNode.insertBefore(group,copy);group.append(copy);}else heading.append(group);}
+    if(!$('clearShoppingChecks')){
+      const button=document.createElement('button');button.id='clearShoppingChecks';button.type='button';button.className='secondary-button';button.textContent='Снять отметки';group.insertBefore(button,copy||null);
+      button.addEventListener('click',()=>{
+        const checks=read('nutrix-shopping-checks');const prefix=currentStore()+':';
+        Object.keys(checks).forEach(key=>{if(key.startsWith(prefix))delete checks[key];});write('nutrix-shopping-checks',checks);
+        document.querySelectorAll('#shoppingList .shopping-item input[type=checkbox]').forEach(input=>input.checked=false);
+        toast('Отметки о покупках очищены');
+      });
+    }
+    if(!$('clearPantry')){
+      const clear=document.createElement('button');clear.id='clearPantry';clear.type='button';clear.className='secondary-button';clear.textContent='Очистить остатки';group.insertBefore(clear,copy||null);clear.addEventListener('click',clearPantry);
+    }
   }
   function restoreShoppingState(){
     const p=plan();if(!p)return;const checks=read('nutrix-shopping-checks');
@@ -588,10 +803,44 @@
       input.checked=!!checks[p.data.store+':'+key];
     });
   }
+  function formatAmount(amount,unit){
+    if(unit==='шт.')return Math.round(amount*2)/2+' шт.';
+    if(unit==='мл')return Math.round(amount/10)*10+' мл';
+    return Math.round(amount/5)*5+' г';
+  }
+  function updateSmartCartLine(input){
+    const p=plan();if(!p)return;
+    let key='';try{key=decodeURIComponent(input.dataset.cartKey||'');}catch(e){}
+    const item=p.cart.find(x=>x.key===key);if(!item)return;
+    const home=Math.max(0,Number(input.value)||0);
+    item.homeAmount=home;item.needAmount=Math.max(0,item.amount-home);
+    item.packCount=item.needAmount>0?Math.ceil(item.needAmount/item.packSize):0;
+    item.total=item.packCount*item.price;
+    const pantry=read('nutrix-pantry');pantry[key]=home;write('nutrix-pantry',pantry);
+    const line=input.closest('.shopping-line');
+    if(line){
+      const required=line.querySelector('.cart-required'),toBuy=line.querySelector('.cart-to-buy'),packs=line.querySelector('.cart-packs'),total=line.querySelector('.line-total');
+      if(required)required.textContent=formatAmount(item.amount,item.unit);
+      if(toBuy)toBuy.textContent=formatAmount(item.needAmount,item.unit);
+      if(packs)packs.textContent=String(item.packCount);
+      if(total)total.textContent=item.total.toLocaleString('ru-RU');
+      line.classList.toggle('has-stock',home>0);
+    }
+    if(window.NUTRIX?.updateCartTotals)window.NUTRIX.updateCartTotals(p);
+    if(window.NUTRIX?.renderCartSummary)window.NUTRIX.renderCartSummary(p);
+    if(window.NUTRIX?.renderBudgetNotice)window.NUTRIX.renderBudgetNotice(p);
+  }
+  function clearPantry(){
+    const p=plan();if(!p)return;
+    write('nutrix-pantry',{});
+    document.querySelectorAll('#shoppingList .home-amount').forEach(input=>{input.value='0';updateSmartCartLine(input);});
+    toast('Остатки продуктов очищены');
+  }
   function persistShoppingChanges(){
     const list=$('shoppingList');if(!list||list.dataset.nutrixBound)return;list.dataset.nutrixBound='1';
     list.addEventListener('change',event=>{
       const p=plan();if(!p)return;
+      const home=event.target.closest('.home-amount');if(home){updateSmartCartLine(home);return;}
       const check=event.target.closest('.shopping-item input[type=checkbox]');
       if(check){let key='';try{key=decodeURIComponent(check.dataset.cartKey||'');}catch(e){}const checks=read('nutrix-shopping-checks');const id=p.data.store+':'+key;if(check.checked)checks[id]=true;else delete checks[id];write('nutrix-shopping-checks',checks);return;}
       const price=event.target.closest('.price-edit');if(!price)return;
