@@ -3780,6 +3780,258 @@ const recipes = [
         "г"
       ]
     ]
+  },
+  {
+    "id": "b25",
+    "type": "breakfast",
+    "name": "Яйцо с курицей и овощами на тосте",
+    "icon": "🍳",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 65,
+    "kcal": 280,
+    "p": 18,
+    "c": 27,
+    "f": 11,
+    "items": [
+      [
+        "Яйца",
+        1,
+        "шт."
+      ],
+      [
+        "Куриное филе",
+        40,
+        "г"
+      ],
+      [
+        "Помидор",
+        60,
+        "г"
+      ],
+      [
+        "Огурец",
+        40,
+        "г"
+      ],
+      [
+        "Хлеб",
+        40,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s24",
+    "type": "snack",
+    "name": "Тост с индейкой и огурцом",
+    "icon": "🥪",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 40,
+    "kcal": 165,
+    "p": 13,
+    "c": 22,
+    "f": 3,
+    "items": [
+      [
+        "Филе индейки",
+        40,
+        "г"
+      ],
+      [
+        "Хлеб",
+        40,
+        "г"
+      ],
+      [
+        "Огурец",
+        40,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        15,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l26",
+    "type": "lunch",
+    "name": "Курица с рисом и брокколи",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 90,
+    "kcal": 460,
+    "p": 27,
+    "c": 63,
+    "f": 10,
+    "items": [
+      [
+        "Куриное филе",
+        80,
+        "г"
+      ],
+      [
+        "Рис сухой",
+        70,
+        "г"
+      ],
+      [
+        "Брокколи замороженная",
+        100,
+        "г"
+      ],
+      [
+        "Морковь",
+        40,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        5,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l27",
+    "type": "lunch",
+    "name": "Индейка с картофелем и овощным салатом",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 85,
+    "kcal": 385,
+    "p": 24,
+    "c": 45,
+    "f": 7,
+    "items": [
+      [
+        "Филе индейки",
+        80,
+        "г"
+      ],
+      [
+        "Картофель",
+        250,
+        "г"
+      ],
+      [
+        "Капуста",
+        100,
+        "г"
+      ],
+      [
+        "Помидор",
+        70,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        5,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d25",
+    "type": "dinner",
+    "name": "Курица с гречкой и брокколи",
+    "icon": "🍽️",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 90,
+    "kcal": 420,
+    "p": 27,
+    "c": 50,
+    "f": 9,
+    "items": [
+      [
+        "Куриное филе",
+        80,
+        "г"
+      ],
+      [
+        "Гречка сухая",
+        60,
+        "г"
+      ],
+      [
+        "Брокколи замороженная",
+        100,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        5,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d26",
+    "type": "dinner",
+    "name": "Куриные фрикадельки с картофелем и капустой",
+    "icon": "🥘",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 85,
+    "kcal": 365,
+    "p": 22,
+    "c": 42,
+    "f": 10,
+    "items": [
+      [
+        "Фарш куриный",
+        80,
+        "г"
+      ],
+      [
+        "Картофель",
+        200,
+        "г"
+      ],
+      [
+        "Капуста",
+        100,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Яйца",
+        0.5,
+        "шт."
+      ],
+      [
+        "Масло растительное",
+        3,
+        "г"
+      ]
+    ]
   }
 ];
 
@@ -4235,6 +4487,7 @@ const fruitFoods=new Set(['Банан','Яблоко','Апельсин']);
 const fishFoods=new Set(['Минтай','Тунец консервированный','Сардины консервированные']);
 const legumeFoods=new Set(['Фасоль консервированная','Чечевица сухая']);
 const redMeatFoods=new Set(['Фарш говяжий','Свинина (лопатка)']);
+const meatFoods=new Set(['Куриное филе','Куриное бедро без кожи','Фарш говяжий','Фарш куриный','Филе индейки','Свинина (лопатка)','Куриная печень']);
 const animalProteinFoods=new Set(['Куриное филе','Куриное бедро без кожи','Фарш говяжий','Фарш куриный','Филе индейки','Свинина (лопатка)','Куриная печень','Минтай','Тунец консервированный','Сардины консервированные','Яйца','Творог','Сыр','Йогурт натуральный','Кефир','Молоко']);
 const plantProteinFoods=new Set(['Фасоль консервированная','Чечевица сухая']);
 const wholegrainFoods=new Set(['Гречка сухая','Овсяные хлопья','Пшено сухое']);
@@ -4255,13 +4508,17 @@ function getProduceTarget(age){
 }
 function calculateNutritionQuality(days,d){
   const target=getProduceTarget(d.age);
-  let produceTotal=0,fishMeals=0,legumeMeals=0,mainMeals=0,proteinMainMeals=0;
+  let produceTotal=0,fishMeals=0,meatMeals=0,legumeMeals=0,mainMeals=0,proteinMainMeals=0;
   const proteinVariety=new Set();
+  const produceSet=new Set([...vegetableFoods,...fruitFoods]);
   days.forEach(day=>(day.meals||[]).forEach(meal=>{
     const items=meal.ingredients||[];
-    produceTotal+=sumRecipeItems(items,[...vegetableFoods,...fruitFoods].reduce((set,name)=>set.add(name),new Set()));
-    const fish=sumRecipeItems(items,fishFoods),beans=items.filter(x=>(Array.isArray(x)?x[0]:x.name)==='Фасоль консервированная').reduce((s,x)=>s+(Array.isArray(x)?x[1]:x.amount),0),lentils=items.filter(x=>(Array.isArray(x)?x[0]:x.name)==='Чечевица сухая').reduce((s,x)=>s+(Array.isArray(x)?x[1]:x.amount),0);
+    produceTotal+=sumRecipeItems(items,produceSet);
+    const fish=sumRecipeItems(items,fishFoods),meat=sumRecipeItems(items,meatFoods);
+    const beans=items.filter(x=>(Array.isArray(x)?x[0]:x.name)==='Фасоль консервированная').reduce((s,x)=>s+(Array.isArray(x)?x[1]:x.amount),0);
+    const lentils=items.filter(x=>(Array.isArray(x)?x[0]:x.name)==='Чечевица сухая').reduce((s,x)=>s+(Array.isArray(x)?x[1]:x.amount),0);
     if(fish>=100)fishMeals++;
+    if(meat>=60)meatMeals++;
     if(beans>=80||lentils>=35)legumeMeals++;
     if(meal.type!=='snack'&&meal.type!=='snack2'){
       mainMeals++;
@@ -4278,7 +4535,7 @@ function calculateNutritionQuality(days,d){
       if(plantProteinFoods.has(n))proteinVariety.add('Бобовые');
     });
   }));
-  return {produceAverage:Math.round(produceTotal/Math.max(1,days.length)),produceTarget:target,fishMeals,fishTarget:d.diet==='omnivore'?2:0,legumeMeals,legumeTarget:2,mainMeals,proteinMainMeals,proteinVariety:[...proteinVariety]};
+  return {produceAverage:Math.round(produceTotal/Math.max(1,days.length)),produceTarget:target,fishMeals,fishTarget:d.diet==='omnivore'?2:0,meatMeals,meatTarget:d.diet==='omnivore'?3:0,legumeMeals,legumeTarget:2,mainMeals,proteinMainMeals,proteinVariety:[...proteinVariety]};
 }
 function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale,dayAmounts=new Map()){
   let options=recipes.filter(r=>r.type===type&&recipeAllowed(r,d));
@@ -4290,6 +4547,7 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale,dayAmounts=n
   const weeklyFish=sumAmountMap(amounts,fishFoods);
   const weeklyLegumes=sumAmountMap(amounts,legumeFoods);
   const weeklyRedMeat=sumAmountMap(amounts,redMeatFoods);
+  const weeklyMeat=sumAmountMap(amounts,meatFoods);
   let proteinTarget;
   if(d.age>=18&&!d.medical&&d.sex!=='unspecified'){
     const estimate=adultEstimate(d);
@@ -4309,19 +4567,22 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale,dayAmounts=n
     const fish=sumRecipeItems(r.items,fishFoods,scale);
     const legumes=sumRecipeItems(r.items,legumeFoods,scale);
     const redMeat=sumRecipeItems(r.items,redMeatFoods,scale);
+    const meat=sumRecipeItems(r.items,meatFoods,scale);
     const hasAnimal=r.items.some(x=>animalProteinFoods.has(x[0]));
     const hasPlant=r.items.some(x=>plantProteinFoods.has(x[0]));
+    const hasMeat=r.items.some(x=>meatFoods.has(x[0]));
     const hasWholegrain=r.items.some(x=>wholegrainFoods.has(x[0]));
-    let score=Math.max(0,proteinTarget-protein)*1.15+Math.max(0,protein-proteinTarget-5)*(d.age>=18&&!d.medical&&d.sex!=='unspecified'?3:1);
+    let score=Math.max(0,proteinTarget-protein)*1.15+Math.max(0,protein-proteinTarget-5)*(d.age>=18&&!d.medical&&d.sex!=='unspecified'?2:1.7);
     if(type==='lunch'||type==='dinner')score+=Math.max(0,120-veg)*.09;
     else if(type==='breakfast')score+=Math.max(0,45-veg)*.035;
     else score+=Math.max(0,60-produce)*.025;
     if(dayProduce<getProduceTarget(d.age))score-=Math.min(10,produce*.045);
     if((type==='lunch'||type==='dinner')&&hasWholegrain)score-=2.5;
-    if(d.diet==='omnivore'&&hasAnimal)score-=2;
-    if(hasPlant&&weeklyLegumes<180)score-=9;
-    if(fish>0&&weeklyFish<240)score-=dayIndex>=4?23:16;
-    if(redMeat>0&&weeklyRedMeat>=250)score+=18;
+    if(d.diet==='omnivore'&&hasAnimal)score-=4;
+    if(d.diet==='omnivore'&&hasMeat&&weeklyMeat<240*scale)score-=18;
+    if(hasPlant&&weeklyLegumes<180*scale)score-=9;
+    if(fish>0&&weeklyFish<240*scale)score-=28;
+    if(redMeat>0&&weeklyRedMeat>=250*scale)score+=18;
     else if(redMeat>0&&weeklyRedMeat>0)score+=3;
     const primary=r.items.find(x=>animalProteinFoods.has(x[0])||plantProteinFoods.has(x[0]));
     if(primary&&sumAmountMap(dayAmounts,new Set([primary[0]]))>0)score+=4;
@@ -4407,13 +4668,15 @@ function renderNutritionQuality(plan){
   const notes=[];
   if(q.produceAverage<q.produceTarget)notes.push('Добавь к основным блюдам ещё овощи или фрукт: среднее сейчас ниже ориентира.');
   if(q.fishTarget&&q.fishMeals<q.fishTarget)notes.push('Добавь ещё '+(q.fishTarget-q.fishMeals)+' рыбн'+(q.fishTarget-q.fishMeals===1?'ое блюдо':'ых блюда')+' за неделю.');
+  if(q.meatTarget&&q.meatMeals<q.meatTarget)notes.push('Добавь ещё '+(q.meatTarget-q.meatMeals)+' блюда с курицей, индейкой или другим мясом.');
   if(q.legumeMeals<q.legumeTarget)notes.push('Добавь блюда с фасолью или чечевицей для клетчатки и растительного белка.');
   if(q.mainMeals&&q.proteinMainMeals<q.mainMeals)notes.push('В части основных блюд мало белкового продукта — можно заменить их на курицу, рыбу, яйца, творог или бобовые.');
   const status=notes.length?'Есть что улучшить':'Основные группы продуктов хорошо представлены';
-  const fishText=q.fishTarget?(q.fishMeals+' / '+q.fishTarget+' рыбных порции'):'учитывается выбранный тип питания';
+  const fishText=q.fishTarget?(q.fishMeals+' / '+q.fishTarget+' рыбных блюд'):'по выбранному типу питания';
+  const meatText=q.meatTarget?(q.meatMeals+' / '+q.meatTarget+' мясных блюд'):'не требуется';
   const legumesText=q.legumeMeals+' / '+q.legumeTarget+' блюд с бобовыми';
   const coverage=q.mainMeals?Math.round(q.proteinMainMeals/q.mainMeals*100):0;
-  host.innerHTML='<div class="nutrition-quality-head"><div><span class="eyebrow">ПРОВЕРКА МЕНЮ</span><h3>Баланс рациона</h3><p>Оценка по ингредиентам выбранных блюд, а не медицинское заключение.</p></div><span class="nutrition-quality-status '+(notes.length?'needs-work':'is-good')+'">'+status+'</span></div><div class="nutrition-quality-metrics"><div><b>'+q.produceAverage+' г</b><span>овощи и фрукты в среднем за день</span><small>ориентир: около '+q.produceTarget+' г</small></div><div><b>'+fishText+'</b><span>рыба за неделю</span><small>'+(q.fishTarget?'старайся включать разные виды':'с учётом твоего типа питания')+'</small></div><div><b>'+legumesText+'</b><span>бобовые</span><small>фасоль, чечевица и другие</small></div><div><b>'+coverage+'%</b><span>основных блюд с достаточным белковым компонентом</span><small>по ориентиру генератора</small></div></div>'+(notes.length?'<ul class="nutrition-quality-notes">'+notes.map(n=>'<li>'+n+'</li>').join('')+'</ul>':'<p class="nutrition-quality-note-good">В меню есть источники белка, гарниры и разнообразные продукты. Сохраняй разнообразие и меняй блюда по вкусу.</p>')+'<p class="nutrition-quality-foot">Показатели приблизительные: точный состав зависит от марки продуктов, веса после приготовления и реальных порций. Для детей и подростков это пример меню, а не план для изменения веса.</p>';
+  host.innerHTML='<div class="nutrition-quality-head"><div><span class="eyebrow">ПРОВЕРКА МЕНЮ</span><h3>Баланс рациона</h3><p>Оценка по ингредиентам выбранных блюд, а не медицинское заключение.</p></div><span class="nutrition-quality-status '+(notes.length?'needs-work':'is-good')+'">'+status+'</span></div><div class="nutrition-quality-metrics"><div><b>'+q.produceAverage+' г</b><span>овощи и фрукты в среднем за день</span><small>ориентир: около '+q.produceTarget+' г</small></div><div><b>'+fishText+'</b><span>рыба за неделю</span><small>включай разные виды</small></div><div><b>'+meatText+'</b><span>мясо и птица</span><small>курица, индейка, нежирное мясо</small></div><div><b>'+legumesText+'</b><span>бобовые</span><small>фасоль, чечевица и другие</small></div><div><b>'+coverage+'%</b><span>основных блюд с белковым компонентом</span><small>по ориентиру генератора</small></div></div>'+(notes.length?'<ul class="nutrition-quality-notes">'+notes.map(n=>'<li>'+n+'</li>').join('')+'</ul>':'<p class="nutrition-quality-note-good">В меню есть источники белка, гарниры и разнообразные продукты. Сохраняй разнообразие и меняй блюда по вкусу.</p>')+'<p class="nutrition-quality-foot">Показатели приблизительные: точный состав зависит от марки продуктов, веса после приготовления и реальных порций. Для детей и подростков это пример меню, а не план для изменения веса.</p>';
 }
 function renderPlan(plan, scrollToPlan=true){
   currentPlan=plan;
