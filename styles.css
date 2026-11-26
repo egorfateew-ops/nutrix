@@ -16,3 +16,29 @@ body.dark{--bg:#0c1722;--surface:#142332;--surface-2:#192c3e;--text:#eaf3fa;--mu
   .text-button{min-height:40px}
   .form-error{font-size:12px;line-height:1.5}
 }
+
+/* Evidence-informed menu balance report */
+.nutrition-quality{margin:14px 0 20px;padding:18px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,var(--surface),var(--surface-2))}
+.nutrition-quality-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.nutrition-quality-head h3{margin:4px 0;font-size:18px;letter-spacing:-.4px}
+.nutrition-quality-head p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}
+.nutrition-quality-status{max-width:220px;padding:8px 11px;border-radius:999px;font-size:9px;font-weight:800;text-align:center}
+.nutrition-quality-status.is-good{background:#e8f5ec;color:#32734b}
+.nutrition-quality-status.needs-work{background:#fff4df;color:#8a5b12}
+.nutrition-quality-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.nutrition-quality-metrics>div{display:flex;flex-direction:column;gap:4px;min-width:0;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.nutrition-quality-metrics b{font-size:17px;line-height:1.25;overflow-wrap:anywhere}
+.nutrition-quality-metrics span{font-size:9px;font-weight:800;line-height:1.4}
+.nutrition-quality-metrics small{font-size:8px;color:var(--muted);line-height:1.4}
+.nutrition-quality-notes{display:grid;gap:5px;margin:12px 0 0;padding-left:18px;color:var(--text);font-size:9px;line-height:1.6}
+.nutrition-quality-note-good{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:#eef7f0;color:#426b50;font-size:9px;line-height:1.5}
+.nutrition-quality-foot{margin:10px 0 0;color:var(--muted);font-size:8px;line-height:1.5}
+body.dark .nutrition-quality-status.is-good{background:#213d2d;color:#b5e1c2}
+body.dark .nutrition-quality-status.needs-work{background:#453820;color:#f3d18a}
+body.dark .nutrition-quality-note-good{background:#22352a;color:#b4cbbb}
+@media(max-width:760px){
+ .nutrition-quality{padding:14px}
+ .nutrition-quality-head{flex-direction:column}
+ .nutrition-quality-status{max-width:none}
+ .nutrition-quality-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
