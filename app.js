@@ -4311,7 +4311,7 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale,dayAmounts=n
     const hasAnimal=r.items.some(x=>animalProteinFoods.has(x[0]));
     const hasPlant=r.items.some(x=>plantProteinFoods.has(x[0]));
     const hasWholegrain=r.items.some(x=>wholegrainFoods.has(x[0]));
-    let score=Math.max(0,proteinTarget-protein)*1.15+Math.max(0,protein-proteinTarget-8)*.32;
+    let score=Math.max(0,proteinTarget-protein)*1.15+Math.max(0,protein-proteinTarget-5)*(d.age>=18&&!d.medical&&d.sex!=='unspecified'?3:1);
     if(type==='lunch'||type==='dinner')score+=Math.max(0,120-veg)*.09;
     else if(type==='breakfast')score+=Math.max(0,45-veg)*.035;
     else score+=Math.max(0,60-produce)*.025;
