@@ -4293,8 +4293,9 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale,dayAmounts=n
   let proteinTarget;
   if(d.age>=18&&!d.medical&&d.sex!=='unspecified'){
     const estimate=adultEstimate(d);
-    const baseCalories={3:1650,4:1850,5:2050}[d.mealCount]||1850;
-    const portionScale=Math.max(.78,Math.min(1.35,estimate.target/baseCalories));
+    const baseCalories={3:1200,4:1330,5:1440}[d.mealCount]||1330;
+    const maxScale=d.mealCount===3?2.25:d.mealCount===4?2.1:2.0;
+    const portionScale=Math.max(.78,Math.min(maxScale,estimate.target/baseCalories));
     const weights=d.mealCount===3?{breakfast:1,lunch:1.1,dinner:1.1}:d.mealCount===5?{breakfast:1.05,snack:.55,lunch:1.25,snack2:.55,dinner:1.1}:{breakfast:1.05,snack:.65,lunch:1.2,dinner:1.1};
     const averageWeight=Object.values(weights).reduce((sum,value)=>sum+value,0)/Math.max(1,d.mealCount);
     proteinTarget=(estimate.protein/portionScale/Math.max(1,d.mealCount))*(weights[type]||1)/averageWeight;
@@ -4360,9 +4361,10 @@ function createPlan(d){
   const adult=d.age>=18&&!d.medical&&d.sex!=='unspecified';
   const calc=adult?adultEstimate(d):null;
   const mealTypes=buildMealTypes(d.mealCount);
-  const baseCalories={3:1650,4:1850,5:2050}[d.mealCount];
+  const baseCalories={3:1200,4:1330,5:1440}[d.mealCount];
+  const maxScale=d.mealCount===3?2.25:d.mealCount===4?2.1:2.0;
   const rawScale=calc?calc.target/baseCalories:1;
-  const scale=calc?Math.max(.78,Math.min(1.35,rawScale)):1;
+  const scale=calc?Math.max(.78,Math.min(maxScale,rawScale)):1;
   const scaleCapped=!!calc&&Math.abs(rawScale-scale)>.001;
   const days=[];const amounts=new Map();const repeatCounts=new Map();
   for(let day=0;day<7;day++){
