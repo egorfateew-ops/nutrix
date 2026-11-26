@@ -219,7 +219,7 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale){
   if(notUsed.length)options=notUsed;
   if(d.budget>0){
     // Сначала расходуем разные рецепты; к повтору возвращаемся только после перебора доступных вариантов.
-    const varietyPenalty=1200;
+    const varietyPenalty=100000;
     return options.map(r=>({r,score:marginalPurchaseCost(r,amounts,d.store,scale)+(repeatCounts.get(r.id)||0)*varietyPenalty}))
       .sort((a,b)=>a.score-b.score||a.r.cost-b.r.cost||a.r.name.localeCompare(b.r.name,'ru'))[0].r;
   }
