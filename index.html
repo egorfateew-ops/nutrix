@@ -17,6 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="training.css">
+  <link rel="stylesheet" href="fitness.css">
 </head>
 <body>
   <div class="app-shell">
@@ -30,6 +31,7 @@
         <a href="#plan">Рацион</a>
         <a href="#shopping">Покупки</a>
         <a href="#training">Тренировки</a>
+        <a href="#fitness">Fitness</a>
       </nav>
       <button class="cloud-open-button" id="cloudOpen" type="button"><span>☁</span> Облако</button>
       <button class="icon-button" id="themeToggle" type="button" aria-label="Переключить тему" title="Переключить тему">☾</button>
@@ -193,6 +195,29 @@
           <p class="training-save-status" id="trainingSaveStatus" role="status" aria-live="polite"></p>
         </section>
       </section>
+      <section class="fitness-hub" id="fitness">
+        <div class="fitness-heading">
+          <div><div class="eyebrow">NUTRIX / FITNESS</div><h2>Твоя неделя в движении</h2><p>Питание и тренировки в одном спокойном, понятном месте. Отмечай то, что действительно сделал.</p></div>
+          <div class="fitness-friendly-tag">🌿 Без гонки и крайностей</div>
+        </div>
+        <div id="fitnessEmpty" class="fitness-empty">
+          <div class="fitness-empty-icon">🌱</div><h3>Начнём с твоих планов</h3><p>Составь рацион и домашнюю тренировочную программу. Здесь появится сводка питания, занятий и прогресса.</p>
+          <div class="fitness-empty-actions"><a href="#profile">Составить рацион</a><a href="#training">Составить тренировку</a></div>
+        </div>
+        <div id="fitnessDashboard" hidden>
+          <div class="fitness-day-banner"><div><span class="fitness-today-label">СЕГОДНЯ</span><h3 id="fitnessTodayTitle">Понедельник</h3><p id="fitnessTodaySubtitle">Твой план на день</p></div><span class="fitness-weather-icon">☀️</span></div>
+          <div class="fitness-stats-grid" id="fitnessStats"></div>
+          <div class="fitness-main-grid">
+            <article class="fitness-card fitness-meals-card"><div class="fitness-card-heading"><div><span class="fitness-card-kicker">ПИТАНИЕ</span><h3>Что сегодня по меню?</h3></div><span class="fitness-card-icon">🥗</span></div><div id="fitnessMeals" class="fitness-meals-list"></div><p class="fitness-card-foot" id="fitnessMealFoot"></p><a class="fitness-inline-link" href="#plan">Открыть весь рацион →</a></article>
+            <article class="fitness-card fitness-workout-card"><div class="fitness-card-heading"><div><span class="fitness-card-kicker">ДВИЖЕНИЕ</span><h3>Твоя тренировка</h3></div><span class="fitness-card-icon">🏃</span></div><div id="fitnessWorkoutContent"></div></article>
+          </div>
+          <div class="fitness-bottom-grid">
+            <article class="fitness-card"><div class="fitness-card-heading"><div><span class="fitness-card-kicker">ПИТАНИЕ + СПОРТ</span><h3>До и после занятия</h3></div><span class="fitness-card-icon">🍌</span></div><div id="fitnessTiming" class="fitness-timing"></div><p class="fitness-card-foot">Не нужно ловить точную минуту: ориентируйся на комфорт и обычные полноценные приёмы пищи.</p></article>
+            <article class="fitness-card"><div class="fitness-card-heading"><div><span class="fitness-card-kicker">МАЛЕНЬКИЕ ШАГИ</span><h3>Итоги недели</h3></div><span class="fitness-card-icon">🌼</span></div><div id="fitnessWeekSummary" class="fitness-week-summary"></div></article>
+          </div>
+          <p class="fitness-safety-note">NUTRIX помогает следить за регулярностью, а не заставляет гнаться за цифрами. Если ты младше 18 лет, приложение не задаёт взрослые нормы калорий или белка и не предлагает худеть по дефициту.</p>
+        </div>
+      </section>
       <section class="how-section">
         <div class="eyebrow">ПРОСТО И ПОНЯТНО</div><h2>Как работает NUTRIX</h2>
         <div class="how-grid">
@@ -212,5 +237,6 @@
   <script src="enhancements.js"></script>
   <script src="cloud.js"></script>
   <script src="training.js"></script>
+  <script src="fitness.js"></script>
 </body>
 </html>
