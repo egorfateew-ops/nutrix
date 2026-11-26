@@ -240,5 +240,6 @@
     if(start)startWorkout(Number(start.dataset.index));
   });
   ['nutrix:plan-rendered','nutrix:meal-progress-changed','nutrix:training-plan-rendered','nutrix:workout-completed','nutrix:auth-changed'].forEach(name=>window.addEventListener(name,render));
+  window.addEventListener('nutrix:start-workout',event=>{if(event.detail&&Number.isInteger(Number(event.detail.index)))startWorkout(Number(event.detail.index));});
   render();
 })();
