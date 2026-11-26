@@ -58,6 +58,8 @@ body.dark .recipe-video-link{background:#1c3d56;color:#b8e0ff}
 }
 
 /* Smart pantry and live cooking mode */
+.shopping-panel{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.shopping-item{margin:0}
 .shopping-line{align-items:center;gap:18px}
 .shopping-line-main{display:grid;gap:10px;flex:1;min-width:0}
 .shopping-item{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-width:0}
