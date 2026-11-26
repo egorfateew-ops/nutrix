@@ -120,6 +120,7 @@
   }
   function render(plan){
     currentPlan=plan;
+    if(!plan.completedWorkouts||typeof plan.completedWorkouts!=='object'||Array.isArray(plan.completedWorkouts))plan.completedWorkouts={};
     $('trainingResult').hidden=false;
     $('trainingPlanTitle').textContent=plan.data.frequency+' тренировки в неделю';
     const bits=[plan.data.age+' лет',plan.data.height?plan.data.height+' см':'',plan.data.weight?plan.data.weight+' кг':'',expLabel[plan.data.experience],goalLabel[plan.data.goal],plan.data.duration+' минут'].filter(Boolean);
@@ -150,6 +151,7 @@
     $('trainingRecovery').textContent='Оставляй между силовыми занятиями день отдыха, спи достаточно, пей воду и прекращай упражнение при боли. Каждые 4–6 недель оценивай технику и самочувствие.';
     $('trainingResult').scrollIntoView({behavior:'smooth',block:'start'});
     status('trainingSaveStatus','План готов. Сохрани его, чтобы не потерять.');
+    window.dispatchEvent(new CustomEvent('nutrix:training-plan-rendered',{detail:{plan}}));
   }
   function applyForm(d){
     if(!d)return;
@@ -171,6 +173,26 @@
     const result=await cloud().saveTrainingPlan(currentPlan);
     if(result&&result.ok)status('trainingSaveStatus','План сохранён в твоём аккаунте NUTRIX.');
     else status('trainingSaveStatus','Локальная копия сохранена, но облако ответило ошибкой: '+((result&&result.error)||'неизвестная ошибка'),true);
+  }
+  function currentWeekKey(){
+    const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+  async function completeWorkout(index,meta){
+    if(!currentPlan||!currentPlan.workouts[index])return {ok:false,error:'Тренировочный план не найден.'};
+    if(!currentPlan.completedWorkouts||typeof currentPlan.completedWorkouts!=='object')currentPlan.completedWorkouts={};
+    const key=currentWeekKey()+':'+index;
+    currentPlan.completedWorkouts[key]={
+      completedAt:new Date().toISOString(),
+      durationMinutes:Math.max(0,Number(meta&&meta.durationMinutes)||0),
+      exerciseCount:Math.max(0,Number(meta&&meta.exerciseCount)||0)
+    };
+    const keys=Object.keys(currentPlan.completedWorkouts).sort();
+    if(keys.length>60)keys.slice(0,keys.length-60).forEach(k=>delete currentPlan.completedWorkouts[k]);
+    saveLocal(currentPlan);
+    await savePlan();
+    window.dispatchEvent(new CustomEvent('nutrix:workout-completed',{detail:{index,key,plan:currentPlan}}));
+    return {ok:true,key};
   }
   async function syncCloudPlan(){
     if(cloudSyncBusy||!cloud())return;
@@ -227,10 +249,12 @@
   $('trainingPrint').addEventListener('click',()=>{document.body.classList.add('training-print-mode');window.print();document.body.classList.remove('training-print-mode');});
   $('trainingReset').addEventListener('click',async()=>{
     const key=storageKey();currentPlan=null;localStorage.removeItem(key);$('trainingForm').reset();$('trainingResult').hidden=true;
+    window.dispatchEvent(new CustomEvent('nutrix:training-plan-rendered',{detail:{plan:null}}));
     status('trainingFormMessage','Параметры тренировок сброшены.');status('trainingSaveStatus','');
     if(cloud()&&cloud().signedIn){const result=await cloud().deleteTrainingPlan();if(result&&!result.ok)status('trainingSaveStatus','Локальный план удалён, но облачный удалить не удалось: '+result.error,true);}
   });
-  window.addEventListener('nutrix:auth-changed',syncCloudPlan);
+  window.NUTRIX_TRAINING={get plan(){return currentPlan;},completeWorkout};
+    window.addEventListener('nutrix:auth-changed',syncCloudPlan);
   const saved=loadLocal();
   if(saved){currentPlan=saved;applyForm(saved.data);render(saved);status('trainingSaveStatus','Найден сохранённый план на этом устройстве.');}
   if(cloud()&&cloud().signedIn)syncCloudPlan();
