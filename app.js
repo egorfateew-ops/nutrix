@@ -4239,7 +4239,11 @@ const animalProteinFoods=new Set(['Куриное филе','Куриное бе
 const plantProteinFoods=new Set(['Фасоль консервированная','Чечевица сухая']);
 const wholegrainFoods=new Set(['Гречка сухая','Овсяные хлопья','Пшено сухое']);
 function sumRecipeItems(items,foodSet,scale=1){
-  return items.reduce((sum,item)=>sum+(foodSet.has(item[0])?Number(item[1])*scale:0),0);
+  return items.reduce((sum,item)=>{
+    const name=Array.isArray(item)?item[0]:item.name;
+    const amount=Array.isArray(item)?item[1]:item.amount;
+    return sum+(foodSet.has(name)?Number(amount)*scale:0);
+  },0);
 }
 function sumAmountMap(amounts,foodSet){
   let sum=0;
@@ -4256,15 +4260,16 @@ function calculateNutritionQuality(days,d){
   days.forEach(day=>(day.meals||[]).forEach(meal=>{
     const items=meal.ingredients||[];
     produceTotal+=sumRecipeItems(items,[...vegetableFoods,...fruitFoods].reduce((set,name)=>set.add(name),new Set()));
-    const fish=sumRecipeItems(items,fishFoods),beans=items.filter(x=>x[0]==='Фасоль консервированная').reduce((s,x)=>s+x[1],0),lentils=items.filter(x=>x[0]==='Чечевица сухая').reduce((s,x)=>s+x[1],0);
+    const fish=sumRecipeItems(items,fishFoods),beans=items.filter(x=>(Array.isArray(x)?x[0]:x.name)==='Фасоль консервированная').reduce((s,x)=>s+(Array.isArray(x)?x[1]:x.amount),0),lentils=items.filter(x=>(Array.isArray(x)?x[0]:x.name)==='Чечевица сухая').reduce((s,x)=>s+(Array.isArray(x)?x[1]:x.amount),0);
     if(fish>=100)fishMeals++;
     if(beans>=80||lentils>=35)legumeMeals++;
     if(meal.type!=='snack'&&meal.type!=='snack2'){
       mainMeals++;
-      if((Number(meal.p)||0)>=(d.diet==='vegan'?15:d.diet==='vegetarian'?18:20))proteinMainMeals++;
+      const threshold=d.age<18?(meal.type==='breakfast'?10:15):(meal.type==='breakfast'?15:20);
+      if((Number(meal.p)||0)>=threshold)proteinMainMeals++;
     }
     items.forEach(x=>{
-      const n=x[0];
+      const n=Array.isArray(x)?x[0]:x.name;
       if(/Куриное|Фарш куриный/.test(n))proteinVariety.add('Птица');
       if(/Филе индейки/.test(n))proteinVariety.add('Индейка');
       if(/говяж|Свинина/.test(n))proteinVariety.add('Красное мясо');
@@ -4285,7 +4290,17 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale,dayAmounts=n
   const weeklyFish=sumAmountMap(amounts,fishFoods);
   const weeklyLegumes=sumAmountMap(amounts,legumeFoods);
   const weeklyRedMeat=sumAmountMap(amounts,redMeatFoods);
-  const proteinTarget=type==='snack'?10:type==='breakfast'?(d.diet==='vegan'?12:18):(d.diet==='vegan'?16:d.diet==='vegetarian'?20:25);
+  let proteinTarget;
+  if(d.age>=18&&!d.medical&&d.sex!=='unspecified'){
+    const estimate=adultEstimate(d);
+    const baseCalories={3:1650,4:1850,5:2050}[d.mealCount]||1850;
+    const portionScale=Math.max(.78,Math.min(1.35,estimate.target/baseCalories));
+    const weights=d.mealCount===3?{breakfast:1,lunch:1.1,dinner:1.1}:d.mealCount===5?{breakfast:1.05,snack:.55,lunch:1.25,snack2:.55,dinner:1.1}:{breakfast:1.05,snack:.65,lunch:1.2,dinner:1.1};
+    const averageWeight=Object.values(weights).reduce((sum,value)=>sum+value,0)/Math.max(1,d.mealCount);
+    proteinTarget=(estimate.protein/portionScale/Math.max(1,d.mealCount))*(weights[type]||1)/averageWeight;
+  }else{
+    proteinTarget=type==='snack'?6:type==='breakfast'?12:18;
+  }
   const scored=options.map((r,index)=>{
     const protein=Number(r.p)||0;
     const veg=sumRecipeItems(r.items,vegetableFoods,scale);
@@ -4296,7 +4311,7 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale,dayAmounts=n
     const hasAnimal=r.items.some(x=>animalProteinFoods.has(x[0]));
     const hasPlant=r.items.some(x=>plantProteinFoods.has(x[0]));
     const hasWholegrain=r.items.some(x=>wholegrainFoods.has(x[0]));
-    let score=Math.max(0,proteinTarget-protein)*1.25-Math.min(5,Math.max(0,protein-proteinTarget)*.12);
+    let score=Math.max(0,proteinTarget-protein)*1.15+Math.max(0,protein-proteinTarget-8)*.32;
     if(type==='lunch'||type==='dinner')score+=Math.max(0,120-veg)*.09;
     else if(type==='breakfast')score+=Math.max(0,45-veg)*.035;
     else score+=Math.max(0,60-produce)*.025;
