@@ -34,7 +34,9 @@
     const done=meals.filter((m,i)=>mealDone(nutrition,dayIndex,i)).length;
     const adult=!!(nutrition&&nutrition.adult&&nutrition.calc&&nutrition.data&&nutrition.data.age>=18&&!nutrition.data.medical);
     let proteinHtml;
-    if(adult){
+    if(!nutrition){
+      proteinHtml='<div class="fitness-stat-card"><div class="fitness-stat-top"><span>Питание</span><span>🥚</span></div><b>Пока без меню</b><p>Составь рацион, чтобы отмечать приёмы пищи.</p></div>';
+    }else if(adult){
       const eaten=meals.reduce((sum,m,i)=>sum+(mealDone(nutrition,dayIndex,i)?Number(m.p)||0:0),0);
       const target=Math.max(1,Number(nutrition.calc.protein)||1);
       const pct=Math.min(100,Math.round(eaten/target*100));
@@ -44,8 +46,8 @@
     }
     const workoutsDone=countWorkoutsDone(training);
     const workoutsPlanned=training&&Array.isArray(training.workouts)?training.workouts.length:0;
-    const workoutHtml='<div class="fitness-stat-card"><div class="fitness-stat-top"><span>Тренировки за неделю</span><span>🏃</span></div><b>'+workoutsDone+' <small>/ '+workoutsPlanned+'</small></b><div class="fitness-mini-track"><span style="width:'+(workoutsPlanned?Math.min(100,Math.round(workoutsDone/workoutsPlanned*100)):0)+'%"></span></div><p>'+(workoutsPlanned?'Отмечай завершённые занятия':'План тренировок ещё не создан')+'</p></div>';
-    const mealsHtml='<div class="fitness-stat-card"><div class="fitness-stat-top"><span>Сегодня по меню</span><span>🌿</span></div><b>'+done+' <small>/ '+meals.length+'</small></b><div class="fitness-mini-track"><span style="width:'+(meals.length?Math.round(done/meals.length*100):0)+'%"></span></div><p>Приёмы пищи отмечаются по факту</p></div>';
+    const workoutHtml='<div class="fitness-stat-card"><div class="fitness-stat-top"><span>Тренировки за неделю</span><span>🏃</span></div><b>'+(training?workoutsDone+' <small>/ '+workoutsPlanned+'</small>':'Пока без плана')+'</b>'+(training?'<div class="fitness-mini-track"><span style="width:'+(workoutsPlanned?Math.min(100,Math.round(workoutsDone/workoutsPlanned*100)):0)+'%"></span></div>':'')+'<p>'+(workoutsPlanned?'Отмечай завершённые занятия':'План тренировок ещё не создан')+'</p></div>';
+    const mealsHtml='<div class="fitness-stat-card"><div class="fitness-stat-top"><span>Сегодня по меню</span><span>🌿</span></div><b>'+(nutrition?done+' <small>/ '+meals.length+'</small>':'Меню не создано')+'</b>'+(nutrition?'<div class="fitness-mini-track"><span style="width:'+(meals.length?Math.round(done/meals.length*100):0)+'%"></span></div>':'')+'<p>'+(nutrition?'Приёмы пищи отмечаются по факту':'Составь рацион на 7 дней')+'</p></div>';
     stats.innerHTML=proteinHtml+mealsHtml+workoutHtml;
   }
   function renderMeals(plan,dayIndex){
