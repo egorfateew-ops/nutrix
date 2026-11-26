@@ -4572,7 +4572,7 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale,dayAmounts=n
     const hasPlant=r.items.some(x=>plantProteinFoods.has(x[0]));
     const hasMeat=r.items.some(x=>meatFoods.has(x[0]));
     const hasWholegrain=r.items.some(x=>wholegrainFoods.has(x[0]));
-    let score=Math.max(0,proteinTarget-protein)*1.15+Math.max(0,protein-proteinTarget-5)*(d.age>=18&&!d.medical&&d.sex!=='unspecified'?2:1.7);
+    let score=Math.max(0,proteinTarget-protein)*1.15+Math.max(0,protein-proteinTarget-5)*(d.age>=18&&!d.medical&&d.sex!=='unspecified'?2.5:1.7);
     if(type==='lunch'||type==='dinner')score+=Math.max(0,120-veg)*.09;
     else if(type==='breakfast')score+=Math.max(0,45-veg)*.035;
     else score+=Math.max(0,60-produce)*.025;
@@ -4671,12 +4671,13 @@ function renderNutritionQuality(plan){
   if(q.meatTarget&&q.meatMeals<q.meatTarget)notes.push('Добавь ещё '+(q.meatTarget-q.meatMeals)+' блюда с курицей, индейкой или другим мясом.');
   if(q.legumeMeals<q.legumeTarget)notes.push('Добавь блюда с фасолью или чечевицей для клетчатки и растительного белка.');
   if(q.mainMeals&&q.proteinMainMeals<q.mainMeals)notes.push('В части основных блюд мало белкового продукта — можно заменить их на курицу, рыбу, яйца, творог или бобовые.');
+  if(plan.adult&&plan.calc&&plan.calc.target>0&&Math.abs(plan.avg.kcal-plan.calc.target)/plan.calc.target>.12)notes.push('Средняя калорийность меню заметно отличается от расчётной потребности. Порции здесь ориентировочные — не используй расчёт как медицинское назначение.');
   const status=notes.length?'Есть что улучшить':'Основные группы продуктов хорошо представлены';
   const fishText=q.fishTarget?(q.fishMeals+' / '+q.fishTarget+' рыбных блюд'):'по выбранному типу питания';
   const meatText=q.meatTarget?(q.meatMeals+' / '+q.meatTarget+' мясных блюд'):'не требуется';
   const legumesText=q.legumeMeals+' / '+q.legumeTarget+' блюд с бобовыми';
   const coverage=q.mainMeals?Math.round(q.proteinMainMeals/q.mainMeals*100):0;
-  host.innerHTML='<div class="nutrition-quality-head"><div><span class="eyebrow">ПРОВЕРКА МЕНЮ</span><h3>Баланс рациона</h3><p>Оценка по ингредиентам выбранных блюд, а не медицинское заключение.</p></div><span class="nutrition-quality-status '+(notes.length?'needs-work':'is-good')+'">'+status+'</span></div><div class="nutrition-quality-metrics"><div><b>'+q.produceAverage+' г</b><span>овощи и фрукты в среднем за день</span><small>ориентир: около '+q.produceTarget+' г</small></div><div><b>'+fishText+'</b><span>рыба за неделю</span><small>включай разные виды</small></div><div><b>'+meatText+'</b><span>мясо и птица</span><small>курица, индейка, нежирное мясо</small></div><div><b>'+legumesText+'</b><span>бобовые</span><small>фасоль, чечевица и другие</small></div><div><b>'+coverage+'%</b><span>основных блюд с белковым компонентом</span><small>по ориентиру генератора</small></div></div>'+(notes.length?'<ul class="nutrition-quality-notes">'+notes.map(n=>'<li>'+n+'</li>').join('')+'</ul>':'<p class="nutrition-quality-note-good">В меню есть источники белка, гарниры и разнообразные продукты. Сохраняй разнообразие и меняй блюда по вкусу.</p>')+'<p class="nutrition-quality-foot">Показатели приблизительные: точный состав зависит от марки продуктов, веса после приготовления и реальных порций. Для детей и подростков это пример меню, а не план для изменения веса.</p>';
+  host.innerHTML='<div class="nutrition-quality-head"><div><span class="eyebrow">ПРОВЕРКА МЕНЮ</span><h3>Баланс рациона</h3><p>Оценка по ингредиентам выбранных блюд, а не медицинское заключение.</p></div><span class="nutrition-quality-status '+(notes.length?'needs-work':'is-good')+'">'+status+'</span></div><div class="nutrition-quality-metrics"><div><b>'+q.produceAverage+' г</b><span>овощи и фрукты в среднем за день</span><small>ориентир: около '+q.produceTarget+' г</small></div><div><b>'+fishText+'</b><span>рыба за неделю</span><small>включай разные виды</small></div><div><b>'+meatText+'</b><span>мясо и птица</span><small>курица, индейка, нежирное мясо</small></div><div><b>'+legumesText+'</b><span>бобовые</span><small>фасоль, чечевица и другие</small></div><div><b>'+coverage+'%</b><span>основных блюд с белковым компонентом</span><small>по ориентиру генератора</small></div></div>'+(notes.length?'<ul class="nutrition-quality-notes">'+notes.map(n=>'<li>'+n+'</li>').join('')+'</ul>':'<p class="nutrition-quality-note-good">В меню есть источники белка, гарниры и разнообразные продукты. Сохраняй разнообразие и меняй блюда по вкусу.</p>')+'<p class="nutrition-quality-foot">Универсального идеального меню не существует: потребности зависят от возраста, активности, здоровья и предпочтений. Это ориентировочный план, а не лечебная диета. Основа рекомендаций: <a href="https://www.who.int/ru/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener">ВОЗ</a>, <a href="https://www.efsa.europa.eu/en/press/news/120209" target="_blank" rel="noopener">EFSA</a> и <a href="https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/" target="_blank" rel="noopener">Eatwell Guide</a>.</p>';
 }
 function renderPlan(plan, scrollToPlan=true){
   currentPlan=plan;
@@ -4687,7 +4688,7 @@ function renderPlan(plan, scrollToPlan=true){
   $('planSubtitle').textContent=adult?`План на 7 дней • ${d.mealCount} приёма пищи • ${d.goal==='gain'?'плавный набор':d.goal==='lose'?'умеренное снижение':'поддержание'}`:'Пример сбалансированного меню на 7 дней. Размер порций можно корректировать по аппетиту и рекомендациям специалиста.';
   const metrics=$('metricsGrid');metrics.innerHTML='';
   if(adult){
-    const items=[['Ориентир энергии',`${calc.target} ккал`,'Расчётная оценка на день'],['Белок',`${calc.protein} г`,'Ориентир на день'],['Жиры',`${calc.fat} г`,'Ориентир на день'],['Углеводы',`${calc.carbs} г`,'Ориентир на день']];
+    const items=[['Ориентир энергии',`${calc.target} ккал`,'Расчётная оценка на день'],['Среднее меню',`${plan.avg.kcal} ккал`,'Сумма выбранных блюд за день'],['Белок',`${calc.protein} г`,'Фитнес-ориентир на день'],['Жиры',`${calc.fat} г`,'Ориентир на день'],['Углеводы',`${calc.carbs} г`,'Ориентир на день']];
     items.forEach(([label,value,sub])=>metrics.insertAdjacentHTML('beforeend',`<div class="metric-card"><span>${label}</span><b>${value}</b><small>${sub}</small></div>`));
   }else{
     const items=[['Возраст',`${d.age} лет`,'Учитывается режим для возраста'],['Рост',`${d.height} см`,'Сохранён в профиле'],['Вес',`${d.weight} кг`,'Без взрослой оценки ИМТ'],['Питание',`${d.mealCount} раза`,'Регулярный режим']];
