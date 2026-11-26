@@ -40,3 +40,19 @@ body.dark .recipe-dialog-note{background:#1b3a53}
 body.dark .meal-check-button.is-complete{border-color:#326a4b;background:#193b2b;color:#a6e0b8}
 @media(max-width:680px){.meal-week-progress{padding:14px}.meal-week-top b{font-size:12px}.meal-action-buttons{gap:4px}.meal-check-button{font-size:8px;padding:5px 6px}}
 @media(prefers-reduced-motion:reduce){.meal-week-track span{transition:none}}
+
+.recipe-video-wrap{display:grid;gap:5px;margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
+.recipe-video-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:11px 15px;border-radius:10px;background:#e9f5ff;color:#075d9e;text-decoration:none;font:800 11px 'Manrope',sans-serif}
+.recipe-video-link:hover{background:#d9edff}
+.recipe-video-wrap p{margin:0;color:var(--muted);font-size:9px;line-height:1.5}
+body.dark .recipe-video-link{background:#1c3d56;color:#b8e0ff}
+@media(max-width:680px){
+  .profile-panel{padding:15px}
+  .form-actions{display:grid;grid-template-columns:1fr;gap:9px}
+  .generate-button{width:100%;min-width:0;min-height:50px;touch-action:manipulation}
+  .text-button{min-height:40px}
+  .form-error{font-size:12px;line-height:1.5}
+  .recipe-dialog{width:calc(100vw - 18px);max-height:90dvh}
+  .recipe-dialog-inner{max-height:90dvh;padding:17px}
+  .recipe-video-link{width:100%;min-height:48px}
+}
