@@ -195,6 +195,7 @@
   // Do not observe childList mutations here: enhanceMeals updates text nodes
   // inside #daysGrid, which would retrigger the observer indefinitely.
   // The core app emits this event after every initial or replacement plan render.
+  const days=$('daysGrid');
   window.addEventListener('nutrix:plan-rendered',runEnhancements);
   runEnhancements();
   registerOffline();
