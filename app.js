@@ -2150,8 +2150,667 @@ const recipes = [
         "г"
       ]
     ]
+  },
+  {
+    "id": "b15",
+    "type": "breakfast",
+    "name": "Омлет с курицей и сыром",
+    "icon": "🍳",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 90,
+    "kcal": 399,
+    "p": 35,
+    "c": 24,
+    "f": 18,
+    "items": [
+      [
+        "Яйца",
+        2,
+        "шт."
+      ],
+      [
+        "Куриное филе",
+        60,
+        "г"
+      ],
+      [
+        "Сыр",
+        20,
+        "г"
+      ],
+      [
+        "Помидор",
+        70,
+        "г"
+      ],
+      [
+        "Хлеб",
+        40,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "b16",
+    "type": "breakfast",
+    "name": "Тосты с тунцом и яйцом",
+    "icon": "🍳",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 105,
+    "kcal": 359,
+    "p": 34,
+    "c": 38,
+    "f": 8,
+    "items": [
+      [
+        "Тунец консервированный",
+        80,
+        "г"
+      ],
+      [
+        "Яйца",
+        1,
+        "шт."
+      ],
+      [
+        "Хлеб",
+        70,
+        "г"
+      ],
+      [
+        "Огурец",
+        50,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        20,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "b17",
+    "type": "breakfast",
+    "name": "Лаваш с курицей и сыром",
+    "icon": "🍳",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 85,
+    "kcal": 335,
+    "p": 29,
+    "c": 36,
+    "f": 8,
+    "items": [
+      [
+        "Куриное филе",
+        80,
+        "г"
+      ],
+      [
+        "Лаваш тонкий",
+        60,
+        "г"
+      ],
+      [
+        "Сыр",
+        15,
+        "г"
+      ],
+      [
+        "Огурец",
+        40,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        25,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "b18",
+    "type": "breakfast",
+    "name": "Творожная запеканка с овсянкой",
+    "icon": "🍳",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 120,
+    "kcal": 378,
+    "p": 37,
+    "c": 25,
+    "f": 15,
+    "items": [
+      [
+        "Творог",
+        160,
+        "г"
+      ],
+      [
+        "Яйца",
+        1,
+        "шт."
+      ],
+      [
+        "Овсяные хлопья",
+        20,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        30,
+        "г"
+      ],
+      [
+        "Яблоко",
+        40,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s15",
+    "type": "snack",
+    "name": "Творог с йогуртом и бананом",
+    "icon": "🥪",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 105,
+    "kcal": 247,
+    "p": 28,
+    "c": 17,
+    "f": 9,
+    "items": [
+      [
+        "Творог",
+        150,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        50,
+        "г"
+      ],
+      [
+        "Банан",
+        40,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s16",
+    "type": "snack",
+    "name": "Два яйца и хлеб",
+    "icon": "🥪",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 40,
+    "kcal": 252,
+    "p": 16,
+    "c": 22,
+    "f": 11,
+    "items": [
+      [
+        "Яйца",
+        2,
+        "шт."
+      ],
+      [
+        "Хлеб",
+        40,
+        "г"
+      ],
+      [
+        "Огурец",
+        50,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s17",
+    "type": "snack",
+    "name": "Сэндвич с курицей",
+    "icon": "🥪",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 50,
+    "kcal": 224,
+    "p": 21,
+    "c": 27,
+    "f": 4,
+    "items": [
+      [
+        "Куриное филе",
+        70,
+        "г"
+      ],
+      [
+        "Хлеб",
+        50,
+        "г"
+      ],
+      [
+        "Огурец",
+        40,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        15,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "s18",
+    "type": "snack",
+    "name": "Тунец с огурцом и кукурузой",
+    "icon": "🥪",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": true,
+    "cost": 85,
+    "kcal": 137,
+    "p": 21,
+    "c": 11,
+    "f": 2,
+    "items": [
+      [
+        "Тунец консервированный",
+        70,
+        "г"
+      ],
+      [
+        "Огурец",
+        60,
+        "г"
+      ],
+      [
+        "Кукуруза консервированная",
+        40,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        20,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l15",
+    "type": "lunch",
+    "name": "Курица с макаронами в томатном соусе",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 90,
+    "kcal": 437,
+    "p": 40,
+    "c": 58,
+    "f": 5,
+    "items": [
+      [
+        "Куриное филе",
+        130,
+        "г"
+      ],
+      [
+        "Макароны сухие",
+        70,
+        "г"
+      ],
+      [
+        "Томатный соус",
+        70,
+        "г"
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l16",
+    "type": "lunch",
+    "name": "Индейка с рисом и морковью",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 110,
+    "kcal": 428,
+    "p": 36,
+    "c": 55,
+    "f": 6,
+    "items": [
+      [
+        "Филе индейки",
+        130,
+        "г"
+      ],
+      [
+        "Рис сухой",
+        60,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        4,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l17",
+    "type": "lunch",
+    "name": "Говяжий фарш с гречкой",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 100,
+    "kcal": 536,
+    "p": 29,
+    "c": 50,
+    "f": 26,
+    "items": [
+      [
+        "Фарш говяжий",
+        120,
+        "г"
+      ],
+      [
+        "Гречка сухая",
+        60,
+        "г"
+      ],
+      [
+        "Лук",
+        25,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l18",
+    "type": "lunch",
+    "name": "Куриная печень с картофельным пюре",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 75,
+    "kcal": 413,
+    "p": 31,
+    "c": 43,
+    "f": 12,
+    "items": [
+      [
+        "Куриная печень",
+        150,
+        "г"
+      ],
+      [
+        "Картофель",
+        220,
+        "г"
+      ],
+      [
+        "Лук",
+        30,
+        "г"
+      ],
+      [
+        "Йогурт натуральный",
+        30,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        4,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "l19",
+    "type": "lunch",
+    "name": "Свинина с картофелем и капустой",
+    "icon": "🍗",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 65,
+    "kcal": 477,
+    "p": 26,
+    "c": 42,
+    "f": 23,
+    "items": [
+      [
+        "Свинина (лопатка)",
+        120,
+        "г"
+      ],
+      [
+        "Картофель",
+        200,
+        "г"
+      ],
+      [
+        "Капуста",
+        100,
+        "г"
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d15",
+    "type": "dinner",
+    "name": "Говяжьи котлеты с гречкой",
+    "icon": "🍲",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 110,
+    "kcal": 552,
+    "p": 34,
+    "c": 38,
+    "f": 31,
+    "items": [
+      [
+        "Фарш говяжий",
+        120,
+        "г"
+      ],
+      [
+        "Гречка сухая",
+        50,
+        "г"
+      ],
+      [
+        "Яйца",
+        1,
+        "шт."
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d16",
+    "type": "dinner",
+    "name": "Куриное бедро с рисом",
+    "icon": "🍲",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 55,
+    "kcal": 461,
+    "p": 29,
+    "c": 52,
+    "f": 15,
+    "items": [
+      [
+        "Куриное бедро без кожи",
+        130,
+        "г"
+      ],
+      [
+        "Рис сухой",
+        55,
+        "г"
+      ],
+      [
+        "Морковь",
+        60,
+        "г"
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d17",
+    "type": "dinner",
+    "name": "Фрикадельки из индейки с макаронами",
+    "icon": "🍲",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 135,
+    "kcal": 460,
+    "p": 46,
+    "c": 50,
+    "f": 8,
+    "items": [
+      [
+        "Филе индейки",
+        130,
+        "г"
+      ],
+      [
+        "Макароны сухие",
+        60,
+        "г"
+      ],
+      [
+        "Яйца",
+        1,
+        "шт."
+      ],
+      [
+        "Томатный соус",
+        60,
+        "г"
+      ],
+      [
+        "Лук",
+        15,
+        "г"
+      ]
+    ]
+  },
+  {
+    "id": "d18",
+    "type": "dinner",
+    "name": "Куриная печень с рисом",
+    "icon": "🍲",
+    "diet": [
+      "omnivore"
+    ],
+    "quick": false,
+    "cost": 65,
+    "kcal": 458,
+    "p": 30,
+    "c": 56,
+    "f": 12,
+    "items": [
+      [
+        "Куриная печень",
+        150,
+        "г"
+      ],
+      [
+        "Рис сухой",
+        60,
+        "г"
+      ],
+      [
+        "Лук",
+        20,
+        "г"
+      ],
+      [
+        "Морковь",
+        50,
+        "г"
+      ],
+      [
+        "Масло растительное",
+        4,
+        "г"
+      ]
+    ]
   }
-]
+];
 
 // Ориентировочная демонстрационная база цен. Это не онлайн-каталог и не оферта магазина.
 // Размер упаковки указан в тех же единицах, что и ингредиенты рецептов.
@@ -2304,7 +2963,7 @@ const productCatalog = {
     "packSize": 1000,
     "unit": "г",
     "packLabel": "1 кг",
-    "category": "Белковые продукты",
+    "category": "Мясо, птица и рыба",
     "pyaterochka": 449,
     "baton": 419
   },
@@ -2344,7 +3003,7 @@ const productCatalog = {
     "packSize": 800,
     "unit": "г",
     "packLabel": "упаковка замороженного филе 800 г",
-    "category": "Белковые продукты",
+    "category": "Мясо, птица и рыба",
     "pyaterochka": 279,
     "baton": 259
   },
@@ -2395,8 +3054,72 @@ const productCatalog = {
     "category": "Крупы и хлеб",
     "pyaterochka": 69,
     "baton": 62
+  },
+  "Куриное бедро без кожи": {
+    "packSize": 1000,
+    "unit": "г",
+    "packLabel": "упаковка 1 кг",
+    "category": "Мясо, птица и рыба",
+    "pyaterochka": 329,
+    "baton": 309
+  },
+  "Фарш говяжий": {
+    "packSize": 400,
+    "unit": "г",
+    "packLabel": "лоток 400 г",
+    "category": "Мясо, птица и рыба",
+    "pyaterochka": 299,
+    "baton": 279
+  },
+  "Фарш куриный": {
+    "packSize": 500,
+    "unit": "г",
+    "packLabel": "лоток 500 г",
+    "category": "Мясо, птица и рыба",
+    "pyaterochka": 239,
+    "baton": 219
+  },
+  "Филе индейки": {
+    "packSize": 500,
+    "unit": "г",
+    "packLabel": "упаковка 500 г",
+    "category": "Мясо, птица и рыба",
+    "pyaterochka": 379,
+    "baton": 359
+  },
+  "Свинина (лопатка)": {
+    "packSize": 1000,
+    "unit": "г",
+    "packLabel": "1 кг",
+    "category": "Мясо, птица и рыба",
+    "pyaterochka": 399,
+    "baton": 379
+  },
+  "Куриная печень": {
+    "packSize": 500,
+    "unit": "г",
+    "packLabel": "лоток 500 г",
+    "category": "Мясо, птица и рыба",
+    "pyaterochka": 169,
+    "baton": 159
+  },
+  "Тунец консервированный": {
+    "packSize": 185,
+    "unit": "г",
+    "packLabel": "банка 185 г",
+    "category": "Мясо, птица и рыба",
+    "pyaterochka": 149,
+    "baton": 139
+  },
+  "Лаваш тонкий": {
+    "packSize": 200,
+    "unit": "г",
+    "packLabel": "упаковка 200 г",
+    "category": "Крупы и хлеб",
+    "pyaterochka": 69,
+    "baton": 65
   }
-};
+};;
 
 let currentPlan = null;
 let toastTimer = null;
@@ -2487,29 +3210,27 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale){
   if(!options.length)return null;
   const notUsed=options.filter(r=>!used.has(r.id));
   if(notUsed.length)options=notUsed;
+  const meatSources=new Set(['Куриное филе','Куриное бедро без кожи','Фарш говяжий','Фарш куриный','Филе индейки','Свинина (лопатка)','Куриная печень','Тунец консервированный','Минтай']);
+  const proteinScore=r=>Math.min(55,Number(r.p)||0)*(d.diet==='omnivore'?1.8:1.2)+(d.diet==='omnivore'&&r.items.some(i=>meatSources.has(i[0]))?105:0);
   if(d.budget>0){
-    // Сначала расходуем разные рецепты; к повтору возвращаемся только после перебора доступных вариантов.
     const varietyPenalty=100000;
-    return options.map(r=>({r,score:marginalPurchaseCost(r,amounts,d.store,scale)+(repeatCounts.get(r.id)||0)*varietyPenalty}))
-      .sort((a,b)=>a.score-b.score||a.r.cost-b.r.cost||a.r.name.localeCompare(b.r.name,'ru'))[0].r;
+    return options.map(r=>({r,score:marginalPurchaseCost(r,amounts,d.store,scale)-proteinScore(r)+(repeatCounts.get(r.id)||0)*varietyPenalty}))
+      .sort((a,b)=>a.score-b.score||b.r.p-a.r.p||a.r.name.localeCompare(b.r.name,'ru'))[0].r;
   }
   const start=(dayIndex*3+(type==='breakfast'?0:type==='snack'?2:type==='lunch'?1:3))%options.length;
   return options[start];
 }
 function buildShoppingCart(days,store){
   const amounts=new Map();
-  days.forEach(day=>day.meals.forEach(meal=>meal.ingredients.forEach(i=>{
-    const key=i.name+'|'+i.unit;amounts.set(key,(amounts.get(key)||0)+i.amount);
-  })));
-  const cart=[...amounts.entries()].map(([key,amount])=>{
-    const [name,unit]=key.split('|');const info=getProductPrice(name,store);
-    const packCount=Math.max(1,Math.ceil(amount/info.packSize));
-    return {key,name,unit,amount,packSize:info.packSize,packLabel:info.packLabel,category:info.category,price:info.price,packCount,total:packCount*info.price};
+  days.forEach(day=>day.meals.forEach(meal=>meal.ingredients.forEach(i=>{const key=i.name+'|'+i.unit;amounts.set(key,(amounts.get(key)||0)+i.amount);} )));
+  let pantry={};try{pantry=JSON.parse(localStorage.getItem('nutrix-pantry')||'{}')||{};}catch(e){}
+  return [...amounts.entries()].map(([key,amount])=>{
+    const [name,unit]=key.split('|'),info=getProductPrice(name,store),homeAmount=Math.max(0,Number(pantry[key])||0),needAmount=Math.max(0,amount-homeAmount),packCount=needAmount>0?Math.ceil(needAmount/info.packSize):0;
+    return {key,name,unit,amount,homeAmount,needAmount,packSize:info.packSize,packLabel:info.packLabel,category:info.category,price:info.price,packCount,total:packCount*info.price};
   }).sort((a,b)=>a.category.localeCompare(b.category,'ru')||a.name.localeCompare(b.name,'ru'));
-  return cart;
 }
 function updateCartTotals(plan){
-  plan.cartCost=plan.cart.reduce((sum,item)=>sum+item.packCount*item.price,0);
+  plan.cartCost=plan.cart.reduce((sum,item)=>sum+(Number(item.total)||0),0);
   plan.cartCost=Math.round(plan.cartCost);
 }
 function buildMealTypes(count){
@@ -2591,7 +3312,7 @@ function renderPlan(plan, scrollToPlan=true){
     let rows='';
     day.meals.forEach((meal,mealIndex)=>{
       const meta=mealMeta[meal.type];
-      rows+=`<div class="meal-row"><div class="meal-icon">${meal.recipe.icon||meta.icon}</div><div class="meal-info"><h4>${meta.label}: ${meal.recipe.name}</h4><p>${formatIngredients(meal)}</p>${adult?`<div class="meal-kcal">≈ ${meal.kcal} ккал</div>`:''}</div><div class="meal-meta"><span class="meal-time">${meta.time}</span><button class="replace-meal" type="button" data-day="${index}" data-meal="${mealIndex}" aria-label="Заменить блюдо: ${meal.recipe.name}" title="Заменить блюдо">↻</button></div></div>`;
+      rows+=`<div class="meal-row"><div class="meal-icon">${meal.recipe.icon||meta.icon}</div><div class="meal-info"><h4>${meta.label}: ${meal.recipe.name}</h4><p>${formatIngredients(meal)}</p>${adult?`<div class="meal-kcal">≈ ${meal.kcal} ккал · Б ${meal.p} г</div>`:''}</div><div class="meal-meta"><span class="meal-time">${meta.time}</span><button class="replace-meal" type="button" data-day="${index}" data-meal="${mealIndex}" aria-label="Заменить блюдо: ${meal.recipe.name}" title="Заменить блюдо">↻</button></div></div>`;
     });
     daysGrid.insertAdjacentHTML('beforeend',`<article class="day-card"><div class="day-head"><h3>${day.name}</h3><span>${d.mealCount} приёма пищи</span></div><div class="meal-list">${rows||'<p class="empty-meals">Для выбранных ограничений не найдено подходящих блюд.</p>'}</div><div class="day-foot"><span>Ориентировочная стоимость</span><b>≈ ${total.cost} ₽</b></div></article>`);
   });
@@ -2639,13 +3360,13 @@ function renderCartSummary(plan){
 }
 function renderShopping(plan){
   const shopping=$('shoppingList');shopping.innerHTML='';
-  const groups=['Крупы и хлеб','Белковые продукты','Овощи, фрукты и другое'];
+  const groups=['Мясо, птица и рыба','Белковые продукты','Крупы и хлеб','Овощи, фрукты и другое'];
   groups.forEach(group=>{
     const items=plan.cart.filter(i=>i.category===group);if(!items.length)return;
     let html=`<div class="shopping-group"><h3>${group}</h3>`;
     items.forEach(item=>{
-      const index=plan.cart.indexOf(item);
-      html+=`<div class="shopping-line"><label class="shopping-item"><input type="checkbox" data-cart-key="${encodeURIComponent(item.key)}"><span><b>${item.name}</b><small>Нужно: ${formatCartAmount(item.amount,item.unit)} · купить: ${item.packCount} × ${item.packLabel}</small></span></label><div class="shopping-price"><label>₽ / уп.<input class="price-edit" type="number" min="0" step="1" value="${item.price}" data-index="${index}" aria-label="Цена упаковки: ${item.name}"></label><b><span class="line-total">${item.total.toLocaleString('ru-RU')}</span> ₽</b></div></div>`;
+      const index=plan.cart.indexOf(item),step=item.unit==='шт.'?1:item.unit==='мл'?50:50,key=encodeURIComponent(item.key);
+      html+=`<div class="shopping-line${item.homeAmount>0?' has-stock':''}" data-cart-line="${key}"><div class="shopping-line-main"><div class="shopping-item"><span><b>${item.name}</b><small>По меню: <span class="cart-required">${formatCartAmount(item.amount,item.unit)}</span> · докупить: <span class="cart-to-buy">${formatCartAmount(item.needAmount,item.unit)}</span> · упаковки: <span class="cart-packs">${item.packCount}</span> × ${item.packLabel}</small></span><label class="bought-toggle"><input type="checkbox" data-cart-key="${key}"> Куплено</label></div><label class="home-stock"><span>Уже есть дома</span><span class="home-stock-control"><input class="home-amount" type="number" min="0" step="${step}" value="${item.homeAmount||0}" data-cart-key="${key}" aria-label="Количество продукта дома: ${item.name}"><small>${item.unit}</small></span></label></div><div class="shopping-price"><label>₽ / уп.<input class="price-edit" type="number" min="0" step="1" value="${item.price}" data-index="${index}" aria-label="Цена упаковки: ${item.name}"></label><b><span class="line-total">${item.total.toLocaleString('ru-RU')}</span> ₽</b></div></div>`;
     });
     html+='</div>';shopping.insertAdjacentHTML('beforeend',html);
   });
@@ -2693,8 +3414,9 @@ function exportPlan(){
 }
 function copyShopping(){
   if(!currentPlan?.cart?.length){showToast('Сначала составь рацион');return;}
-  const text='СПИСОК ПОКУПОК NUTRIX\n'+currentPlan.cart.map(i=>`□ ${i.name}: ${formatCartAmount(i.amount,i.unit)}; купить ${i.packCount} × ${i.packLabel}; ≈ ${i.total} ₽`).join('\n')+`\n\nИтого: ≈ ${currentPlan.cartCost} ₽`;
-  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(()=>showToast('Список скопирован')).catch(()=>downloadText('spisok-pokupok.txt',text));
+  const toBuy=currentPlan.cart.filter(i=>i.packCount>0);
+  const text='СПИСОК ПОКУПОК NUTRIX\n'+(toBuy.length?toBuy.map(i=>`□ ${i.name}: докупить ${formatCartAmount(i.needAmount,i.unit)}; ${i.packCount} × ${i.packLabel}; ≈ ${i.total} ₽`).join('\n'):'Все нужные продукты уже есть дома.')+`\n\nИтого к покупке: ≈ ${currentPlan.cartCost} ₽`;
+  if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(()=>showToast('Список покупок скопирован')).catch(()=>downloadText('spisok-pokupok.txt',text));
   else downloadText('spisok-pokupok.txt',text);
 }
 
@@ -2737,4 +3459,4 @@ $('copyShopping').addEventListener('click',copyShopping);
 $('themeToggle').addEventListener('click',()=>{document.body.classList.toggle('dark');const dark=document.body.classList.contains('dark');$('themeToggle').textContent=dark?'☀':'☾';try{localStorage.setItem('nutrix-theme',dark?'dark':'light');}catch(e){}});
 try{if(localStorage.getItem('nutrix-theme')==='dark'){document.body.classList.add('dark');$('themeToggle').textContent='☀';}}catch(e){}
 loadProfile();updateSummaryPreview();updateStoreInfo();
-window.NUTRIX={get plan(){return currentPlan;},recipes,mealMeta,storeName,showToast,renderPlan,getFormData,saveProfile,clearPlan};
+window.NUTRIX={get plan(){return currentPlan;},recipes,mealMeta,storeName,showToast,renderPlan,renderCartSummary,renderBudgetNotice,updateCartTotals,getFormData,saveProfile,clearPlan};
