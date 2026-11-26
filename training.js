@@ -144,6 +144,9 @@
       card.append(list);
       if(w.recovery)card.append(node('p','training-recovery-tag','Не превращай этот день в ещё одну тяжёлую тренировку.'));
       card.append(node('p','training-day-foot','Заминка 3–5 минут: спокойная ходьба и мягкая подвижность без боли.'));
+      const start=node('button','training-start-button','Начать занятие →');start.type='button';start.dataset.workoutIndex=String(plan.workouts.indexOf(w));
+      start.addEventListener('click',()=>window.dispatchEvent(new CustomEvent('nutrix:start-workout',{detail:{index:Number(start.dataset.workoutIndex)}})));
+      card.append(start);
       week.append(card);
     });
     $('trainingWarmup').textContent='5 минут: марш на месте, круги плечами и тазом, мягкие приседания, движения кистями. Начни с лёгкой амплитуды.';
