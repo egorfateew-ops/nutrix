@@ -3211,7 +3211,7 @@ function pickRecipe(type,d,dayIndex,used,amounts,repeatCounts,scale){
   const notUsed=options.filter(r=>!used.has(r.id));
   if(notUsed.length)options=notUsed;
   const meatSources=new Set(['Куриное филе','Куриное бедро без кожи','Фарш говяжий','Фарш куриный','Филе индейки','Свинина (лопатка)','Куриная печень','Тунец консервированный','Минтай']);
-  const proteinScore=r=>Math.min(55,Number(r.p)||0)*(d.diet==='omnivore'?1.8:1.2)+(d.diet==='omnivore'&&r.items.some(i=>meatSources.has(i[0]))?105:0);
+  const proteinScore=r=>Math.min(55,Number(r.p)||0)*(d.diet==='omnivore'?1.8:1.2)+(d.diet==='omnivore'&&r.items.some(i=>meatSources.has(i[0]))?350:0);
   if(d.budget>0){
     const varietyPenalty=100000;
     return options.map(r=>({r,score:marginalPurchaseCost(r,amounts,d.store,scale)-proteinScore(r)+(repeatCounts.get(r.id)||0)*varietyPenalty}))
@@ -3365,7 +3365,7 @@ function renderShopping(plan){
     const items=plan.cart.filter(i=>i.category===group);if(!items.length)return;
     let html=`<div class="shopping-group"><h3>${group}</h3>`;
     items.forEach(item=>{
-      const index=plan.cart.indexOf(item),step=item.unit==='шт.'?1:item.unit==='мл'?50:50,key=encodeURIComponent(item.key);
+      const index=plan.cart.indexOf(item),step=item.unit==='шт.'?1:item.unit==='мл'?50:10,key=encodeURIComponent(item.key);
       html+=`<div class="shopping-line${item.homeAmount>0?' has-stock':''}" data-cart-line="${key}"><div class="shopping-line-main"><div class="shopping-item"><span><b>${item.name}</b><small>По меню: <span class="cart-required">${formatCartAmount(item.amount,item.unit)}</span> · докупить: <span class="cart-to-buy">${formatCartAmount(item.needAmount,item.unit)}</span> · упаковки: <span class="cart-packs">${item.packCount}</span> × ${item.packLabel}</small></span><label class="bought-toggle"><input type="checkbox" data-cart-key="${key}"> Куплено</label></div><label class="home-stock"><span>Уже есть дома</span><span class="home-stock-control"><input class="home-amount" type="number" min="0" step="${step}" value="${item.homeAmount||0}" data-cart-key="${key}" aria-label="Количество продукта дома: ${item.name}"><small>${item.unit}</small></span></label></div><div class="shopping-price"><label>₽ / уп.<input class="price-edit" type="number" min="0" step="1" value="${item.price}" data-index="${index}" aria-label="Цена упаковки: ${item.name}"></label><b><span class="line-total">${item.total.toLocaleString('ru-RU')}</span> ₽</b></div></div>`;
     });
     html+='</div>';shopping.insertAdjacentHTML('beforeend',html);
@@ -3409,7 +3409,7 @@ function exportPlan(){
   const p=currentPlan;let out='NUTRIX — РАЦИОН НА 7 ДНЕЙ\n\n';
   out+=`Профиль: ${p.data.age} лет, ${p.data.height} см, ${p.data.weight} кг\nЦель: ${p.data.age<18?'безопасный режим для несовершеннолетних':p.data.goal}\nМагазин: ${storeName(p.data.store)}\nБюджет на 7 дней: ${p.data.budget} ₽\nОценка корзины: ${p.cartCost} ₽\n\n`;
   p.days.forEach((day,i)=>{out+=`${day.name}\n`;day.meals.forEach(m=>{out+=`- ${mealMeta[m.type].label}: ${m.recipe.name}\n  ${formatIngredients(m)}\n`;});if(p.adult)out+=`Итого: около ${p.totals[i].kcal} ккал; Б ${p.totals[i].p} г / Ж ${p.totals[i].f} г / У ${p.totals[i].c} г\n`;out+='\n';});
-  out+='\nСПИСОК ПОКУПОК\n';p.cart.forEach(i=>{out+=`- ${i.name}: нужно ${formatCartAmount(i.amount,i.unit)}, купить ${i.packCount} × ${i.packLabel}, около ${i.total} ₽\n`;});
+  out+='\nСПИСОК ПОКУПОК\n';p.cart.forEach(i=>{out+=`- ${i.name}: по меню ${formatCartAmount(i.amount,i.unit)}, дома ${formatCartAmount(i.homeAmount||0,i.unit)}, докупить ${formatCartAmount(i.needAmount??i.amount,i.unit)}, ${i.packCount} × ${i.packLabel}, около ${i.total} ₽\n`;});
   out+='Примечание: примерный план, не медицинская рекомендация. Цены и пищевая ценность ориентировочные, их можно уточнить вручную.\n';downloadText('nutrix-racion-na-nedelyu.txt',out);
 }
 function copyShopping(){
