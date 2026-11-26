@@ -56,3 +56,60 @@ body.dark .recipe-video-link{background:#1c3d56;color:#b8e0ff}
   .recipe-dialog-inner{max-height:90dvh;padding:17px}
   .recipe-video-link{width:100%;min-height:48px}
 }
+
+/* Smart pantry and live cooking mode */
+.shopping-line{align-items:center;gap:18px}
+.shopping-line-main{display:grid;gap:10px;flex:1;min-width:0}
+.shopping-item{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-width:0}
+.shopping-item>span{display:grid;gap:4px;min-width:0}
+.shopping-item b{font-size:12px}
+.shopping-item small{line-height:1.5}
+.bought-toggle{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;font-size:10px;font-weight:800;color:var(--muted);cursor:pointer}
+.bought-toggle input{accent-color:var(--green);width:15px;height:15px}
+.home-stock{display:flex;align-items:center;gap:9px;font-size:10px;font-weight:800;color:var(--muted)}
+.home-stock-control{display:inline-flex;align-items:center;gap:5px}
+.home-amount{width:90px;min-height:34px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--text);padding:6px 8px;font:700 11px 'Manrope',sans-serif}
+.home-stock-control small{font-size:9px;color:var(--muted)}
+.shopping-line.has-stock{background:linear-gradient(90deg,#effaf4,transparent 75%)}
+body.dark .shopping-line.has-stock{background:linear-gradient(90deg,#193b2b,transparent 75%)}
+.shopping-actions{justify-content:flex-end}
+.cook-start-button{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:48px;margin-top:22px;border:0;border-radius:12px;background:linear-gradient(120deg,#0876c9,#075b9e);color:#fff;font:800 12px 'Manrope',sans-serif;cursor:pointer}
+.cook-start-button span{font-size:18px}
+.cook-mode{display:grid;gap:16px;padding-top:12px}
+.cook-mode[hidden]{display:none}
+.cook-mode-kicker{font-size:9px;font-weight:900;letter-spacing:1.5px;color:var(--blue)}
+.cook-step-top{display:flex;justify-content:space-between;gap:12px;font-size:11px;font-weight:800}
+.cook-step-top span:last-child{color:var(--muted);font-weight:600}
+.cook-progress{height:7px;border-radius:20px;background:var(--line);overflow:hidden}
+.cook-progress span{display:block;height:100%;width:0;border-radius:20px;background:var(--blue);transition:width .2s}
+.cook-step-card{display:grid;gap:16px;padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--surface-2)}
+.cook-step-visual{font-size:30px}
+.cook-step-card p{min-height:88px;margin:0;font-size:17px;line-height:1.55;font-weight:700}
+.cook-step-done{justify-self:start;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--text);padding:9px 13px;font:800 10px 'Manrope',sans-serif;cursor:pointer}
+.cook-step-done.is-done{border-color:#9bcab0;background:#eaf6ee;color:#247448}
+.cook-timer-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px 12px;padding:15px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.cook-timer-card>div:first-child{display:grid;gap:3px}
+.cook-timer-card b{font-size:12px}
+.cook-timer-card small{font-size:9px;color:var(--muted)}
+.cook-timer-card>strong{font-size:27px;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.cook-timer-controls{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.cook-timer-controls select,.cook-timer-controls button,.cook-step-nav button,.cook-back-recipe{min-height:40px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--text);padding:8px 11px;font:800 10px 'Manrope',sans-serif;cursor:pointer}
+.cook-timer-controls button:first-of-type,.cook-step-nav button:last-child{background:var(--blue);border-color:var(--blue);color:white}
+.cook-step-nav{display:flex;justify-content:space-between;gap:10px}
+.cook-step-nav button:disabled{opacity:.4;cursor:not-allowed}
+.cook-back-recipe{justify-self:center;border:0;background:transparent;color:var(--blue)}
+@media(max-width:680px){
+ .shopping-line{display:grid;grid-template-columns:1fr;gap:12px}
+ .shopping-price{justify-content:space-between}
+ .shopping-item{align-items:flex-start}
+ .home-stock{justify-content:space-between}
+ .home-amount{width:112px;min-height:40px;font-size:14px}
+ .shopping-actions{width:100%;justify-content:stretch}
+ .shopping-actions button{flex:1;min-height:42px}
+ .cook-step-card{padding:17px}
+ .cook-step-card p{font-size:16px;min-height:105px}
+ .cook-timer-controls{display:grid;grid-template-columns:1fr 1fr}
+ .cook-timer-controls select{grid-column:1/-1;min-height:44px}
+ .cook-timer-controls button{min-height:44px}
+ .cook-step-nav button{flex:1;min-height:46px}
+}
