@@ -151,16 +151,17 @@
     if($('fitnessRestPanel'))$('fitnessRestPanel').hidden=true;
     if($('fitnessSetDone'))$('fitnessSetDone').disabled=false;
   }
+  function formatTimer(seconds){const s=Math.max(0,Number(seconds)||0);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
   function updateRestTimer(){
     if(!restEnd)return;
     restRemaining=Math.max(0,Math.ceil((restEnd-Date.now())/1000));
-    $('fitnessRestTime').textContent='00:'+String(restRemaining).padStart(2,'0');
+    $('fitnessRestTime').textContent=formatTimer(restRemaining);
     if(restRemaining<=0){stopRestTimer();renderWorkoutStep();}
   }
   function startRestTimer(seconds){
     stopRestTimer();restRemaining=Math.max(1,Number(seconds)||60);restEnd=Date.now()+restRemaining*1000;
     $('fitnessRestPanel').hidden=false;$('fitnessSetDone').disabled=true;
-    $('fitnessRestTime').textContent='00:'+String(restRemaining).padStart(2,'0');
+    $('fitnessRestTime').textContent=formatTimer(restRemaining);
     restTimer=setInterval(updateRestTimer,250);
   }
   function skipRest(){stopRestTimer();renderWorkoutStep();}
